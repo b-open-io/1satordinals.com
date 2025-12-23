@@ -1,0 +1,123 @@
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
+
+export function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  return (
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <nav className="container flex h-16 items-center justify-between px-4">
+        <Link href="/" className="flex items-center space-x-2">
+          <Image
+            src="/images/logo-light.png"
+            alt="1Sat Ordinals"
+            width={120}
+            height={40}
+            className="h-10 w-auto"
+            priority
+          />
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex md:items-center md:gap-6">
+          <Link
+            href="/protocol"
+            className="text-sm font-medium transition-colors hover:text-primary"
+          >
+            Protocol
+          </Link>
+          <Link
+            href="/developers"
+            className="text-sm font-medium transition-colors hover:text-primary"
+          >
+            Developers
+          </Link>
+          <Link
+            href="/projects"
+            className="text-sm font-medium transition-colors hover:text-primary"
+          >
+            Projects
+          </Link>
+          <a
+            href="https://docs.1satordinals.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium transition-colors hover:text-primary"
+          >
+            Docs
+          </a>
+          <a
+            href="https://discord.gg/vqj6wpKeEn"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Discord
+          </a>
+        </div>
+
+        {/* Mobile menu button */}
+        <button
+          type="button"
+          className="md:hidden"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <Menu className="h-6 w-6" />
+          )}
+        </button>
+      </nav>
+
+      {/* Mobile Navigation */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t bg-background">
+          <div className="container space-y-1 px-4 py-4">
+            <Link
+              href="/protocol"
+              className="block rounded-md px-3 py-2 text-base font-medium hover:bg-accent"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Protocol
+            </Link>
+            <Link
+              href="/developers"
+              className="block rounded-md px-3 py-2 text-base font-medium hover:bg-accent"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Developers
+            </Link>
+            <Link
+              href="/projects"
+              className="block rounded-md px-3 py-2 text-base font-medium hover:bg-accent"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Projects
+            </Link>
+            <a
+              href="https://docs.1satordinals.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-md px-3 py-2 text-base font-medium hover:bg-accent"
+            >
+              Docs
+            </a>
+            <a
+              href="https://discord.gg/vqj6wpKeEn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-md bg-primary px-3 py-2 text-base font-medium text-primary-foreground"
+            >
+              Discord
+            </a>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+}
