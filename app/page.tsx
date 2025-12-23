@@ -6,37 +6,39 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="container px-4 py-24 md:py-32">
-        <div className="mx-auto max-w-4xl text-center">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl">
-            A Simple, Powerful{" "}
-            <span className="text-primary">Token Protocol</span>
-          </h1>
-          <p className="mt-6 text-lg leading-8 text-muted-foreground sm:text-xl">
-            Fast, affordable, and fully scriptable tokens on Bitcoin SV
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Link
-              href="/protocol"
-              className="rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition-colors"
-            >
-              Learn More
-            </Link>
-            <a
-              href="https://discord.gg/vqj6wpKeEn"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-semibold leading-6 flex items-center gap-2 hover:text-primary transition-colors"
-            >
-              Join Discord <ArrowRight className="h-4 w-4" />
-            </a>
+      <section className="w-full py-24 md:py-32">
+        <div className="container mx-auto max-w-7xl px-4">
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl">
+              A Simple, Powerful{" "}
+              <span className="text-primary">Token Protocol</span>
+            </h1>
+            <p className="mt-6 text-lg leading-8 text-muted-foreground sm:text-xl">
+              Fast, affordable, and fully scriptable tokens on Bitcoin SV
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              <Link
+                href="/protocol"
+                className="rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition-colors"
+              >
+                Learn More
+              </Link>
+              <a
+                href="https://discord.gg/vqj6wpKeEn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-semibold leading-6 flex items-center gap-2 hover:text-primary transition-colors"
+              >
+                Join Discord <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* What are 1Sat Ordinals */}
-      <section className="border-t bg-muted/50 py-24">
-        <div className="container px-4">
+      <section className="w-full border-t bg-muted/50 py-24">
+        <div className="container mx-auto max-w-7xl px-4">
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
               What are 1Sat Ordinals?
@@ -82,8 +84,8 @@ export default function Home() {
       </section>
 
       {/* Key Differentiators */}
-      <section className="py-24">
-        <div className="container px-4">
+      <section className="w-full py-24">
+        <div className="container mx-auto max-w-7xl px-4">
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Why &quot;One Satoshi&quot;?
@@ -146,8 +148,8 @@ export default function Home() {
       </section>
 
       {/* Community Showcase */}
-      <section className="border-t bg-muted/50 py-24">
-        <div className="container px-4">
+      <section className="w-full border-t bg-muted/50 py-24">
+        <div className="container mx-auto max-w-7xl px-4">
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
               The cool kids
