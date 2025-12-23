@@ -1,58 +1,91 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 45 100% 51%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 45 100% 51%;
-    --radius: 0.5rem;
+    --background: oklch(0.99 0.002 96);
+    --foreground: oklch(0.10 0.005 96);
+    --card: oklch(1.0 0 0);
+    --card-foreground: oklch(0.10 0.005 96);
+    --popover: oklch(1.0 0 0);
+    --popover-foreground: oklch(0.10 0.005 96);
+    --primary: oklch(0.10 0.005 96);
+    --primary-foreground: oklch(0.98 0.002 96);
+    --secondary: oklch(0.92 0.02 96);
+    --secondary-foreground: oklch(0.10 0.005 96);
+    --muted: oklch(0.95 0.01 96);
+    --muted-foreground: oklch(0.45 0.02 96);
+    --accent: oklch(0.85 0.18 96);
+    --accent-foreground: oklch(0.10 0.005 96);
+    --destructive: oklch(0.60 0.20 25);
+    --destructive-foreground: oklch(0.98 0.002 96);
+    --border: oklch(0.85 0.01 96);
+    --input: oklch(0.85 0.01 96);
+    --ring: oklch(0.10 0.005 96);
+    --radius: 0rem;
+    --chart-1: oklch(0.75 0.18 96);
+    --chart-2: oklch(0.65 0.15 30);
+    --chart-3: oklch(0.60 0.12 240);
+    --chart-4: oklch(0.65 0.15 145);
+    --chart-5: oklch(0.60 0.15 300);
+    --font-sans: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-serif: "Spectral", ui-serif, Georgia, Cambria, Times New Roman, serif;
+    --tracking-normal: 0em;
+    --spacing: 0.25rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 45 100% 51%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 45 100% 51%;
+    --background: oklch(0.12 0.01 96);
+    --foreground: oklch(0.98 0.002 96);
+    --card: oklch(0.15 0.015 96);
+    --card-foreground: oklch(0.98 0.002 96);
+    --popover: oklch(0.14 0.015 96);
+    --popover-foreground: oklch(0.98 0.002 96);
+    --primary: oklch(0.82 0.22 96);
+    --primary-foreground: oklch(0.10 0.01 96);
+    --secondary: oklch(0.25 0.03 96);
+    --secondary-foreground: oklch(0.95 0.05 96);
+    --muted: oklch(0.20 0.02 96);
+    --muted-foreground: oklch(0.65 0.02 96);
+    --accent: oklch(0.25 0.03 96);
+    --accent-foreground: oklch(0.82 0.22 96);
+    --destructive: oklch(0.55 0.22 25);
+    --destructive-foreground: oklch(0.98 0.005 25);
+    --border: oklch(0.22 0.01 96);
+    --input: oklch(0.22 0.01 96);
+    --ring: oklch(0.82 0.22 96);
+    --radius: 0rem;
+    --chart-1: oklch(0.82 0.22 96);
+    --chart-2: oklch(0.65 0.20 45);
+    --chart-3: oklch(0.60 0.18 260);
+    --chart-4: oklch(0.70 0.15 150);
+    --chart-5: oklch(0.65 0.18 320);
+    --font-sans: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-serif: "Spectral", ui-serif, Georgia, Cambria, Times New Roman, serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, monospace;
+  }
+  .theme {
+    --font-sans: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, monospace;
+    --font-serif: "Spectral", ui-serif, Georgia, Cambria, Times New Roman, serif;
+    --radius: 0rem;
+    --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
+    --tracking-tight: calc(var(--tracking-normal) - 0.025em);
+    --tracking-wide: calc(var(--tracking-normal) + 0.025em);
+    --tracking-wider: calc(var(--tracking-normal) + 0.05em);
+    --tracking-widest: calc(var(--tracking-normal) + 0.1em);
+  }
+  body {
+    letter-spacing: var(--tracking-normal);
   }
 }
 
 @layer base {
   * {
-    border-color: hsl(var(--border));
+    @apply border-border;
   }
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    @apply bg-background text-foreground;
   }
 }
