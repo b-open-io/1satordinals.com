@@ -26,48 +26,48 @@ export default function NotFound() {
 	return (
 		<div className="relative min-h-screen w-full overflow-hidden bg-background flex items-center justify-center">
 			{/* First ring - reveals "404" */}
-			<motion.div
-				className="absolute rounded-full border-8 border-primary/20 flex items-center justify-center"
-				initial={{ width: 0, height: 0, opacity: 0 }}
-				animate={{
-					width: showRing1 ? "200vmax" : 0,
-					height: showRing1 ? "200vmax" : 0,
-					opacity: showRing1 ? 1 : 0,
-				}}
-				transition={{ duration: 1.2, ease: "easeOut" }}
-			>
-				<AnimatePresence>
-					{showRing1 && !showRing2 && (
+			<AnimatePresence>
+				{showRing1 && !showRing2 && (
+					<motion.div
+						className="absolute rounded-full border-8 border-primary/20 flex items-center justify-center"
+						initial={{ width: 0, height: 0, opacity: 0 }}
+						animate={{
+							width: "200vmax",
+							height: "200vmax",
+							opacity: 1,
+						}}
+						exit={{ opacity: 0 }}
+						transition={{ duration: 1.2, ease: "easeOut" }}
+					>
 						<motion.h1
 							initial={{ opacity: 0, scale: 0.5 }}
 							animate={{ opacity: 1, scale: 1 }}
-							exit={{ opacity: 0, scale: 0.5 }}
 							transition={{ duration: 0.4, delay: 0.3 }}
 							className="text-9xl font-black tracking-tighter text-primary absolute"
 						>
 							404
 						</motion.h1>
-					)}
-				</AnimatePresence>
-			</motion.div>
+					</motion.div>
+				)}
+			</AnimatePresence>
 
 			{/* Second ring - reveals "Not Found" */}
-			<motion.div
-				className="absolute rounded-full border-8 border-primary/40 flex items-center justify-center"
-				initial={{ width: 0, height: 0, opacity: 0 }}
-				animate={{
-					width: showRing2 ? "200vmax" : 0,
-					height: showRing2 ? "200vmax" : 0,
-					opacity: showRing2 ? 1 : 0,
-				}}
-				transition={{ duration: 1.2, ease: "easeOut" }}
-			>
-				<AnimatePresence>
-					{showRing2 && !showContent && (
+			<AnimatePresence>
+				{showRing2 && !showContent && (
+					<motion.div
+						className="absolute rounded-full border-8 border-primary/40 flex items-center justify-center"
+						initial={{ width: 0, height: 0, opacity: 0 }}
+						animate={{
+							width: "200vmax",
+							height: "200vmax",
+							opacity: 1,
+						}}
+						exit={{ opacity: 0 }}
+						transition={{ duration: 1.2, ease: "easeOut" }}
+					>
 						<motion.div
 							initial={{ opacity: 0, scale: 0.5 }}
 							animate={{ opacity: 1, scale: 1 }}
-							exit={{ opacity: 0, scale: 0.5 }}
 							transition={{ duration: 0.4, delay: 0.3 }}
 							className="absolute text-center"
 						>
@@ -78,9 +78,9 @@ export default function NotFound() {
 								Not Found
 							</h2>
 						</motion.div>
-					)}
-				</AnimatePresence>
-			</motion.div>
+					</motion.div>
+				)}
+			</AnimatePresence>
 
 			{/* Final content */}
 			<AnimatePresence>
