@@ -1,5 +1,5 @@
+import { Book, Code2, Github, MessageSquare } from "lucide-react";
 import Link from "next/link";
-import { Code2, Book, Github, MessageSquare } from "lucide-react";
 
 export const metadata = {
   title: "Developers | 1Sat Ordinals",
@@ -17,7 +17,8 @@ export default function DevelopersPage() {
               Build on 1Sat Ordinals
             </h1>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              Everything you need to create tokens, NFTs, and applications on Bitcoin SV
+              Everything you need to create tokens, NFTs, and applications on
+              Bitcoin SV
             </p>
           </div>
         </div>
@@ -27,7 +28,9 @@ export default function DevelopersPage() {
       <section className="w-full border-t bg-muted/50 py-16">
         <div className="container mx-auto max-w-7xl px-4">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-3xl font-bold tracking-tight text-center">Developer Resources</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-center">
+              Developer Resources
+            </h2>
             <div className="mt-12 grid gap-8 md:grid-cols-2">
               <a
                 href="https://docs.1satordinals.com"
@@ -40,7 +43,8 @@ export default function DevelopersPage() {
                   Documentation
                 </h3>
                 <p className="mt-2 text-muted-foreground">
-                  Complete protocol specification, API references, and guides to get you started.
+                  Complete protocol specification, API references, and guides to
+                  get you started.
                 </p>
               </a>
 
@@ -55,7 +59,8 @@ export default function DevelopersPage() {
                   GitHub Repository
                 </h3>
                 <p className="mt-2 text-muted-foreground">
-                  Explore the source code, contribute, and see examples from the community.
+                  Explore the source code, contribute, and see examples from the
+                  community.
                 </p>
               </a>
 
@@ -70,7 +75,8 @@ export default function DevelopersPage() {
                   sCrypt Smart Contracts
                 </h3>
                 <p className="mt-2 text-muted-foreground">
-                  Build programmable tokens and smart contracts using sCrypt on BSV.
+                  Build programmable tokens and smart contracts using sCrypt on
+                  BSV.
                 </p>
               </a>
 
@@ -85,7 +91,8 @@ export default function DevelopersPage() {
                   Community Discord
                 </h3>
                 <p className="mt-2 text-muted-foreground">
-                  Join developers, ask questions, and get help from the community.
+                  Join developers, ask questions, and get help from the
+                  community.
                 </p>
               </a>
             </div>
@@ -100,7 +107,9 @@ export default function DevelopersPage() {
             <h2 className="text-3xl font-bold tracking-tight">Quick Start</h2>
             <div className="mt-8 space-y-6">
               <div>
-                <h3 className="text-xl font-semibold">1. Read the Documentation</h3>
+                <h3 className="text-xl font-semibold">
+                  1. Read the Documentation
+                </h3>
                 <p className="mt-2 text-muted-foreground">
                   Start with the protocol specification at{" "}
                   <a
@@ -115,10 +124,15 @@ export default function DevelopersPage() {
                 </p>
               </div>
               <div>
-                <h3 className="text-xl font-semibold">2. Explore the Ecosystem</h3>
+                <h3 className="text-xl font-semibold">
+                  2. Explore the Ecosystem
+                </h3>
                 <p className="mt-2 text-muted-foreground">
                   Check out existing projects and tools on the{" "}
-                  <Link href="/projects" className="text-primary hover:underline">
+                  <Link
+                    href="/projects"
+                    className="text-primary hover:underline"
+                  >
                     Projects page
                   </Link>{" "}
                   to see what&apos;s possible.
@@ -142,7 +156,8 @@ export default function DevelopersPage() {
               <div>
                 <h3 className="text-xl font-semibold">4. Start Building</h3>
                 <p className="mt-2 text-muted-foreground">
-                  Use the SDKs and tools to create your first ordinal, token, or application.
+                  Use the SDKs and tools to create your first ordinal, token, or
+                  application.
                 </p>
               </div>
             </div>
@@ -154,7 +169,9 @@ export default function DevelopersPage() {
       <section className="w-full border-t bg-muted/50 py-16">
         <div className="container mx-auto max-w-7xl px-4">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-3xl font-bold tracking-tight">Ecosystem Tools</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Ecosystem Tools
+            </h2>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               <a
                 href="https://1sat.market"
@@ -163,7 +180,9 @@ export default function DevelopersPage() {
                 className="rounded-lg border bg-card p-4 hover:shadow transition-shadow"
               >
                 <h3 className="font-semibold">1Sat.Market</h3>
-                <p className="mt-1 text-sm text-muted-foreground">Marketplace for trading ordinals</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Marketplace for trading ordinals
+                </p>
               </a>
               <a
                 href="https://whatsonchain.com"
@@ -172,7 +191,9 @@ export default function DevelopersPage() {
                 className="rounded-lg border bg-card p-4 hover:shadow transition-shadow"
               >
                 <h3 className="font-semibold">WhatsOnChain</h3>
-                <p className="mt-1 text-sm text-muted-foreground">BSV blockchain explorer</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  BSV blockchain explorer
+                </p>
               </a>
               <a
                 href="https://scrypt.io"
@@ -181,7 +202,9 @@ export default function DevelopersPage() {
                 className="rounded-lg border bg-card p-4 hover:shadow transition-shadow"
               >
                 <h3 className="font-semibold">sCrypt</h3>
-                <p className="mt-1 text-sm text-muted-foreground">Smart contract development</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Smart contract development
+                </p>
               </a>
               <a
                 href="https://bitcoinschema.org"
@@ -190,7 +213,9 @@ export default function DevelopersPage() {
                 className="rounded-lg border bg-card p-4 hover:shadow transition-shadow"
               >
                 <h3 className="font-semibold">Bitcoin Schema</h3>
-                <p className="mt-1 text-sm text-muted-foreground">Data schemas for BSV</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Data schemas for BSV
+                </p>
               </a>
             </div>
           </div>
