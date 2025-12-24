@@ -2,19 +2,16 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Home, ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
-	const [showRing1, setShowRing1] = useState(false);
-	const [showRing2, setShowRing2] = useState(false);
-	const [showContent, setShowContent] = useState(false);
+	const [stage, setStage] = useState(0);
 
 	useEffect(() => {
-		// Staged ring expansion
-		const timer1 = setTimeout(() => setShowRing1(true), 100);
-		const timer2 = setTimeout(() => setShowRing2(true), 800);
-		const timer3 = setTimeout(() => setShowContent(true), 1600);
+		const timer1 = setTimeout(() => setStage(1), 100);
+		const timer2 = setTimeout(() => setStage(2), 800);
+		const timer3 = setTimeout(() => setStage(3), 1600);
 
 		return () => {
 			clearTimeout(timer1);
@@ -25,117 +22,88 @@ export default function NotFound() {
 
 	return (
 		<div className="relative min-h-screen w-full overflow-hidden bg-background flex items-center justify-center">
-			{/* First ring - reveals "404" */}
-			<AnimatePresence>
-				{showRing1 && !showRing2 && (
-					<motion.div
-						className="absolute rounded-full border-8 border-primary/20 flex items-center justify-center"
-						initial={{ width: 0, height: 0, opacity: 0 }}
-						animate={{
-							width: "200vmax",
-							height: "200vmax",
-							opacity: 1,
-						}}
-						exit={{ opacity: 0 }}
-						transition={{ duration: 1.2, ease: "easeOut" }}
-					>
-						<motion.h1
-							initial={{ opacity: 0, scale: 0.5 }}
-							animate={{ opacity: 1, scale: 1 }}
-							transition={{ duration: 0.4, delay: 0.3 }}
-							className="text-9xl font-black tracking-tighter text-primary absolute"
-						>
-							404
-						</motion.h1>
-					</motion.div>
-				)}
-			</AnimatePresence>
+			{/* Expanding rings background */}
+			{stage >= 1 && (
+				<motion.div
+					className="absolute rounded-full border-8 border-primary/20"
+					initial={{ width: 0, height: 0 }}
+					animate={{ width: "200vmax", height: "200vmax" }}
+					transition={{ duration: 1.2, ease: "easeOut" }}
+				/>
+			)}
+			{stage >= 2 && (
+				<motion.div
+					className="absolute rounded-full border-8 border-primary/40"
+					initial={{ width: 0, height: 0 }}
+					animate={{ width: "200vmax", height: "200vmax" }}
+					transition={{ duration: 1.2, ease: "easeOut" }}
+				/>
+			)}
 
-			{/* Second ring - reveals "Not Found" */}
-			<AnimatePresence>
-				{showRing2 && !showContent && (
-					<motion.div
-						className="absolute rounded-full border-8 border-primary/40 flex items-center justify-center"
-						initial={{ width: 0, height: 0, opacity: 0 }}
-						animate={{
-							width: "200vmax",
-							height: "200vmax",
-							opacity: 1,
-						}}
-						exit={{ opacity: 0 }}
-						transition={{ duration: 1.2, ease: "easeOut" }}
+			{/* Single centered content - no duplication */}
+			<div className="relative z-10 flex flex-col items-center justify-center space-y-6 px-4 text-center">
+				{/* 404 - appears with first ring */}
+				{stage >= 1 && (
+					<motion.h1
+						initial={{ opacity: 0, scale: 0.5 }}
+						animate={{ opacity: 1, scale: 1 }}
+						transition={{ duration: 0.4, delay: 0.3 }}
+						className="text-9xl font-black tracking-tighter text-primary"
 					>
-						<motion.div
-							initial={{ opacity: 0, scale: 0.5 }}
-							animate={{ opacity: 1, scale: 1 }}
-							transition={{ duration: 0.4, delay: 0.3 }}
-							className="absolute text-center"
-						>
-							<h1 className="text-9xl font-black tracking-tighter text-primary">
-								404
-							</h1>
-							<h2 className="text-4xl font-bold text-foreground mt-4">
-								Not Found
-							</h2>
-						</motion.div>
-					</motion.div>
+						404
+					</motion.h1>
 				)}
-			</AnimatePresence>
 
-			{/* Final content */}
-			<AnimatePresence>
-				{showContent && (
-					<motion.div
+				{/* Not Found - appears with second ring */}
+				{stage >= 2 && (
+					<motion.h2
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6 }}
-						className="relative z-10 flex flex-col items-center justify-center space-y-8 px-4 text-center"
+						transition={{ duration: 0.4, delay: 0.3 }}
+						className="text-4xl font-bold text-foreground"
 					>
-						<div className="space-y-6">
-							<h1 className="text-9xl font-black tracking-tighter text-primary">
-								404
-							</h1>
-							<h2 className="text-4xl font-bold text-foreground">
-								Page Not Found
-							</h2>
-							<p className="max-w-md text-lg text-muted-foreground">
-								The page you&apos;re looking for doesn&apos;t exist or has been
-								moved.
-							</p>
-
-							{/* Action buttons */}
-							<div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
-								<motion.div
-									whileHover={{ scale: 1.05 }}
-									whileTap={{ scale: 0.95 }}
-								>
-									<Link
-										href="/"
-										className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition-colors"
-									>
-										<Home className="h-4 w-4" />
-										Back to Home
-									</Link>
-								</motion.div>
-
-								<motion.div
-									whileHover={{ scale: 1.05 }}
-									whileTap={{ scale: 0.95 }}
-								>
-									<button
-										type="button"
-										onClick={() => window.history.back()}
-										className="inline-flex items-center gap-2 rounded-md border border-primary px-6 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-									>
-										<ArrowLeft className="h-4 w-4" />
-										Go Back
-									</button>
-								</motion.div>
-							</div>
-						</div>
-					</motion.div>
+						Not Found
+					</motion.h2>
 				)}
-			</AnimatePresence>
+
+				{/* Description and buttons - appear last */}
+				{stage >= 3 && (
+					<>
+						<motion.p
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ duration: 0.4 }}
+							className="max-w-md text-lg text-muted-foreground"
+						>
+							The page you&apos;re looking for doesn&apos;t exist or has been
+							moved.
+						</motion.p>
+
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.4, delay: 0.2 }}
+							className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6"
+						>
+							<Link
+								href="/"
+								className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition-colors"
+							>
+								<Home className="h-4 w-4" />
+								Back to Home
+							</Link>
+							<button
+								type="button"
+								onClick={() => window.history.back()}
+								className="inline-flex items-center gap-2 rounded-md border border-primary px-6 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+							>
+								<ArrowLeft className="h-4 w-4" />
+								Go Back
+							</button>
+						</motion.div>
+					</>
+				)}
+			</div>
 		</div>
 	);
 }
