@@ -185,10 +185,33 @@ export function ShippingCalculator() {
           <input
             type="text"
             value={zip}
-            onChange={(e) => {
-              setZip(e.target.value);
+            onChange={async (e) => {
+              const newZip = e.target.value;
+              setZip(newZip);
               calculateShippingMutation.reset();
               setShipping(null);
+
+              // Auto-detect state from ZIP code for US
+              if (
+                countryCode === "US" &&
+                newZip.length === 5 &&
+                !stateCode
+              ) {
+                try {
+                  const response = await fetch(
+                    `https://zip.getziptastic.com/v2/US/${newZip}`,
+                  );
+                  if (response.ok) {
+                    const data = await response.json();
+                    if (data.state_short) {
+                      setStateCode(data.state_short);
+                    }
+                  }
+                } catch (err) {
+                  // Silently fail - user can still select state manually
+                  console.error("ZIP lookup failed:", err);
+                }
+              }
             }}
             placeholder="12345"
             className="w-full px-3 py-2 border-2 border-foreground rounded-lg bg-input font-medium"
