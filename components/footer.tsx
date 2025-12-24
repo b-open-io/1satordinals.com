@@ -100,7 +100,9 @@ export function Footer() {
         </div>
 
         <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} 1Sat Ordinals. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} 1Sat Ordinals. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

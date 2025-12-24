@@ -1,6 +1,14 @@
-import Link from "next/link";
+import {
+  ArrowRight,
+  Code2,
+  DollarSign,
+  FileText,
+  Gauge,
+  Lock,
+  Zap,
+} from "lucide-react";
 import Image from "next/image";
-import { ArrowRight, Zap, DollarSign, Code2, Lock, FileText, Gauge } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -44,8 +52,9 @@ export default function Home() {
               What are 1Sat Ordinals?
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              A chain of single satoshi output spends, where each owner transfers 1 satoshi
-              by creating a transaction that has a single satoshi output
+              A chain of single satoshi output spends, where each owner
+              transfers 1 satoshi by creating a transaction that has a single
+              satoshi output
             </p>
           </div>
 
@@ -56,7 +65,8 @@ export default function Home() {
               </div>
               <h3 className="mt-4 text-lg font-semibold">Ordinals (NFTs)</h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                Unique tokens for art and collectibles where each token is distinct
+                Unique tokens for art and collectibles where each token is
+                distinct
               </p>
             </div>
 
@@ -155,7 +165,8 @@ export default function Home() {
               The cool kids
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              An open-protocol ecosystem with rapid development, unexpected turns, and emergent interoperability
+              An open-protocol ecosystem with rapid development, unexpected
+              turns, and emergent interoperability
             </p>
           </div>
 
