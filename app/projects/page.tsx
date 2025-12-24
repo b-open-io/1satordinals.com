@@ -67,7 +67,8 @@ export default function ProjectsPage() {
               Projects & Ecosystem
             </h1>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              Discover tools, marketplaces, and applications built on 1Sat Ordinals
+              Discover tools, marketplaces, and applications built on 1Sat
+              Ordinals
             </p>
           </div>
         </div>
@@ -76,7 +77,9 @@ export default function ProjectsPage() {
       {/* Featured Projects */}
       <section className="w-full border-t bg-muted/50 py-16">
         <div className="container mx-auto max-w-7xl px-4">
-          <h2 className="text-3xl font-bold tracking-tight text-center mb-12">Featured Projects</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-center mb-12">
+            Featured Projects
+          </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <div className="group relative overflow-hidden rounded-lg border bg-card hover:shadow-lg transition-shadow">
               <Image
@@ -115,7 +118,9 @@ export default function ProjectsPage() {
       {/* All Projects */}
       <section className="w-full py-16">
         <div className="container mx-auto max-w-7xl px-4">
-          <h2 className="text-3xl font-bold tracking-tight mb-12">All Projects</h2>
+          <h2 className="text-3xl font-bold tracking-tight mb-12">
+            All Projects
+          </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((project) => (
               <a
@@ -133,7 +138,9 @@ export default function ProjectsPage() {
                     {project.category}
                   </span>
                 </div>
-                <p className="mt-2 text-sm text-muted-foreground">{project.description}</p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {project.description}
+                </p>
               </a>
             ))}
           </div>
@@ -144,7 +151,9 @@ export default function ProjectsPage() {
       <section className="w-full border-t bg-muted/50 py-16">
         <div className="container mx-auto max-w-7xl px-4">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight">Want to Add Your Project?</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Want to Add Your Project?
+            </h2>
             <p className="mt-4 text-lg text-muted-foreground">
               Join the growing ecosystem of 1Sat Ordinals applications
             </p>
