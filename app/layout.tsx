@@ -43,8 +43,9 @@ export default function RootLayout({
         <QueryProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="dark"
             enableSystem={false}
+            themes={["light", "dark"]}
             disableTransitionOnChange
           >
             <div className="relative flex min-h-screen flex-col">
