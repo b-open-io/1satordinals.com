@@ -15,9 +15,10 @@ export function UserButton() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSignIn = () => {
+    const callbackURL = `${window.location.origin}/auth/sigma/callback`;
     signIn.sigma({
       clientId: process.env.NEXT_PUBLIC_SIGMA_CLIENT_ID || "1satordinals",
-      // callbackURL defaults to /auth/sigma/callback
+      callbackURL,
     });
   };
 
