@@ -150,7 +150,7 @@ export async function calculateShipping(
     state_code?: string;
     zip?: string;
   },
-  items: Array<{ sync_variant_id: number; quantity: number }>,
+  items: Array<{ variant_id: number; quantity: number }>,
 ): Promise<ShippingOption[]> {
   const response = await printfulFetch<ShippingRateResponse>(
     "/shipping/rates",

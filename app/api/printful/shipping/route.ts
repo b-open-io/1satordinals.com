@@ -33,7 +33,7 @@ export async function POST(request: Request) {
         zip: address.zip,
       },
       items.map((item: { variantId: number; quantity: number }) => ({
-        sync_variant_id: item.variantId,
+        variant_id: item.variantId,
         quantity: item.quantity,
       })),
     );
