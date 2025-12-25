@@ -32,8 +32,8 @@ export async function POST(request: Request) {
         state_code: address.stateCode,
         zip: address.zip,
       },
-      items.map((item: { variantId: number; quantity: number }) => ({
-        variant_id: item.variantId,
+      items.map((item: { printfulVariantId: number; quantity: number }) => ({
+        variant_id: item.printfulVariantId,
         quantity: item.quantity,
       })),
     );
