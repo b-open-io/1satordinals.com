@@ -14,19 +14,14 @@ export const sql: NeonQueryFunction<false, false> = neon(
 );
 
 /**
- * Execute the Better Auth database schema
+ * Execute database schema from a SQL file
  * Safe to run multiple times - uses CREATE TABLE IF NOT EXISTS
  */
-export async function initializeDatabase() {
+async function executeSchemaFile(filename: string, description: string) {
   const fs = await import("node:fs/promises");
   const path = await import("node:path");
 
-  const schemaPath = path.join(
-    process.cwd(),
-    "lib",
-    "db",
-    "better-auth-schema.sql",
-  );
+  const schemaPath = path.join(process.cwd(), "lib", "db", filename);
   const schema = await fs.readFile(schemaPath, "utf-8");
 
   // Split schema into individual statements and execute them
@@ -37,14 +32,31 @@ export async function initializeDatabase() {
 
   for (const statement of statements) {
     try {
+      // biome-ignore lint/suspicious/noExplicitAny: Neon SQL requires array-like input
       await sql([statement] as any);
     } catch (error) {
-      console.error(`Error executing statement:`, error);
+      console.error(`Error executing ${description} statement:`, error);
       throw error;
     }
   }
 
-  console.log("✅ Better Auth database initialized successfully");
+  console.log(`✅ ${description} initialized successfully`);
+}
+
+/**
+ * Execute the Better Auth database schema
+ * Safe to run multiple times - uses CREATE TABLE IF NOT EXISTS
+ */
+export async function initializeDatabase() {
+  await executeSchemaFile("better-auth-schema.sql", "Better Auth database");
+}
+
+/**
+ * Execute the Orders database schema
+ * Safe to run multiple times - uses CREATE TABLE IF NOT EXISTS
+ */
+export async function initializeOrdersSchema() {
+  await executeSchemaFile("orders-schema.sql", "Orders database");
 }
 
 /**
@@ -52,6 +64,7 @@ export async function initializeDatabase() {
  * Caches initialization status to avoid repeated attempts
  */
 let dbInitialized = false;
+let ordersInitialized = false;
 
 export async function ensureDatabaseInitialized(): Promise<void> {
   if (dbInitialized) return;
@@ -61,10 +74,26 @@ export async function ensureDatabaseInitialized(): Promise<void> {
     await sql`SELECT 1 FROM "user" LIMIT 1`;
     dbInitialized = true;
     console.log("✅ Better Auth database already initialized");
-  } catch (error) {
+  } catch (_error) {
     // Tables don't exist, initialize them
     console.log("📦 Initializing Better Auth database schema...");
     await initializeDatabase();
     dbInitialized = true;
+  }
+}
+
+export async function ensureOrdersInitialized(): Promise<void> {
+  if (ordersInitialized) return;
+
+  try {
+    // Check if orders table exists
+    await sql`SELECT 1 FROM "orders" LIMIT 1`;
+    ordersInitialized = true;
+    console.log("✅ Orders database already initialized");
+  } catch (_error) {
+    // Table doesn't exist, initialize it
+    console.log("📦 Initializing Orders database schema...");
+    await initializeOrdersSchema();
+    ordersInitialized = true;
   }
 }
