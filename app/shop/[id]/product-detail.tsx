@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import type { Product, ProductVariant } from "@/lib/printful-types";
-import { VariantSelector } from "@/components/variant-selector";
+import { useCallback, useState } from "react";
 import { AddToCartButton } from "@/components/add-to-cart-button";
+import { VariantSelector } from "@/components/variant-selector";
+import type { Product, ProductVariant } from "@/lib/printful-types";
 
 interface ProductDetailProps {
   product: Product;

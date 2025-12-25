@@ -5,10 +5,10 @@
 
 "use client";
 
-import { User, LogOut } from "lucide-react";
-import { useAuth } from "@/lib/auth-client";
-import { signIn } from "@/lib/auth";
+import { LogOut, User } from "lucide-react";
 import { useState } from "react";
+import { signIn } from "@/lib/auth";
+import { useAuth } from "@/lib/auth-client";
 
 export function UserButton() {
   const { user, isLoading, signOut } = useAuth();
@@ -27,14 +27,13 @@ export function UserButton() {
   };
 
   if (isLoading) {
-    return (
-      <div className="h-8 w-8 animate-pulse rounded-full bg-muted" />
-    );
+    return <div className="h-8 w-8 animate-pulse rounded-full bg-muted" />;
   }
 
   if (!user) {
     return (
       <button
+        type="button"
         onClick={handleSignIn}
         className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
       >
@@ -46,10 +45,12 @@ export function UserButton() {
   return (
     <div className="relative">
       <button
+        type="button"
         onClick={() => setMenuOpen(!menuOpen)}
         className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90"
       >
         {user.picture ? (
+          // biome-ignore lint/performance/noImgElement: External avatar from Sigma Identity, not in our control
           <img
             src={user.picture}
             alt={user.name || "Bitcoin User"}
@@ -62,6 +63,8 @@ export function UserButton() {
 
       {menuOpen && (
         <>
+          {/* biome-ignore lint/a11y/useKeyWithClickEvents: Backdrop click to close menu is standard UX pattern */}
+          {/* biome-ignore lint/a11y/noStaticElementInteractions: Backdrop for closing dropdown menu */}
           <div
             className="fixed inset-0 z-40"
             onClick={() => setMenuOpen(false)}
@@ -72,11 +75,13 @@ export function UserButton() {
                 {user.name || "Bitcoin User"}
               </p>
               <p className="text-xs text-muted-foreground truncate">
-                {user.email || `${user.pubkey.slice(0, 8)}...${user.pubkey.slice(-6)}`}
+                {user.email ||
+                  `${user.pubkey.slice(0, 8)}...${user.pubkey.slice(-6)}`}
               </p>
             </div>
             <div className="py-1">
               <button
+                type="button"
                 onClick={handleSignOut}
                 className="flex w-full items-center gap-2 px-4 py-2 text-sm text-left transition-colors hover:bg-accent"
               >

@@ -5,7 +5,13 @@
 
 "use client";
 
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import {
+  createContext,
+  type ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import type { SigmaUserInfo } from "./auth";
 
 interface AuthContextType {
@@ -64,7 +70,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         isLoading,
         setUser: handleSetUser,
-        signOut: handleSignOut
+        signOut: handleSignOut,
       }}
     >
       {children}

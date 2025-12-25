@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   Code2,
@@ -11,7 +12,6 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { PixelRain } from "@/components/pixel-rain";
 import { ScrollReveal } from "@/components/scroll-reveal";
 

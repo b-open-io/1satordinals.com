@@ -192,11 +192,7 @@ export function ShippingCalculator() {
               setShipping(null);
 
               // Auto-detect state from ZIP code for US
-              if (
-                countryCode === "US" &&
-                newZip.length === 5 &&
-                !stateCode
-              ) {
+              if (countryCode === "US" && newZip.length === 5 && !stateCode) {
                 try {
                   const response = await fetch(
                     `https://zip.getziptastic.com/v2/US/${newZip}`,

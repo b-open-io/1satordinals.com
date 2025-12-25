@@ -5,8 +5,8 @@
 
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import { authClient } from "@/lib/auth";
 import { useAuth } from "@/lib/auth-client";
 
@@ -34,9 +34,9 @@ function CallbackContent() {
 
         // Redirect to home
         router.push("/");
-      } catch (err: any) {
+      } catch (err) {
         console.error("OAuth callback error:", err);
-        setError(err.message || "Authentication failed");
+        setError(err instanceof Error ? err.message : "Authentication failed");
       }
     };
 
@@ -47,9 +47,12 @@ function CallbackContent() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <h2 className="text-xl font-semibold text-red-600">Authentication Failed</h2>
+          <h2 className="text-xl font-semibold text-red-600">
+            Authentication Failed
+          </h2>
           <p className="mt-2 text-sm text-muted-foreground">{error}</p>
           <button
+            type="button"
             onClick={() => router.push("/")}
             className="mt-4 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
@@ -72,13 +75,15 @@ function CallbackContent() {
 
 export default function CallbackPage() {
   return (
-    <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-xl font-semibold">Loading...</h2>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="text-center">
+            <h2 className="text-xl font-semibold">Loading...</h2>
+          </div>
         </div>
-      </div>
-    }>
+      }
+    >
       <CallbackContent />
     </Suspense>
   );

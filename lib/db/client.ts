@@ -3,7 +3,7 @@
  * For Better Auth database initialization
  */
 
-import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
+import { type NeonQueryFunction, neon } from "@neondatabase/serverless";
 
 if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL environment variable is not set");
@@ -21,7 +21,12 @@ export async function initializeDatabase() {
   const fs = await import("node:fs/promises");
   const path = await import("node:path");
 
-  const schemaPath = path.join(process.cwd(), "lib", "db", "better-auth-schema.sql");
+  const schemaPath = path.join(
+    process.cwd(),
+    "lib",
+    "db",
+    "better-auth-schema.sql",
+  );
   const schema = await fs.readFile(schemaPath, "utf-8");
 
   // Split schema into individual statements and execute them

@@ -5,28 +5,25 @@
 
 // Client
 export { printfulFetch } from "./client";
-
-// Products
-export {
-  getSyncProducts,
-  getSyncProduct,
-  transformSyncProduct,
-  transformSyncVariant,
-} from "./products";
-export type { PrintfulSyncProduct, PrintfulSyncVariant } from "./products";
-
-// Shipping
-export { calculateShipping } from "./shipping";
-
-// Orders
-export {
-  createOrder,
-  getOrder,
-  confirmOrder,
-  estimateOrderCosts,
-} from "./orders";
 export type {
   PrintfulOrder,
   PrintfulOrderItem,
   PrintfulOrderRecipient,
 } from "./orders";
+// Orders
+export {
+  confirmOrder,
+  createOrder,
+  estimateOrderCosts,
+  getOrder,
+} from "./orders";
+export type { PrintfulSyncProduct, PrintfulSyncVariant } from "./products";
+// Products
+export {
+  getSyncProduct,
+  getSyncProducts,
+  transformSyncProduct,
+  transformSyncVariant,
+} from "./products";
+// Shipping
+export { calculateShipping } from "./shipping";

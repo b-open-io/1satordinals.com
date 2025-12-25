@@ -101,7 +101,10 @@ export default function CartPage() {
                           <button
                             type="button"
                             onClick={() =>
-                              updateQuantity(item.syncVariantId, item.quantity - 1)
+                              updateQuantity(
+                                item.syncVariantId,
+                                item.quantity - 1,
+                              )
                             }
                             className="rounded-lg border-2 border-foreground p-1 transition-colors hover:bg-accent"
                             aria-label="Decrease quantity"
@@ -114,7 +117,10 @@ export default function CartPage() {
                           <button
                             type="button"
                             onClick={() =>
-                              updateQuantity(item.syncVariantId, item.quantity + 1)
+                              updateQuantity(
+                                item.syncVariantId,
+                                item.quantity + 1,
+                              )
                             }
                             className="rounded-lg border-2 border-foreground p-1 transition-colors hover:bg-accent"
                             aria-label="Increase quantity"

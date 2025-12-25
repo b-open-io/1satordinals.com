@@ -1,10 +1,10 @@
+import { ArrowLeft, Package, Truck } from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ProductGallery } from "@/components/product-gallery";
 import { getSyncProduct, transformSyncProduct } from "@/lib/printful";
 import { formatPrice } from "@/lib/products";
-import { ProductGallery } from "@/components/product-gallery";
-import { ArrowLeft, Package, Truck } from "lucide-react";
-import Link from "next/link";
-import type { Metadata } from "next";
 import { ProductDetail } from "./product-detail";
 
 export const dynamic = "force-dynamic";
