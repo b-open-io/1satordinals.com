@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useCartStore } from "@/lib/store";
 import { ThemeToggle } from "./theme-toggle";
+import { UserButton } from "./user-button";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -79,6 +80,7 @@ export function Header() {
             )}
           </Link>
           <ThemeToggle />
+          <UserButton />
         </div>
 
         {/* Mobile menu button */}
