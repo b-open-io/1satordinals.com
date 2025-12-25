@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/lib/auth-client";
 import { formatPrice } from "@/lib/products";
 
@@ -78,53 +79,61 @@ function getStatusIcon(status: string) {
   return icons[status] || Clock;
 }
 
+async function fetchOrder(
+  orderId: string,
+  email: string,
+): Promise<{ order: Order; events: OrderEvent[] }> {
+  const response = await fetch(
+    `/api/orders/${orderId}?email=${encodeURIComponent(email)}`,
+  );
+
+  if (!response.ok) {
+    if (response.status === 404) {
+      throw new Error("Order not found");
+    }
+    throw new Error("Failed to fetch order");
+  }
+
+  const data = await response.json();
+  return { order: data.order, events: data.events || [] };
+}
+
 export default function OrderDetailPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { user, isLoading: authLoading } = useAuth();
-  const [order, setOrder] = useState<Order | null>(null);
-  const [events, setEvents] = useState<OrderEvent[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [id, setId] = useState<string>("");
 
   useEffect(() => {
     params.then((p) => setId(p.id));
   }, [params]);
 
-  useEffect(() => {
-    if (!authLoading && user && id) {
-      fetchOrder();
-    }
-  }, [id, user, authLoading, fetchOrder]);
-
-  async function fetchOrder() {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        `/api/orders/${id}?email=${encodeURIComponent(user?.email || "")}`,
-      );
-
-      if (!response.ok) {
-        if (response.status === 404) {
-          throw new Error("Order not found");
-        }
-        throw new Error("Failed to fetch order");
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["order", id, user?.email],
+    queryFn: () => fetchOrder(id, user?.email || ""),
+    enabled: !authLoading && !!user?.email && !!id,
+    staleTime: 30000, // 30 seconds
+    refetchInterval: (query) => {
+      // Auto-refresh every 30s if order is in progress
+      const order = query.state.data?.order;
+      if (
+        order &&
+        ["printful_draft", "printful_pending", "in_production"].includes(
+          order.status,
+        )
+      ) {
+        return 30000;
       }
+      return false;
+    },
+  });
 
-      const data = await response.json();
-      setOrder(data.order);
-      setEvents(data.events || []);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load order");
-    } finally {
-      setLoading(false);
-    }
-  }
+  const order = data?.order;
+  const events = data?.events || [];
 
-  if (authLoading || loading) {
+  if (authLoading || (isLoading && !order)) {
     return (
       <div className="container mx-auto max-w-4xl px-4 py-16">
         <div className="flex items-center justify-center">
@@ -160,11 +169,13 @@ export default function OrderDetailPage({
         <div className="mt-8 text-center">
           <XCircle className="mx-auto h-12 w-12 text-red-500" />
           <h1 className="mt-4 text-3xl font-bold">
-            {error === "Order not found"
+            {error instanceof Error && error.message === "Order not found"
               ? "Order Not Found"
               : "Error Loading Order"}
           </h1>
-          <p className="mt-4 text-muted-foreground">{error}</p>
+          <p className="mt-4 text-muted-foreground">
+            {error instanceof Error ? error.message : "Failed to load order"}
+          </p>
         </div>
       </div>
     );

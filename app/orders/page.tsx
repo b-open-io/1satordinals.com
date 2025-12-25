@@ -14,7 +14,7 @@ import {
   XCircle,
 } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/lib/auth-client";
 import { formatPrice } from "@/lib/products";
 
@@ -110,40 +110,36 @@ function getStatusBadge(status: string, testMode: boolean) {
   );
 }
 
-export default function OrdersPage() {
-  const { user, isLoading } = useAuth();
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+async function fetchOrders(email: string): Promise<Order[]> {
+  const response = await fetch(
+    `/api/orders?email=${encodeURIComponent(email)}`,
+  );
 
-  useEffect(() => {
-    if (!isLoading && user) {
-      fetchOrders();
-    }
-  }, [user, isLoading, fetchOrders]);
-
-  async function fetchOrders() {
-    try {
-      setLoading(true);
-      // Use email for now, will use pubkey when fully integrated
-      const response = await fetch(
-        `/api/orders?email=${encodeURIComponent(user?.email || "")}`,
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch orders");
-      }
-
-      const data = await response.json();
-      setOrders(data.orders || []);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load orders");
-    } finally {
-      setLoading(false);
-    }
+  if (!response.ok) {
+    throw new Error("Failed to fetch orders");
   }
 
-  if (isLoading || loading) {
+  const data = await response.json();
+  return data.orders || [];
+}
+
+export default function OrdersPage() {
+  const { user, isLoading: authLoading } = useAuth();
+
+  const {
+    data: orders = [],
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["orders", user?.email],
+    queryFn: () => fetchOrders(user?.email || ""),
+    enabled: !authLoading && !!user?.email,
+    staleTime: 30000, // 30 seconds
+    refetchOnWindowFocus: true,
+  });
+
+  if (authLoading || (isLoading && !orders.length)) {
     return (
       <div className="container mx-auto max-w-7xl px-4 py-16">
         <div className="flex items-center justify-center">
@@ -172,10 +168,12 @@ export default function OrdersPage() {
         <div className="text-center">
           <XCircle className="mx-auto h-12 w-12 text-red-500" />
           <h1 className="mt-4 text-3xl font-bold">Error Loading Orders</h1>
-          <p className="mt-4 text-muted-foreground">{error}</p>
+          <p className="mt-4 text-muted-foreground">
+            {error instanceof Error ? error.message : "Failed to load orders"}
+          </p>
           <button
             type="button"
-            onClick={fetchOrders}
+            onClick={() => refetch()}
             className="mt-6 rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
             Try Again
