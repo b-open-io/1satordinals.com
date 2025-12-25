@@ -17,7 +17,6 @@ import {
   XCircle,
 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth-client";
 import { formatPrice } from "@/lib/products";
@@ -84,7 +83,6 @@ export default function OrderDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  
   const { user, isLoading: authLoading } = useAuth();
   const [order, setOrder] = useState<Order | null>(null);
   const [events, setEvents] = useState<OrderEvent[]>([]);
@@ -100,7 +98,7 @@ export default function OrderDetailPage({
     if (!authLoading && user && id) {
       fetchOrder();
     }
-  }, [id, user, authLoading]);
+  }, [id, user, authLoading, fetchOrder]);
 
   async function fetchOrder() {
     try {

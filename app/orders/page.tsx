@@ -120,7 +120,7 @@ export default function OrdersPage() {
     if (!isLoading && user) {
       fetchOrders();
     }
-  }, [user, isLoading]);
+  }, [user, isLoading, fetchOrders]);
 
   async function fetchOrders() {
     try {
