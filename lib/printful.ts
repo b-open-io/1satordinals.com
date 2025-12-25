@@ -25,7 +25,14 @@ async function printfulFetch<T>(
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.error?.message || data.result || "Printful API error");
+    const errorMsg = data.error?.message || data.result || "Printful API error";
+    console.error("Printful API error:", {
+      endpoint,
+      status: response.status,
+      statusText: response.statusText,
+      data,
+    });
+    throw new Error(errorMsg);
   }
 
   return data;

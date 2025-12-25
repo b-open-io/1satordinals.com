@@ -37,8 +37,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ shippingOptions });
   } catch (error) {
     console.error("Error calculating shipping:", error);
+    const errorMessage = error instanceof Error ? error.message : "Failed to calculate shipping rates";
+    console.error("Detailed error:", {
+      message: errorMessage,
+      address,
+      items,
+      error,
+    });
     return NextResponse.json(
-      { error: "Failed to calculate shipping rates" },
+      { error: errorMessage },
       { status: 500 },
     );
   }
