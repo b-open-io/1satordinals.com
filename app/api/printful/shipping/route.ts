@@ -2,9 +2,13 @@ import { NextResponse } from "next/server";
 import { calculateShipping } from "@/lib/printful";
 
 export async function POST(request: Request) {
+  let address;
+  let items;
+
   try {
     const body = await request.json();
-    const { address, items } = body;
+    address = body.address;
+    items = body.items;
 
     if (!address?.countryCode) {
       return NextResponse.json(
