@@ -52,6 +52,12 @@ export function Header() {
           >
             Shop
           </Link>
+          <Link
+            href="/orders"
+            className="text-sm font-medium transition-colors hover:text-primary"
+          >
+            Orders
+          </Link>
           <a
             href="https://docs.1satordinals.com"
             target="_blank"
@@ -139,6 +145,13 @@ export function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Shop
+            </Link>
+            <Link
+              href="/orders"
+              className="block rounded-md px-3 py-2 text-base font-medium hover:bg-accent"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Orders
             </Link>
             <a
               href="https://docs.1satordinals.com"
