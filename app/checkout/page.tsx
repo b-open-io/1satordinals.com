@@ -52,9 +52,13 @@ export default function CheckoutPage() {
         throw new Error(data.error || "Something went wrong");
       }
 
-      const stripe = await loadStripe(
-        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
-      );
+      const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+
+      if (!publishableKey) {
+        throw new Error("Stripe publishable key is not configured. Please add NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY to your environment variables.");
+      }
+
+      const stripe = await loadStripe(publishableKey);
 
       if (!stripe) {
         throw new Error("Stripe failed to load");
@@ -69,11 +73,11 @@ export default function CheckoutPage() {
       }
     } catch (err) {
       console.error("Checkout error:", err);
-      setError(
-        err instanceof Error
-          ? err.message
-          : "An error occurred during checkout",
-      );
+      const errorMessage = err instanceof Error
+        ? err.message
+        : "An error occurred during checkout";
+      console.error("Full error details:", errorMessage);
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
