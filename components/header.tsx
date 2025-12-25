@@ -94,6 +94,7 @@ export function Header() {
             )}
           </Link>
           <ThemeToggle />
+          <UserButton />
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

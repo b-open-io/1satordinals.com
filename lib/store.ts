@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 import type { CartItem, ShippingOption } from "./printful-types";
 
 interface CartStore {
@@ -22,10 +23,12 @@ interface CartStore {
   getItemCount: () => number;
 }
 
-export const useCartStore = create<CartStore>()((set, get) => ({
-  items: [],
-  shipping: null,
-  shippingAddress: null,
+export const useCartStore = create<CartStore>()(
+  persist(
+    (set, get) => ({
+      items: [],
+      shipping: null,
+      shippingAddress: null,
 
   addItem: (item) =>
     set((state) => {
@@ -102,7 +105,13 @@ export const useCartStore = create<CartStore>()((set, get) => ({
     const { items } = get();
     return items.reduce((count, item) => count + item.quantity, 0);
   },
-}));
+    }),
+    {
+      name: "1sat-cart-storage",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
 
 // Re-export types for convenience
 export type { CartItem, ShippingOption } from "./printful-types";
