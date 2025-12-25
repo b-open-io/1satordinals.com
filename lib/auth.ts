@@ -1,48 +1,26 @@
 /**
- * Better Auth Server Configuration
- * https://www.better-auth.com/docs/installation
+ * Better Auth Client for Sigma Identity OAuth
+ * https://sigmaidentity.com/docs
+ *
+ * NOTE: This is an OAuth CLIENT authenticating with Sigma Identity.
+ * We don't run our own Better Auth server - we use Sigma's auth server.
+ * User data is managed locally via Context/localStorage, not session cookies.
  */
 
-import { betterAuth } from "better-auth";
-import { nextCookies } from "better-auth/next-js";
-import { Pool } from "@neondatabase/serverless";
+import { createAuthClient } from "better-auth/client";
+import { sigmaClient } from "@sigma-auth/better-auth-plugin/client";
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL environment variable is required");
+// Re-export types from Sigma plugin
+export type { SigmaUserInfo } from "@sigma-auth/better-auth-plugin/client";
+
+if (!process.env.NEXT_PUBLIC_SIGMA_AUTH_URL) {
+  throw new Error("NEXT_PUBLIC_SIGMA_AUTH_URL environment variable is required");
 }
 
-if (!process.env.BETTER_AUTH_SECRET) {
-  throw new Error("BETTER_AUTH_SECRET environment variable is required");
-}
-
-if (!process.env.BETTER_AUTH_URL) {
-  throw new Error("BETTER_AUTH_URL environment variable is required");
-}
-
-export const auth = betterAuth({
-  database: new Pool({
-    connectionString: process.env.DATABASE_URL,
-  }),
-
-  secret: process.env.BETTER_AUTH_SECRET,
-  baseURL: process.env.BETTER_AUTH_URL,
-
-  emailAndPassword: {
-    enabled: true,
-  },
-
-  socialProviders: {
-    google: {
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-    },
-  },
-
-  plugins: [
-    nextCookies(), // Required for cookie handling in server actions
-  ],
+export const authClient = createAuthClient({
+  baseURL: process.env.NEXT_PUBLIC_SIGMA_AUTH_URL,
+  plugins: [sigmaClient()],
 });
 
-// Export types for use in client
-export type Session = typeof auth.$Infer.Session;
-export type User = typeof auth.$Infer.Session.user;
+// Export sign in method for OAuth flow
+export const { signIn } = authClient;

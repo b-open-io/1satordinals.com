@@ -1,37 +1,38 @@
 /**
  * User Button Component
- * Shows sign-in button or user menu with Better Auth
+ * Shows sign-in button or user menu with Sigma Auth
  */
 
 "use client";
 
 import { User, LogOut } from "lucide-react";
-import { useSession, signOut, signIn } from "@/lib/auth-client";
+import { useAuth } from "@/lib/auth-client";
+import { signIn } from "@/lib/auth";
 import { useState } from "react";
 
 export function UserButton() {
-  const { data: session, isPending } = useSession();
+  const { user, isLoading, signOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleSignIn = async () => {
-    await signIn.social({
-      provider: "google",
-      callbackURL: "/",
+  const handleSignIn = () => {
+    signIn.sigma({
+      clientId: process.env.NEXT_PUBLIC_SIGMA_CLIENT_ID || "1satordinals",
+      // callbackURL defaults to /auth/sigma/callback
     });
   };
 
-  const handleSignOut = async () => {
-    await signOut();
+  const handleSignOut = () => {
+    signOut();
     setMenuOpen(false);
   };
 
-  if (isPending) {
+  if (isLoading) {
     return (
       <div className="h-8 w-8 animate-pulse rounded-full bg-muted" />
     );
   }
 
-  if (!session) {
+  if (!user) {
     return (
       <button
         onClick={handleSignIn}
@@ -48,10 +49,10 @@ export function UserButton() {
         onClick={() => setMenuOpen(!menuOpen)}
         className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90"
       >
-        {session.user.image ? (
+        {user.picture ? (
           <img
-            src={session.user.image}
-            alt={session.user.name || "User"}
+            src={user.picture}
+            alt={user.name || "Bitcoin User"}
             className="h-8 w-8 rounded-full"
           />
         ) : (
@@ -67,9 +68,11 @@ export function UserButton() {
           />
           <div className="absolute right-0 top-full z-50 mt-2 w-48 rounded-md border bg-background shadow-lg">
             <div className="px-4 py-3 border-b">
-              <p className="text-sm font-medium">{session.user.name}</p>
+              <p className="text-sm font-medium">
+                {user.name || "Bitcoin User"}
+              </p>
               <p className="text-xs text-muted-foreground truncate">
-                {session.user.email}
+                {user.email || `${user.pubkey.slice(0, 8)}...${user.pubkey.slice(-6)}`}
               </p>
             </div>
             <div className="py-1">
