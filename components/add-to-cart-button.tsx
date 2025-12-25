@@ -29,8 +29,8 @@ export function AddToCartButton({ product, variant }: AddToCartButtonProps) {
 
     addItem({
       productId: product.id,
-      variantId: variant.id,
-      printfulVariantId: variant.variantId,
+      syncVariantId: variant.syncVariantId,
+      catalogVariantId: variant.catalogVariantId,
       name: product.name,
       variantName,
       price: variant.price,

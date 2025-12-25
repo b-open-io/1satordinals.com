@@ -5,6 +5,10 @@ import type { ShippingAddress, ShippingOption } from "./printful-types";
 
 // ============ Shipping API ============
 
+/**
+ * Request to calculate shipping rates.
+ * Uses catalogVariantId (Printful's base catalog variant) for shipping calculations.
+ */
 export interface CalculateShippingRequest {
   address: {
     countryCode: string;
@@ -13,7 +17,8 @@ export interface CalculateShippingRequest {
     zip?: string;
   };
   items: Array<{
-    variantId: number;
+    /** Catalog variant ID - Printful's base product variant (required for shipping rates) */
+    printfulVariantId: number;
     quantity: number;
   }>;
 }

@@ -60,7 +60,7 @@ export default function CartPage() {
               <div className="space-y-4">
                 {items.map((item) => (
                   <div
-                    key={item.variantId}
+                    key={item.syncVariantId}
                     className="flex gap-4 rounded-xl border-2 border-foreground bg-card p-4 comic-shadow"
                   >
                     <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg border-2 border-foreground bg-muted">
@@ -88,7 +88,7 @@ export default function CartPage() {
                         </div>
                         <button
                           type="button"
-                          onClick={() => removeItem(item.variantId)}
+                          onClick={() => removeItem(item.syncVariantId)}
                           className="text-muted-foreground transition-colors hover:text-destructive"
                           aria-label="Remove item"
                         >
@@ -101,7 +101,7 @@ export default function CartPage() {
                           <button
                             type="button"
                             onClick={() =>
-                              updateQuantity(item.variantId, item.quantity - 1)
+                              updateQuantity(item.syncVariantId, item.quantity - 1)
                             }
                             className="rounded-lg border-2 border-foreground p-1 transition-colors hover:bg-accent"
                             aria-label="Decrease quantity"
@@ -114,7 +114,7 @@ export default function CartPage() {
                           <button
                             type="button"
                             onClick={() =>
-                              updateQuantity(item.variantId, item.quantity + 1)
+                              updateQuantity(item.syncVariantId, item.quantity + 1)
                             }
                             className="rounded-lg border-2 border-foreground p-1 transition-colors hover:bg-accent"
                             aria-label="Increase quantity"

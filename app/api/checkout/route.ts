@@ -69,10 +69,11 @@ export async function POST(req: NextRequest) {
 
     // Store order data in metadata for Printful order creation on success
     // Stripe metadata values must be strings and max 500 chars each
+    // Note: Printful orders use sync_variant_id (your customized products)
     const orderMetadata = {
       printful_items: JSON.stringify(
         items.map((item) => ({
-          sync_variant_id: item.variantId,
+          sync_variant_id: item.syncVariantId,
           quantity: item.quantity,
         })),
       ),

@@ -12,8 +12,8 @@ interface CartStore {
   } | null;
 
   addItem: (item: Omit<CartItem, "quantity">) => void;
-  removeItem: (variantId: number) => void;
-  updateQuantity: (variantId: number, quantity: number) => void;
+  removeItem: (syncVariantId: number) => void;
+  updateQuantity: (syncVariantId: number, quantity: number) => void;
   clearCart: () => void;
   setShipping: (option: ShippingOption | null) => void;
   setShippingAddress: (address: CartStore["shippingAddress"]) => void;
@@ -30,13 +30,13 @@ export const useCartStore = create<CartStore>()((set, get) => ({
   addItem: (item) =>
     set((state) => {
       const existingItem = state.items.find(
-        (i) => i.variantId === item.variantId,
+        (i) => i.syncVariantId === item.syncVariantId,
       );
 
       if (existingItem) {
         return {
           items: state.items.map((i) =>
-            i.variantId === item.variantId
+            i.syncVariantId === item.syncVariantId
               ? { ...i, quantity: i.quantity + 1 }
               : i,
           ),
@@ -48,25 +48,25 @@ export const useCartStore = create<CartStore>()((set, get) => ({
       };
     }),
 
-  removeItem: (variantId) =>
+  removeItem: (syncVariantId) =>
     set((state) => ({
-      items: state.items.filter((item) => item.variantId !== variantId),
+      items: state.items.filter((item) => item.syncVariantId !== syncVariantId),
       // Clear shipping if cart changes
       shipping: null,
     })),
 
-  updateQuantity: (variantId, quantity) =>
+  updateQuantity: (syncVariantId, quantity) =>
     set((state) => {
       if (quantity <= 0) {
         return {
-          items: state.items.filter((item) => item.variantId !== variantId),
+          items: state.items.filter((item) => item.syncVariantId !== syncVariantId),
           shipping: null,
         };
       }
 
       return {
         items: state.items.map((item) =>
-          item.variantId === variantId ? { ...item, quantity } : item,
+          item.syncVariantId === syncVariantId ? { ...item, quantity } : item,
         ),
         // Clear shipping if quantity changes
         shipping: null,

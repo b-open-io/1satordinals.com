@@ -106,7 +106,7 @@ export default function CheckoutPage() {
             {/* Items */}
             <div className="space-y-4 border-b-2 border-border pb-6">
               {items.map((item) => (
-                <div key={item.variantId} className="flex justify-between">
+                <div key={item.syncVariantId} className="flex justify-between">
                   <div>
                     <p className="font-bold">{item.name}</p>
                     <p className="text-sm text-muted-foreground">

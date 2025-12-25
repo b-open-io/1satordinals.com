@@ -98,7 +98,7 @@ export function ShippingCalculator() {
           zip: zip || undefined,
         },
         items: items.map((item) => ({
-          variantId: item.variantId,
+          printfulVariantId: item.catalogVariantId,
           quantity: item.quantity,
         })),
       },
