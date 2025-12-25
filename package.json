@@ -21,7 +21,6 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@better-auth/client": "^0.0.2-alpha.3",
     "@neondatabase/serverless": "^1.0.2",
     "@sigma-auth/better-auth-plugin": "^0.0.26",
     "@stripe/react-stripe-js": "^3.2.1",
