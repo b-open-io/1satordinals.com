@@ -6,12 +6,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ThreeBackground } from "@/components/three-background";
 
-// Marquee Component - ChainGPT inspired: massive, bold, high contrast
+// Marquee Component
 function Marquee({ text, reverse = false }: { text: string; reverse?: boolean }) {
   return (
-    <div className="relative overflow-hidden py-16">
+    <div className="relative overflow-hidden py-8">
       <motion.div
-        className="flex gap-16 whitespace-nowrap"
+        className="flex gap-8 whitespace-nowrap"
         animate={{
           x: reverse ? [0, -1000] : [-1000, 0],
         }}
@@ -27,7 +27,10 @@ function Marquee({ text, reverse = false }: { text: string; reverse?: boolean })
         {[...Array(10)].map((_, i) => (
           <h1
             key={i}
-            className="text-[200px] md:text-[320px] lg:text-[400px] font-black tracking-tight text-white"
+            className="text-[120px] md:text-[180px] font-black tracking-tighter text-transparent"
+            style={{
+              WebkitTextStroke: "2px rgb(255, 140, 0, 0.3)",
+            }}
           >
             {text}
           </h1>
@@ -193,10 +196,10 @@ export default function Home() {
         <DecorSquare className="top-40 right-20 opacity-20" />
         <DecorSquare className="bottom-40 left-1/4 opacity-25" />
 
-        {/* Top Marquee with Three.js Background - Expanded height for prominence */}
-        <div className="relative overflow-hidden border-y border-primary/20 min-h-[70vh]">
+        {/* Top Marquee with Three.js Background */}
+        <div className="relative overflow-hidden border-y border-primary/20">
           <ThreeBackground />
-          <div className="relative z-10 flex items-center h-full">
+          <div className="relative z-10">
             <Marquee text="BUILDING ON BITCOIN" />
           </div>
         </div>
