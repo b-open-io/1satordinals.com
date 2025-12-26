@@ -1,348 +1,392 @@
 "use client";
 
-import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Code2,
-  DollarSign,
-  FileText,
-  Gauge,
-  Lock,
-  Zap,
-} from "lucide-react";
-import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
-import { PixelRain } from "@/components/pixel-rain";
-import { ScrollReveal } from "@/components/scroll-reveal";
+import { useEffect, useState } from "react";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-};
+// Marquee Component
+function Marquee({ text, reverse = false }: { text: string; reverse?: boolean }) {
+  return (
+    <div className="relative overflow-hidden py-8">
+      <motion.div
+        className="flex gap-8 whitespace-nowrap"
+        animate={{
+          x: reverse ? [0, -1000] : [-1000, 0],
+        }}
+        transition={{
+          x: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: 20,
+            ease: "linear",
+          },
+        }}
+      >
+        {[...Array(10)].map((_, i) => (
+          <h1
+            key={i}
+            className="text-[120px] md:text-[180px] font-black tracking-tighter text-transparent"
+            style={{
+              WebkitTextStroke: "2px rgb(255, 140, 0, 0.3)",
+            }}
+          >
+            {text}
+          </h1>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring" as const,
-      stiffness: 100,
-      damping: 12,
-    },
-  },
-};
+// Decorative Square Component
+function DecorSquare({ className }: { className?: string }) {
+  return (
+    <div
+      className={`absolute w-24 h-24 border-2 border-primary/20 ${className}`}
+      style={{
+        clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+      }}
+    />
+  );
+}
 
-const cardHoverVariants = {
-  rest: { scale: 1, y: 0 },
-  hover: {
-    scale: 1.05,
-    y: -8,
-    transition: {
-      type: "spring" as const,
-      stiffness: 400,
-      damping: 10,
-    },
-  },
-};
+// Corner Decoration Component
+function CornerDecor({ className }: { className?: string }) {
+  return (
+    <div className={`absolute w-3 h-3 ${className}`}>
+      <div className="absolute top-0 left-0 w-full h-0.5 bg-primary" />
+      <div className="absolute top-0 left-0 w-0.5 h-full bg-primary" />
+    </div>
+  );
+}
+
+// Graphic Block Component
+function GraphicBlock({ children, className }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`relative ${className}`}>
+      <CornerDecor className="top-0 left-0" />
+      <CornerDecor className="top-0 right-0 rotate-90" />
+      <CornerDecor className="bottom-0 right-0 rotate-180" />
+      <CornerDecor className="bottom-0 left-0 -rotate-90" />
+      {children}
+    </div>
+  );
+}
+
+// Partner Card Component
+function PartnerCard({ name, logo }: { name: string; logo: string }) {
+  return (
+    <div className="relative group">
+      <GraphicBlock className="border border-primary/20 bg-black/40 backdrop-blur-sm p-8 hover:border-primary/60 transition-all duration-300">
+        <div className="flex flex-col items-center gap-4">
+          <div className="text-4xl">{logo}</div>
+          <div className="text-sm font-mono text-primary">{name}</div>
+        </div>
+      </GraphicBlock>
+    </div>
+  );
+}
+
+// Loading Screen Component
+function LoadingScreen({ onComplete }: { onComplete: () => void }) {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(timer);
+          setTimeout(onComplete, 300);
+          return 100;
+        }
+        return prev + 2;
+      });
+    }, 20);
+
+    return () => clearInterval(timer);
+  }, [onComplete]);
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-50 bg-black flex items-center justify-center"
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="max-w-md w-full px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-8"
+        >
+          <h1 className="text-6xl font-black text-primary mb-4">1SAT</h1>
+          <p className="text-sm font-mono text-primary/60">ORDINALS</p>
+        </motion.div>
+
+        <div className="relative h-1 bg-primary/10 overflow-hidden">
+          <motion.div
+            className="absolute inset-y-0 left-0 bg-primary"
+            style={{ width: `${progress}%` }}
+            transition={{ duration: 0.1 }}
+          />
+        </div>
+
+        <div className="mt-4 text-center">
+          <span className="text-sm font-mono text-primary/60">{progress}%</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+  const { scrollYProgress } = useScroll();
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+
+  const partners = [
+    { name: "Panda Wallet", logo: "🐼" },
+    { name: "Yours Wallet", logo: "💳" },
+    { name: "1Sat Market", logo: "🏪" },
+    { name: "sCrypt", logo: "🔐" },
+  ];
+
+  if (isLoading) {
+    return <LoadingScreen onComplete={() => setIsLoading(false)} />;
+  }
+
   return (
-    <>
-      <PixelRain />
+    <div className="relative bg-black text-white overflow-hidden">
+      {/* Grid Background */}
+      <div
+        className="fixed inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgb(255, 140, 0) 1px, transparent 1px),
+            linear-gradient(90deg, rgb(255, 140, 0) 1px, transparent 1px)
+          `,
+          backgroundSize: "50px 50px",
+        }}
+      />
 
       {/* Hero Section */}
-      <section className="relative w-full py-24 md:py-32 overflow-hidden">
-        <motion.div
-          className="container mx-auto max-w-7xl px-4 relative z-10"
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-        >
-          <div className="mx-auto max-w-4xl text-center">
-            <motion.h1
-              className="text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl"
-              variants={itemVariants}
+      <section className="relative min-h-screen flex flex-col">
+        {/* Decorative Squares */}
+        <DecorSquare className="top-20 left-10 opacity-30" />
+        <DecorSquare className="top-40 right-20 opacity-20" />
+        <DecorSquare className="bottom-40 left-1/4 opacity-25" />
+
+        {/* Top Marquee */}
+        <div className="relative overflow-hidden border-y border-primary/20">
+          <Marquee text="BUILDING ON BITCOIN" />
+        </div>
+
+        {/* Main Hero Content */}
+        <div className="flex-1 container mx-auto px-4 flex flex-col justify-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="max-w-6xl mx-auto"
+          >
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="inline-block mb-8"
             >
-              A Simple, Powerful{" "}
-              <span className="text-primary relative inline-block">
-                Token Protocol
-                <motion.span
-                  className="absolute -bottom-2 left-0 right-0 h-1 bg-primary"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.8, duration: 0.6 }}
-                />
+              <div className="border-2 border-primary px-6 py-3 inline-block">
+                <span className="text-sm font-mono text-primary tracking-[0.2em]">
+                  PROTOCOL
+                </span>
+              </div>
+            </motion.div>
+
+            {/* Main Heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8"
+            >
+              1SAT{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">
+                ORDINALS
               </span>
             </motion.h1>
+
+            {/* Subtitle */}
             <motion.p
-              className="mt-6 text-lg leading-8 text-muted-foreground sm:text-xl"
-              variants={itemVariants}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              className="text-xl md:text-2xl text-gray-400 max-w-3xl mb-12"
             >
-              Fast, affordable, and fully scriptable tokens on Bitcoin SV
+              Fast, Flexible, Scalable — The Future of BSV Tokens
             </motion.p>
+
+            {/* CTA Buttons */}
             <motion.div
-              className="mt-10 flex items-center justify-center gap-x-6"
-              variants={itemVariants}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1 }}
+              className="flex flex-wrap gap-6"
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <Link
+                href="/protocol"
+                className="group relative inline-flex items-center gap-3 bg-primary px-8 py-4 font-bold text-black hover:bg-primary/90 transition-all duration-300"
               >
-                <Link
-                  href="/protocol"
-                  className="rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition-colors"
-                >
-                  Learn More
-                </Link>
-              </motion.div>
-              <motion.div whileHover={{ x: 5 }}>
-                <a
-                  href="https://discord.gg/vqj6wpKeEn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-semibold leading-6 flex items-center gap-2 hover:text-primary transition-colors"
-                >
-                  Join Discord <ArrowRight className="h-4 w-4" />
-                </a>
-              </motion.div>
+                <span>EXPLORE PROTOCOL</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+
+              <Link
+                href="/developers"
+                className="group relative inline-flex items-center gap-3 border-2 border-primary px-8 py-4 font-bold text-primary hover:bg-primary hover:text-black transition-all duration-300"
+              >
+                <span>START BUILDING</span>
+              </Link>
             </motion.div>
+
+            {/* Features Strip */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.2 }}
+              className="mt-16 flex flex-wrap gap-8 items-center text-sm font-mono text-gray-500"
+            >
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-primary" />
+                <span>BSV20</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-primary" />
+                <span>BSV21</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-primary" />
+                <span>NFTs</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Bottom Marquee */}
+        <div className="relative overflow-hidden border-t border-primary/20">
+          <Marquee text="TOKENIZATION REIMAGINED" reverse />
+        </div>
+
+        {/* Partners Section */}
+        <motion.div
+          style={{ opacity }}
+          className="border-t border-primary/20 py-12"
+        >
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="text-sm font-mono text-primary/60">
+                ECOSYSTEM PARTNERS:
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 flex-1 max-w-4xl">
+                {partners.map((partner, i) => (
+                  <motion.div
+                    key={partner.name}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.4 + i * 0.1 }}
+                  >
+                    <PartnerCard {...partner} />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
         </motion.div>
       </section>
 
-      {/* What are 1Sat Ordinals */}
-      <section className="relative w-full border-t bg-muted/50 py-24">
-        <div className="container mx-auto max-w-7xl px-4">
-          <ScrollReveal>
-            <div className="mx-auto max-w-4xl text-center">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                What are 1Sat Ordinals?
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                A chain of single satoshi output spends, where each owner
-                transfers 1 satoshi by creating a transaction that has a single
-                satoshi output
-              </p>
-            </div>
-          </ScrollReveal>
-
+      {/* Features Section */}
+      <section className="relative py-32 border-t border-primary/20">
+        <div className="container mx-auto px-4">
           <motion.div
-            className="mx-auto mt-16 grid max-w-5xl gap-8 sm:grid-cols-3"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="max-w-6xl mx-auto"
           >
-            {[
-              {
-                icon: FileText,
-                title: "Ordinals (NFTs)",
-                description:
-                  "Unique tokens for art and collectibles where each token is distinct",
-              },
-              {
-                icon: DollarSign,
-                title: "BSV20",
-                description:
-                  "Fungible tokens for currencies and tradable assets",
-              },
-              {
-                icon: Code2,
-                title: "BSV21",
-                description: "Enhanced fungible tokens with advanced features",
-              },
-            ].map((item) => (
-              <motion.div
-                key={item.title}
-                variants={itemVariants}
-                whileHover="hover"
-                initial="rest"
-                className="rounded-lg border bg-card p-6 text-center cursor-pointer"
-              >
+            <div className="grid md:grid-cols-3 gap-12">
+              {[
+                {
+                  number: "01",
+                  title: "Single Transaction Minting",
+                  description: "No commit-reveal required. Mint in one transaction.",
+                },
+                {
+                  number: "02",
+                  title: "50MB+ Payloads",
+                  description: "Support for massive inscriptions and rich media.",
+                },
+                {
+                  number: "03",
+                  title: "Ultra Low Fees",
+                  description: "~$0.0001 per transaction on the BSV blockchain.",
+                },
+              ].map((feature, i) => (
                 <motion.div
-                  className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10"
-                  variants={cardHoverVariants}
+                  key={feature.number}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.2 }}
+                  className="relative"
                 >
-                  <item.icon className="h-6 w-6 text-primary" />
+                  <GraphicBlock className="border border-primary/20 bg-black/40 backdrop-blur-sm p-8 h-full">
+                    <div className="text-primary/40 font-mono text-sm mb-4">
+                      {feature.number}
+                    </div>
+                    <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
+                    <p className="text-gray-400 leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </GraphicBlock>
                 </motion.div>
-                <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {item.description}
-                </p>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Key Differentiators */}
-      <section className="relative w-full py-24">
-        <div className="container mx-auto max-w-7xl px-4">
-          <ScrollReveal>
-            <div className="mx-auto max-w-4xl text-center">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Why &quot;One Satoshi&quot;?
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                Because it doesn&apos;t require dust
-              </p>
-            </div>
-          </ScrollReveal>
-
+      {/* CTA Section */}
+      <section className="relative py-32 border-t border-primary/20">
+        <div className="container mx-auto px-4">
           <motion.div
-            className="mx-auto mt-16 grid max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-3"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center"
           >
-            {[
-              {
-                icon: FileText,
-                title: "Payload Size",
-                description: "50MB+ inscriptions supported natively",
-              },
-              {
-                icon: Zap,
-                title: "Single Transaction",
-                description: "Mint in one transaction, not commit and reveal",
-              },
-              {
-                icon: DollarSign,
-                title: "Low Cost",
-                description: "~$0.0001 per transaction on BSV",
-              },
-              {
-                icon: Lock,
-                title: "Ordinal Locking",
-                description: "Advanced locking mechanisms for security",
-              },
-              {
-                icon: Code2,
-                title: "Fully Scriptable",
-                description: "Native Bitcoin Script support",
-              },
-              {
-                icon: Gauge,
-                title: "Scalable",
-                description: "Built on BSV's unbounded blockchain",
-              },
-            ].map((item) => (
-              <motion.div
-                key={item.title}
-                variants={itemVariants}
-                whileHover="hover"
-                initial="rest"
-                className="rounded-lg border bg-card p-6 cursor-pointer"
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-8">
+              READY TO BUILD?
+            </h2>
+            <p className="text-xl text-gray-400 mb-12">
+              Join the BSV tokenization revolution
+            </p>
+            <div className="flex flex-wrap justify-center gap-6">
+              <Link
+                href="https://docs.1satordinals.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative inline-flex items-center gap-3 bg-primary px-8 py-4 font-bold text-black hover:bg-primary/90 transition-all duration-300"
               >
-                <motion.div variants={cardHoverVariants}>
-                  <item.icon className="h-8 w-8 text-primary" />
-                  <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    {item.description}
-                  </p>
-                </motion.div>
-              </motion.div>
-            ))}
+                <span>READ THE DOCS</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
-
-      {/* Community Showcase */}
-      <section className="relative w-full border-t bg-muted/50 py-24">
-        <div className="container mx-auto max-w-7xl px-4">
-          <ScrollReveal>
-            <div className="mx-auto max-w-4xl text-center">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                The cool kids
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                An open-protocol ecosystem with rapid development, unexpected
-                turns, and emergent interoperability
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <motion.div
-            className="mx-auto mt-16 max-w-5xl"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <motion.div
-                variants={itemVariants}
-                whileHover={{ scale: 1.02, y: -4 }}
-                className="group relative overflow-hidden rounded-lg border bg-card hover:shadow-lg transition-shadow"
-              >
-                <Image
-                  src="/images/glow-ordi.png"
-                  alt="1Sat Ordinal Example"
-                  width={400}
-                  height={300}
-                  className="aspect-video object-cover"
-                />
-              </motion.div>
-              <motion.div
-                variants={itemVariants}
-                whileHover={{ scale: 1.02, y: -4 }}
-                className="group relative overflow-hidden rounded-lg border bg-card hover:shadow-lg transition-shadow"
-              >
-                <Image
-                  src="/images/scrypt-1sat.png"
-                  alt="sCrypt 1Sat Integration"
-                  width={400}
-                  height={300}
-                  className="aspect-video object-cover"
-                />
-              </motion.div>
-              <motion.div
-                variants={itemVariants}
-                className="flex items-center justify-center rounded-lg border bg-card p-8"
-              >
-                <p className="text-center text-sm text-muted-foreground">
-                  More projects coming soon
-                </p>
-              </motion.div>
-            </div>
-
-            <motion.div
-              className="mt-10 flex items-center justify-center gap-x-6"
-              variants={itemVariants}
-            >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link
-                  href="/projects"
-                  className="rounded-md border border-primary px-6 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-                >
-                  Browse Projects
-                </Link>
-              </motion.div>
-              <motion.div whileHover={{ x: 5 }}>
-                <a
-                  href="https://docs.1satordinals.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-semibold leading-6 flex items-center gap-2 hover:text-primary transition-colors"
-                >
-                  Build Something <ArrowRight className="h-4 w-4" />
-                </a>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-    </>
+    </div>
   );
 }
