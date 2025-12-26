@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ThreeBackground } from "@/components/three-background";
 
 // Marquee Component
 function Marquee({ text, reverse = false }: { text: string; reverse?: boolean }) {
@@ -182,6 +183,12 @@ export default function Home() {
         }}
       />
 
+      {/* Vertical Architectural Borders */}
+      <div className="fixed inset-y-0 left-[10%] w-px bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
+      <div className="fixed inset-y-0 left-[30%] w-px bg-gradient-to-b from-transparent via-primary/15 to-transparent" />
+      <div className="fixed inset-y-0 right-[30%] w-px bg-gradient-to-b from-transparent via-primary/15 to-transparent" />
+      <div className="fixed inset-y-0 right-[10%] w-px bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
+
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col">
         {/* Decorative Squares */}
@@ -189,9 +196,12 @@ export default function Home() {
         <DecorSquare className="top-40 right-20 opacity-20" />
         <DecorSquare className="bottom-40 left-1/4 opacity-25" />
 
-        {/* Top Marquee */}
+        {/* Top Marquee with Three.js Background */}
         <div className="relative overflow-hidden border-y border-primary/20">
-          <Marquee text="BUILDING ON BITCOIN" />
+          <ThreeBackground />
+          <div className="relative z-10">
+            <Marquee text="BUILDING ON BITCOIN" />
+          </div>
         </div>
 
         {/* Main Hero Content */}
@@ -318,6 +328,9 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* Horizontal Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
       {/* Features Section */}
       <section className="relative py-32 border-t border-primary/20">
         <div className="container mx-auto px-4">
@@ -369,6 +382,9 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* Horizontal Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
       {/* CTA Section */}
       <section className="relative py-32 border-t border-primary/20">
