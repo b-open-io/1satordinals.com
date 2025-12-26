@@ -11,19 +11,22 @@ export function ThreeBackground() {
 
     // Scene setup
     const scene = new THREE.Scene();
+    const height = Math.min(window.innerHeight * 0.7, 800); // 70vh max
     const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / 600,
+      50, // Tighter FOV for less distortion
+      window.innerWidth / height,
       0.1,
       1000
     );
-    camera.position.z = 30;
+    // Low-angle camera - looking slightly up at model for imposing feel
+    camera.position.set(0, -8, 25);
+    camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true
     });
-    renderer.setSize(window.innerWidth, 600);
+    renderer.setSize(window.innerWidth, height);
     renderer.setClearColor(0x000000, 0);
     containerRef.current.appendChild(renderer.domElement);
 
@@ -35,42 +38,56 @@ export function ThreeBackground() {
     pointLight.position.set(10, 10, 10);
     scene.add(pointLight);
 
-    // Primary central shape - large icosahedron (focal point)
-    const geometry1 = new THREE.IcosahedronGeometry(12, 1);
-    const wireframe1 = new THREE.WireframeGeometry(geometry1);
-    const material1 = new THREE.LineBasicMaterial({
+    // Single large prominent model - Bitcoin/Data Node inspired
+    // Main structure - large dodecahedron (represents blockchain node)
+    const mainGeometry = new THREE.DodecahedronGeometry(18, 0);
+    const wireframeMaterial = new THREE.LineBasicMaterial({
       color: 0xff7120,
       transparent: true,
-      opacity: 0.15,
+      opacity: 0.6,
+      linewidth: 2,
     });
-    const mesh1 = new THREE.LineSegments(wireframe1, material1);
-    mesh1.position.set(0, 0, -5); // Centered, slightly back
-    scene.add(mesh1);
+    const mainWireframe = new THREE.WireframeGeometry(mainGeometry);
+    const mainMesh = new THREE.LineSegments(mainWireframe, wireframeMaterial);
+    mainMesh.position.set(0, 0, 0);
+    scene.add(mainMesh);
 
-    // Secondary shape - nested smaller icosahedron for depth
-    const geometry2 = new THREE.IcosahedronGeometry(6, 0);
-    const wireframe2 = new THREE.WireframeGeometry(geometry2);
-    const material2 = new THREE.LineBasicMaterial({
+    // Inner core - glowing icosahedron (represents satoshi/data)
+    const coreGeometry = new THREE.IcosahedronGeometry(8, 1);
+    const coreMaterial = new THREE.MeshStandardMaterial({
+      color: 0xff7120,
+      emissive: 0xff7120,
+      emissiveIntensity: 0.5,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.8,
+    });
+    const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
+    coreMesh.position.set(0, 0, 0);
+    scene.add(coreMesh);
+
+    // Orbital rings - represent transaction flow
+    const ring1Geometry = new THREE.TorusGeometry(22, 0.3, 16, 100);
+    const ring1Material = new THREE.LineBasicMaterial({
       color: 0xff7120,
       transparent: true,
       opacity: 0.3,
     });
-    const mesh2 = new THREE.LineSegments(wireframe2, material2);
-    mesh2.position.set(0, 0, 0); // Centered, front layer
-    scene.add(mesh2);
+    const ring1Wireframe = new THREE.WireframeGeometry(ring1Geometry);
+    const ring1 = new THREE.LineSegments(ring1Wireframe, ring1Material);
+    ring1.rotation.x = Math.PI / 2.5;
+    scene.add(ring1);
 
-    // Accent shape - torus ring around composition
-    const geometry3 = new THREE.TorusGeometry(18, 0.5, 16, 64);
-    const wireframe3 = new THREE.WireframeGeometry(geometry3);
-    const material3 = new THREE.LineBasicMaterial({
+    const ring2Geometry = new THREE.TorusGeometry(22, 0.3, 16, 100);
+    const ring2Material = new THREE.LineBasicMaterial({
       color: 0xff7120,
       transparent: true,
-      opacity: 0.1,
+      opacity: 0.3,
     });
-    const mesh3 = new THREE.LineSegments(wireframe3, material3);
-    mesh3.position.set(0, 0, -10); // Behind, creates boundary
-    mesh3.rotation.x = Math.PI / 3; // Angled for perspective
-    scene.add(mesh3);
+    const ring2Wireframe = new THREE.WireframeGeometry(ring2Geometry);
+    const ring2 = new THREE.LineSegments(ring2Wireframe, ring2Material);
+    ring2.rotation.y = Math.PI / 2.5;
+    scene.add(ring2);
 
     // Particle field for depth
     const particlesGeometry = new THREE.BufferGeometry();
@@ -98,22 +115,22 @@ export function ThreeBackground() {
     const particles = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particles);
 
-    // Animation - cohesive unified rotation
+    // Animation - slow, commanding rotation
     let animationId: number;
     const animate = () => {
       animationId = requestAnimationFrame(animate);
 
-      // All shapes rotate in same direction for cohesion
-      // Primary shape - slowest rotation (focal point stability)
-      mesh1.rotation.y += 0.002;
-      mesh1.rotation.x += 0.001;
+      // Main node - slow, stable rotation (focal point)
+      mainMesh.rotation.y += 0.002;
+      mainMesh.rotation.x += 0.001;
 
-      // Secondary shape - medium speed (creates depth parallax)
-      mesh2.rotation.y += 0.004;
-      mesh2.rotation.x += 0.002;
+      // Inner core - slightly faster for depth effect
+      coreMesh.rotation.y += 0.004;
+      coreMesh.rotation.x += 0.002;
 
-      // Torus ring - slow elegant rotation
-      mesh3.rotation.z += 0.001;
+      // Orbital rings - represent data flow
+      ring1.rotation.z += 0.003;
+      ring2.rotation.z -= 0.002;
 
       // Subtle particle drift
       particles.rotation.y += 0.0003;
@@ -124,9 +141,10 @@ export function ThreeBackground() {
 
     // Handle resize
     const handleResize = () => {
-      camera.aspect = window.innerWidth / 600;
+      const newHeight = Math.min(window.innerHeight * 0.7, 800);
+      camera.aspect = window.innerWidth / newHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, 600);
+      renderer.setSize(window.innerWidth, newHeight);
     };
     window.addEventListener("resize", handleResize);
 
@@ -144,7 +162,7 @@ export function ThreeBackground() {
   return (
     <div
       ref={containerRef}
-      className="absolute top-0 left-0 w-full h-[600px] pointer-events-none"
+      className="absolute top-0 left-0 w-full h-full pointer-events-none flex items-center justify-center"
       style={{ zIndex: 1 }}
     />
   );
