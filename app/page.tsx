@@ -39,32 +39,44 @@ function Marquee({ text, reverse = false }: { text: string; reverse?: boolean })
   );
 }
 
-// Decorative Square Component
+// Decorative Square Component with angled corners
 function DecorSquare({ className }: { className?: string }) {
   return (
-    <div
-      className={`absolute w-24 h-24 border-2 border-primary/20 ${className}`}
-      style={{
-        clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-      }}
-    />
-  );
-}
-
-// Corner Decoration Component
-function CornerDecor({ className }: { className?: string }) {
-  return (
-    <div className={`absolute w-3 h-3 ${className}`}>
-      <div className="absolute top-0 left-0 w-full h-0.5 bg-primary" />
-      <div className="absolute top-0 left-0 w-0.5 h-full bg-primary" />
+    <div className={`absolute w-32 h-32 ${className}`}>
+      <svg viewBox="0 0 100 100" className="w-full h-full text-primary/20">
+        <path
+          d="M 10,0 L 90,0 L 100,10 L 100,90 L 90,100 L 10,100 L 0,90 L 0,10 Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          fill="none"
+        />
+      </svg>
     </div>
   );
 }
 
-// Graphic Block Component
+// Angled Corner Decoration Component (ChainGPT style)
+function CornerDecor({ className }: { className?: string }) {
+  return (
+    <div className={`absolute w-4 h-4 ${className}`}>
+      {/* Create angled corner with diagonal cut */}
+      <svg viewBox="0 0 16 16" className="w-full h-full text-primary">
+        <path
+          d="M 0,4 L 0,0 L 4,0"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          fill="none"
+          strokeLinecap="square"
+        />
+      </svg>
+    </div>
+  );
+}
+
+// Graphic Block Component with architectural angled borders
 function GraphicBlock({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative ${className}`} style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
       <CornerDecor className="top-0 left-0" />
       <CornerDecor className="top-0 right-0 rotate-90" />
       <CornerDecor className="bottom-0 right-0 rotate-180" />
