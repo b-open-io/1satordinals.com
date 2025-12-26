@@ -35,40 +35,41 @@ export function ThreeBackground() {
     pointLight.position.set(10, 10, 10);
     scene.add(pointLight);
 
-    // Create geometric shapes - wireframe style
-    const geometry1 = new THREE.IcosahedronGeometry(8, 0);
+    // Primary central shape - large icosahedron (focal point)
+    const geometry1 = new THREE.IcosahedronGeometry(12, 1);
     const wireframe1 = new THREE.WireframeGeometry(geometry1);
     const material1 = new THREE.LineBasicMaterial({
       color: 0xff7120,
       transparent: true,
-      opacity: 0.2,
+      opacity: 0.15,
     });
     const mesh1 = new THREE.LineSegments(wireframe1, material1);
-    mesh1.position.set(-15, 0, 0);
+    mesh1.position.set(0, 0, -5); // Centered, slightly back
     scene.add(mesh1);
 
-    // Second geometric shape - octahedron
-    const geometry2 = new THREE.OctahedronGeometry(6, 0);
+    // Secondary shape - nested smaller icosahedron for depth
+    const geometry2 = new THREE.IcosahedronGeometry(6, 0);
     const wireframe2 = new THREE.WireframeGeometry(geometry2);
     const material2 = new THREE.LineBasicMaterial({
       color: 0xff7120,
       transparent: true,
-      opacity: 0.25,
+      opacity: 0.3,
     });
     const mesh2 = new THREE.LineSegments(wireframe2, material2);
-    mesh2.position.set(15, 0, 0);
+    mesh2.position.set(0, 0, 0); // Centered, front layer
     scene.add(mesh2);
 
-    // Third shape - torus for variety
-    const geometry3 = new THREE.TorusGeometry(5, 1.5, 16, 32);
+    // Accent shape - torus ring around composition
+    const geometry3 = new THREE.TorusGeometry(18, 0.5, 16, 64);
     const wireframe3 = new THREE.WireframeGeometry(geometry3);
     const material3 = new THREE.LineBasicMaterial({
       color: 0xff7120,
       transparent: true,
-      opacity: 0.15,
+      opacity: 0.1,
     });
     const mesh3 = new THREE.LineSegments(wireframe3, material3);
-    mesh3.position.set(0, 0, -10);
+    mesh3.position.set(0, 0, -10); // Behind, creates boundary
+    mesh3.rotation.x = Math.PI / 3; // Angled for perspective
     scene.add(mesh3);
 
     // Particle field for depth
@@ -97,23 +98,25 @@ export function ThreeBackground() {
     const particles = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particles);
 
-    // Animation
+    // Animation - cohesive unified rotation
     let animationId: number;
     const animate = () => {
       animationId = requestAnimationFrame(animate);
 
-      // Rotate geometric shapes
-      mesh1.rotation.x += 0.003;
-      mesh1.rotation.y += 0.005;
+      // All shapes rotate in same direction for cohesion
+      // Primary shape - slowest rotation (focal point stability)
+      mesh1.rotation.y += 0.002;
+      mesh1.rotation.x += 0.001;
 
-      mesh2.rotation.x += 0.004;
-      mesh2.rotation.y += 0.003;
+      // Secondary shape - medium speed (creates depth parallax)
+      mesh2.rotation.y += 0.004;
+      mesh2.rotation.x += 0.002;
 
-      mesh3.rotation.x += 0.002;
-      mesh3.rotation.z += 0.004;
+      // Torus ring - slow elegant rotation
+      mesh3.rotation.z += 0.001;
 
-      // Subtle particle rotation
-      particles.rotation.y += 0.0005;
+      // Subtle particle drift
+      particles.rotation.y += 0.0003;
 
       renderer.render(scene, camera);
     };
