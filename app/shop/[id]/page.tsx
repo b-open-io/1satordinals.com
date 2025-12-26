@@ -73,11 +73,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
     <div className="container mx-auto px-4 py-12 lg:py-16 max-w-7xl">
       <div className="mb-8">
         <Link
-          href={`/shop/${product.category}`}
+          href="/shop"
           className="group inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
         >
           <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-          Back to {product.category}
+          Back to Shop
         </Link>
       </div>
 
