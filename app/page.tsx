@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ThreeBackground } from "@/components/three-background";
+import { CSSBubbles } from "@/components/css-bubbles";
 
 // Marquee Component
 function Marquee({ text, reverse = false }: { text: string; reverse?: boolean }) {
@@ -196,9 +196,9 @@ export default function Home() {
         <DecorSquare className="top-40 right-20 opacity-20" />
         <DecorSquare className="bottom-40 left-1/4 opacity-25" />
 
-        {/* Top Marquee with Three.js Background */}
+        {/* Top Marquee with CSS Bubbles Background */}
         <div className="relative overflow-hidden border-y border-primary/20">
-          <ThreeBackground />
+          <CSSBubbles />
           <div className="relative z-10">
             <Marquee text="BUILDING ON BITCOIN" />
           </div>
