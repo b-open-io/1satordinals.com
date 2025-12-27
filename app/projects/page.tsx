@@ -5,17 +5,6 @@ import { ExternalLink, Code2, ShoppingCart, Gamepad2, Search, Database, FileCode
 import Link from "next/link";
 import Image from "next/image";
 
-export const metadata = {
-  title: "Ecosystem Projects | 1Sat Ordinals",
-  description: "Explore the thriving ecosystem of applications, tools, and platforms built on 1Sat Ordinals protocol",
-  keywords: [
-    "1Sat Ordinals projects",
-    "BSV applications",
-    "ordinals ecosystem",
-    "Bitcoin SV dApps",
-  ],
-};
-
 // Angled Corner Component
 function CornerDecor({ className }: { className?: string }) {
   return (
