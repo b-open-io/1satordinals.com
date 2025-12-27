@@ -79,7 +79,8 @@ export default function BuildingOnBedrockArticle() {
                 In the rapidly evolving world of blockchain technology, there's an underappreciated truth: sometimes the most powerful protocols are the ones that don't change. 1Sat Ordinals embodies this philosophy, following Bitcoin's lead in prioritizing stability and simplicity over constant evolution.
               </ArticleLead>
 
-              <ArticleH2 id="the-protocol-stability-paradox">The Protocol Stability Paradox</ArticleH2>
+              <section id="the-protocol-stability-paradox">
+                <ArticleH2>The Protocol Stability Paradox</ArticleH2>
 
               <ArticleP>
                 Here's a paradox that every protocol designer faces: while protocols technically <em className="text-primary">can</em> change, the best ones rarely <em className="text-primary">should</em>. This isn't about immutability in the strictest sense—it's about understanding that when you're dealing with on-chain data, every new version effectively creates a new protocol.
@@ -104,10 +105,12 @@ export default function BuildingOnBedrockArticle() {
                   <li>Developer cognitive load increases exponentially</li>
                 </ul>
               </KeyTakeaway>
+              </section>
 
               <SectionDivider />
 
-              <ArticleH2 id="simple-composable-vs-complex-monolithic">Simple + Composable &gt; Complex + Monolithic</ArticleH2>
+              <section id="simple-composable-vs-complex-monolithic">
+                <ArticleH2>Simple + Composable &gt; Complex + Monolithic</ArticleH2>
 
               <ArticleP>
                 The Unix philosophy teaches us to "do one thing and do it well." This principle, which has guided software development for decades, applies perfectly to blockchain protocols. When a protocol is simple and focused, it becomes a reliable building block for innovation rather than a constraint on it.
@@ -142,10 +145,12 @@ export default function BuildingOnBedrockArticle() {
               <ArticleP>
                 Complex, monolithic protocols, on the other hand, tend to accumulate technical debt. Every new feature adds potential failure points. Every optimization introduces compatibility concerns. The protocol becomes a tangled web of interdependencies, where changing one aspect risks breaking others.
               </ArticleP>
+              </section>
 
               <SectionDivider />
 
-              <ArticleH2 id="the-1sat-ordinals-approach">The 1Sat Ordinals Approach</ArticleH2>
+              <section id="the-1sat-ordinals-approach">
+                <ArticleH2>The 1Sat Ordinals Approach</ArticleH2>
 
               <ArticleP>
                 1Sat Ordinals exemplifies this philosophy of simplicity and stability while offering remarkable flexibility. At its core, the protocol is elegantly simple: a chain of single satoshi output spends. But this simplicity doesn't mean limitation—quite the opposite.
@@ -195,10 +200,12 @@ ordinal.applyScript(customLogic);`}
               <ArticleP>
                 MintFlow.me demonstrates another approach, creating a streamlined NFT minting platform that abstracts away complexity for end users while leveraging the protocol's simplicity for reliability and performance. Meanwhile, Alchema.world pushes boundaries in a different direction, building a fully on-chain multiplayer role-playing game.
               </ArticleP>
+              </section>
 
               <SectionDivider />
 
-              <ArticleH2 id="why-this-matters-for-builders">Why This Matters for Builders</ArticleH2>
+              <section id="why-this-matters-for-builders">
+                <ArticleH2>Why This Matters for Builders</ArticleH2>
 
               <ArticleP>
                 For developers evaluating blockchain protocols, the stability and simplicity of 1Sat Ordinals translates into tangible benefits:
@@ -221,10 +228,12 @@ ordinal.applyScript(customLogic);`}
               <PullQuote>
                 There's a reason experienced developers often choose "boring" technology for critical systems. Boring means battle-tested. Boring means predictable.
               </PullQuote>
+              </section>
 
               <SectionDivider />
 
-              <ArticleH2 id="the-power-of-boring-technology">The Power of "Boring" Technology</ArticleH2>
+              <section id="the-power-of-boring-technology">
+                <ArticleH2>The Power of "Boring" Technology</ArticleH2>
 
               <ArticleP>
                 1Sat Ordinals is, in the best sense, boring technology. It doesn't promise revolutionary new features every quarter. It doesn't require constant learning of new standards. It simply provides a stable, reliable foundation for building applications that can scale and endure.
@@ -244,6 +253,7 @@ ordinal.applyScript(customLogic);`}
               <ArticleP>
                 The future of blockchain development doesn't belong to the protocols with the most features or the fastest evolution. It belongs to those that provide stable bedrock upon which developers can build with confidence. 1Sat Ordinals, following in Bitcoin's footsteps, offers exactly that: a simple, stable, and composable protocol that gets out of the way and lets developers do what they do best—create amazing applications.
               </ArticleP>
+              </section>
             </div>
 
             {/* Sidebar */}
