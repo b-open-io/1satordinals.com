@@ -6,6 +6,7 @@ import { ArticleLayout } from "@/components/article/article-layout";
 import { ArticleTitle, ArticleLead, ArticleH2, ArticleH3, ArticleP } from "@/components/article/article-typography";
 import { PullQuote, HighlightBox, KeyTakeaway, CodeComparison, SectionDivider, FeatureCard } from "@/components/article/article-components";
 import { TableOfContents } from "@/components/article/table-of-contents";
+import { ArticleShare } from "@/components/article/article-share";
 
 export const metadata: Metadata = {
   title: "Building on Bedrock: The Case for Simple, Stable Protocols | 1Sat Ordinals",
@@ -64,6 +65,11 @@ export default function BuildingOnBedrockArticle() {
                 <Hash className="w-4 h-4 text-primary" />
                 <span className="text-primary font-mono">Technical Deep Dive</span>
               </span>
+            </div>
+
+            {/* Share buttons */}
+            <div className="mt-6 pt-6 border-t border-gray-800">
+              <ArticleShare title="Building on Bedrock: The Case for Simple, Stable Protocols" />
             </div>
           </div>
         </div>

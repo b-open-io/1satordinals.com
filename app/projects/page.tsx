@@ -104,7 +104,7 @@ const projects = [
   {
     name: "Alchema.world",
     description: "World of Alchema - decentralized multiplayer online role-playing game",
-    url: "https://alchema.world",
+    url: "https://www.alchema.world",
     category: "Gaming",
     featured: true,
   },
@@ -130,7 +130,7 @@ const projects = [
   {
     name: "BubbleMint",
     description: "User-friendly token creation and minting platform",
-    url: "https://bubblemint.io",
+    url: "https://www.bubblemint.io",
     category: "Tools",
   },
   {
