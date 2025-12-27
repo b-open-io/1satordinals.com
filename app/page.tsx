@@ -221,24 +221,24 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col">
         {/* Hero Background Image */}
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
           <Image
             src="/images/glowOrdi.png"
             alt="1Sat Ordinals Glow"
             width={1920}
             height={1080}
-            className="absolute right-0 top-1/2 -translate-y-1/2 w-[60%] max-w-4xl opacity-30 animate-pulse"
+            className="absolute right-0 top-1/2 -translate-y-1/2 w-[60%] max-w-4xl opacity-20 animate-pulse"
             priority
           />
         </div>
 
         {/* Decorative Squares */}
-        <DecorSquare className="top-20 left-10 opacity-30" />
-        <DecorSquare className="top-40 right-20 opacity-20" />
-        <DecorSquare className="bottom-40 left-1/4 opacity-25" />
+        <DecorSquare className="top-20 left-10 opacity-30 z-10" />
+        <DecorSquare className="top-40 right-20 opacity-20 z-10" />
+        <DecorSquare className="bottom-40 left-1/4 opacity-25 z-10" />
 
         {/* Top Marquee with Three.js Background */}
-        <div className="relative overflow-hidden border-y border-primary/20">
+        <div className="relative overflow-hidden border-y border-primary/20 z-10">
           <ThreeBackground />
           <div className="relative z-10">
             <Marquee text="BUILDING ON BITCOIN" />
@@ -246,7 +246,7 @@ export default function Home() {
         </div>
 
         {/* Main Hero Content */}
-        <div className="flex-1 container mx-auto px-4 flex flex-col justify-center">
+        <div className="flex-1 container mx-auto px-4 flex flex-col justify-center relative z-10">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -344,14 +344,14 @@ export default function Home() {
         </div>
 
         {/* Bottom Marquee */}
-        <div className="relative overflow-hidden border-t border-primary/20">
+        <div className="relative overflow-hidden border-t border-primary/20 z-10">
           <Marquee text="TOKENIZATION REIMAGINED" reverse />
         </div>
 
         {/* Partners Section */}
         <motion.div
           style={{ opacity }}
-          className="border-t border-primary/20 py-16 bg-black/50"
+          className="border-t border-primary/20 py-16 bg-black/50 relative z-10"
         >
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
