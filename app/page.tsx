@@ -185,8 +185,8 @@ export default function Home() {
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
   const partners = [
-    { name: "panda-wallet", displayName: "PANDA" },
     { name: "yours-wallet", displayName: "YOURS" },
+    { name: "1sat-wallet", displayName: "1SAT" },
     { name: "1sat-market", displayName: "MARKET" },
     { name: "scrypt", displayName: "SCRYPT" },
     { name: "gorillapool", displayName: "GORILLA" },
