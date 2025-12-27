@@ -104,7 +104,7 @@ export default function Home() {
               </motion.div>
               <motion.div whileHover={{ x: 5 }}>
                 <a
-                  href="https://discord.gg/vqj6wpKeEn"
+                  href="https://discord.gg/3jsTXCzmv5"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm font-semibold leading-6 flex items-center gap-2 hover:text-primary transition-colors"

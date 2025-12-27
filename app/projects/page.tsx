@@ -80,7 +80,7 @@ const featuredProjects = [
   {
     name: "1Sat Ordinals Gallery",
     description: "Explore unique digital art and collectibles powered by 1Sat Ordinals",
-    image: "/images/glow-ordi.png",
+    image: "/images/glowOrdi.png",
     link: "https://1sat.market",
     category: "Marketplace",
   },
@@ -389,7 +389,7 @@ export default function ProjectsPage() {
               </Link>
 
               <a
-                href="https://discord.gg/vqj6wpKeEn"
+                href="https://discord.gg/3jsTXCzmv5"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-3 border-2 border-primary px-8 py-4 font-bold text-primary hover:bg-primary hover:text-black transition-all duration-300"

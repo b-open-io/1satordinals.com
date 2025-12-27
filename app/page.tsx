@@ -11,6 +11,8 @@ import { ComparisonTable } from "@/components/comparison-table";
 import { EcosystemStats } from "@/components/ecosystem-stats";
 import { SuccessStories } from "@/components/success-stories";
 import { DeveloperQuickstart } from "@/components/developer-quickstart";
+import { NFTCarousel } from "@/components/nft-carousel";
+import Image from "next/image";
 
 // Marquee Component
 function Marquee({ text, reverse = false }: { text: string; reverse?: boolean }) {
@@ -218,6 +220,18 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col">
+        {/* Hero Background Image */}
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src="/images/glowOrdi.png"
+            alt="1Sat Ordinals Glow"
+            width={1920}
+            height={1080}
+            className="absolute right-0 top-1/2 -translate-y-1/2 w-[60%] max-w-4xl opacity-30 animate-pulse"
+            priority
+          />
+        </div>
+
         {/* Decorative Squares */}
         <DecorSquare className="top-20 left-10 opacity-30" />
         <DecorSquare className="top-40 right-20 opacity-20" />
@@ -456,6 +470,12 @@ export default function Home() {
 
       {/* Success Stories */}
       <SuccessStories />
+
+      {/* Horizontal Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+      {/* NFT Carousel */}
+      <NFTCarousel />
 
       {/* Horizontal Divider */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />

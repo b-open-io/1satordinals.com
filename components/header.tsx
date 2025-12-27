@@ -73,7 +73,7 @@ export function Header() {
             Docs
           </a>
           <a
-            href="https://discord.gg/vqj6wpKeEn"
+            href="https://discord.gg/3jsTXCzmv5"
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
@@ -175,7 +175,7 @@ export function Header() {
               Docs
             </a>
             <a
-              href="https://discord.gg/vqj6wpKeEn"
+              href="https://discord.gg/3jsTXCzmv5"
               target="_blank"
               rel="noopener noreferrer"
               className="block rounded-md bg-primary px-3 py-2 text-base font-medium text-primary-foreground"

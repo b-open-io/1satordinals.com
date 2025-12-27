@@ -83,7 +83,7 @@ export default function DevelopersPage() {
               </a>
 
               <a
-                href="https://discord.gg/vqj6wpKeEn"
+                href="https://discord.gg/3jsTXCzmv5"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group rounded-lg border bg-card p-6 transition-shadow hover:shadow-lg"
@@ -145,7 +145,7 @@ export default function DevelopersPage() {
                 <p className="mt-2 text-muted-foreground">
                   Connect with other developers in{" "}
                   <a
-                    href="https://discord.gg/vqj6wpKeEn"
+                    href="https://discord.gg/3jsTXCzmv5"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary hover:underline"

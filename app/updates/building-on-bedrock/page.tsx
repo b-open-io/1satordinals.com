@@ -313,7 +313,7 @@ ordinal.applyScript(customLogic);`}
                   <Link href="https://twitter.com/1satordinals" className="text-primary hover:text-primary/80 transition-colors">
                     Twitter →
                   </Link>
-                  <Link href="https://discord.gg/vqj6wpKeEn" className="text-primary hover:text-primary/80 transition-colors">
+                  <Link href="https://discord.gg/3jsTXCzmv5" className="text-primary hover:text-primary/80 transition-colors">
                     Discord →
                   </Link>
                   <Link href="https://github.com/1satordinals" className="text-primary hover:text-primary/80 transition-colors">
