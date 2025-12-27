@@ -14,7 +14,12 @@ export const contentType = "image/png";
 // Article data (in production, this would come from your CMS or file system)
 const getArticleData = (slug: string) => {
   // Map of article slugs to metadata
-  const articles = {
+  const articles: Record<string, {
+    title: string;
+    category: string;
+    readTime: string;
+    date: string;
+  }> = {
     "building-on-bedrock": {
       title: "Building on Bedrock: The Case for Simple, Stable Protocols",
       category: "Technical Deep Dive",
