@@ -5,25 +5,25 @@ import { Users, Zap, TrendingUp } from "lucide-react";
 
 const stories = [
   {
-    project: "MNEE Stablecoin",
-    metric: "BSV21 Token",
+    project: "BSV21 Token",
+    metric: "MNEE Stablecoin",
     description: "Stablecoin on BSV using 1Sat BSV21 with custom open-source co-sign script",
     icon: <Users className="w-6 h-6" />,
     stat: "Co-sign secured",
   },
   {
-    project: "GameFi Studios",
-    metric: "100K+ players",
-    description: "Built entire game logic on-chain with Bitcoin Script",
+    project: "MintFlow.me",
+    metric: "NFT Platform",
+    description: "Streamlined NFT minting platform built on 1Sat Ordinals protocol",
     icon: <Zap className="w-6 h-6" />,
-    stat: "<$0.01 per tx",
+    stat: "Instant minting",
   },
   {
-    project: "DataVault",
-    metric: "500TB stored",
-    description: "Enterprise data archival solution using 1Sat Ordinals",
+    project: "Alchema.world",
+    metric: "On-chain DMMORPG",
+    description: "World of Alchema - decentralized multiplayer online role-playing game",
     icon: <TrendingUp className="w-6 h-6" />,
-    stat: "Instant access",
+    stat: "Fully on-chain",
   },
 ];
 
