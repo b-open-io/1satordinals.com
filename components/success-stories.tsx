@@ -5,11 +5,11 @@ import { Users, Zap, TrendingUp } from "lucide-react";
 
 const stories = [
   {
-    project: "ArtChain Gallery",
-    metric: "2M+ NFTs",
-    description: "Migrated from Ethereum, saved 99.9% on minting costs",
+    project: "MNEE Stablecoin",
+    metric: "BSV21 Token",
+    description: "Stablecoin on BSV using 1Sat BSV21 with custom open-source co-sign script",
     icon: <Users className="w-6 h-6" />,
-    stat: "50MB artworks",
+    stat: "Co-sign secured",
   },
   {
     project: "GameFi Studios",
