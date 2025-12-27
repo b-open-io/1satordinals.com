@@ -20,12 +20,12 @@ export const metadata: Metadata = {
 const updates = [
   {
     id: 1,
-    title: "1Sat Ordinals v2.0: Enhanced Smart Contract Support",
-    excerpt: "New release brings advanced Bitcoin Script capabilities, enabling complex DeFi applications and automated token operations on BSV.",
+    title: "Building on Bedrock: The Case for Simple, Stable Protocols",
+    excerpt: "Explore why simple, stable protocols like 1Sat Ordinals provide the best foundation for blockchain development. Learn from Bitcoin's philosophy of protocol stability.",
     date: "2025-12-27",
-    readTime: "3 min read",
-    category: "Protocol Update",
-    slug: "v2-smart-contracts",
+    readTime: "8 min read",
+    category: "Technical Deep Dive",
+    slug: "building-on-bedrock",
   },
   {
     id: 2,
