@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>1Sat Ordinals Updates</title>
+    <description>Latest updates and news from the 1Sat Ordinals protocol - Bitcoin SV token system</description>
+    <link>https://1satordinals.com</link>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Dec 2025 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://1satordinals.com/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>1Sat Ordinals v2.0: Enhanced Smart Contract Support</title>
+      <description>New release brings advanced Bitcoin Script capabilities, enabling complex DeFi applications and automated token operations on BSV.</description>
+      <link>https://1satordinals.com/updates/v2-smart-contracts</link>
+      <pubDate>Fri, 27 Dec 2025 00:00:00 GMT</pubDate>
+      <guid>https://1satordinals.com/updates/v2-smart-contracts</guid>
+      <category>Protocol Update</category>
+    </item>
+
+    <item>
+      <title>50MB File Support Now Live on Mainnet</title>
+      <description>Create massive NFTs and store entire applications on-chain with our expanded file size support, now available for all users.</description>
+      <link>https://1satordinals.com/updates/50mb-file-support</link>
+      <pubDate>Fri, 20 Dec 2025 00:00:00 GMT</pubDate>
+      <guid>https://1satordinals.com/updates/50mb-file-support</guid>
+      <category>Feature Release</category>
+    </item>
+
+    <item>
+      <title>Partnership with Major BSV Wallets</title>
+      <description>1Sat Ordinals is now natively supported in HandCash, MoneyButton, and ElectrumSV, making token management easier than ever.</description>
+      <link>https://1satordinals.com/updates/wallet-partnerships</link>
+      <pubDate>Sun, 15 Dec 2025 00:00:00 GMT</pubDate>
+      <guid>https://1satordinals.com/updates/wallet-partnerships</guid>
+      <category>Ecosystem</category>
+    </item>
+  </channel>
+</rss>

@@ -1,5 +1,6 @@
 import { Book, Code2, Github, MessageSquare } from "lucide-react";
 import Link from "next/link";
+import { Breadcrumb } from "@/components/breadcrumb";
 
 export const metadata = {
   title: "Developers | 1Sat Ordinals",
@@ -12,6 +13,7 @@ export default function DevelopersPage() {
       {/* Hero */}
       <section className="w-full py-16 md:py-24">
         <div className="container mx-auto max-w-7xl px-4">
+          <Breadcrumb items={[{ label: "Developers" }]} />
           <div className="mx-auto max-w-4xl text-center">
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
               Build on 1Sat Ordinals

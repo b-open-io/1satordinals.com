@@ -43,6 +43,9 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://1satordinals.com",
+    types: {
+      "application/rss+xml": "https://1satordinals.com/feed.xml",
+    },
   },
   authors: [{ name: "1Sat Ordinals Protocol" }],
   openGraph: {

@@ -1,5 +1,6 @@
 import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
+import { Breadcrumb } from "@/components/breadcrumb";
 
 export const metadata = {
   title: "Protocol Documentation | 1Sat Ordinals - Bitcoin SV Token System",
@@ -20,6 +21,7 @@ export default function ProtocolPage() {
       {/* Hero */}
       <section className="w-full py-16 md:py-24">
         <div className="container mx-auto max-w-7xl px-4">
+          <Breadcrumb items={[{ label: "Protocol" }]} />
           <div className="mx-auto max-w-4xl text-center">
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
               The 1Sat Ordinals Protocol

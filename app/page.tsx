@@ -8,6 +8,8 @@ import { ThreeBackground } from "@/components/three-background";
 import { FAQSection } from "@/components/faq-section";
 import { QuickFacts } from "@/components/quick-facts";
 import { ComparisonTable } from "@/components/comparison-table";
+import { EcosystemStats } from "@/components/ecosystem-stats";
+import { SuccessStories } from "@/components/success-stories";
 
 // Marquee Component
 function Marquee({ text, reverse = false }: { text: string; reverse?: boolean }) {
@@ -91,13 +93,33 @@ function GraphicBlock({ children, className }: { children: React.ReactNode; clas
 }
 
 // Partner Card Component
-function PartnerCard({ name, logo }: { name: string; logo: string }) {
+function PartnerCard({ name, displayName }: { name: string; displayName: string }) {
   return (
     <div className="relative group">
-      <GraphicBlock className="border border-primary/20 bg-black/40 backdrop-blur-sm p-8 hover:border-primary/60 transition-all duration-300">
-        <div className="flex flex-col items-center gap-4">
-          <div className="text-4xl">{logo}</div>
-          <div className="text-sm font-mono text-primary">{name}</div>
+      <GraphicBlock className="border border-primary/20 bg-black/40 backdrop-blur-sm p-6 hover:border-primary/60 transition-all duration-300 h-full group-hover:rotate-1 transform">
+        {/* Corner accent elements */}
+        <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-primary/30 group-hover:border-primary/80 transition-colors" />
+        <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-primary/30 group-hover:border-primary/80 transition-colors" />
+        <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-primary/30 group-hover:border-primary/80 transition-colors" />
+        <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-primary/30 group-hover:border-primary/80 transition-colors" />
+
+        <div className="flex flex-col items-center justify-center h-24">
+          {/* Stylized text logo */}
+          <div className="relative">
+            <div className="text-2xl font-black tracking-tight text-white/80 group-hover:text-primary transition-colors">
+              {displayName.split('').map((char, i) => (
+                <span key={i} className="inline-block group-hover:animate-pulse" style={{ animationDelay: `${i * 100}ms` }}>
+                  {char}
+                </span>
+              ))}
+            </div>
+            {/* Decorative geometric accent */}
+            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1">
+              <div className="w-2 h-[2px] bg-primary/50 group-hover:w-4 transition-all" />
+              <div className="w-1 h-1 rotate-45 bg-primary/30" />
+              <div className="w-2 h-[2px] bg-primary/50 group-hover:w-4 transition-all" />
+            </div>
+          </div>
         </div>
       </GraphicBlock>
     </div>
@@ -162,10 +184,11 @@ export default function Home() {
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
   const partners = [
-    { name: "Panda Wallet", logo: "🐼" },
-    { name: "Yours Wallet", logo: "💳" },
-    { name: "1Sat Market", logo: "🏪" },
-    { name: "sCrypt", logo: "🔐" },
+    { name: "panda-wallet", displayName: "PANDA" },
+    { name: "yours-wallet", displayName: "YOURS" },
+    { name: "1sat-market", displayName: "MARKET" },
+    { name: "scrypt", displayName: "SCRYPT" },
+    { name: "gorillapool", displayName: "GORILLA" },
   ];
 
   if (isLoading) {
@@ -273,6 +296,13 @@ export default function Home() {
               >
                 <span>START BUILDING</span>
               </Link>
+
+              <Link
+                href="/updates"
+                className="group relative inline-flex items-center gap-3 border-2 border-gray-600 px-8 py-4 font-bold text-gray-400 hover:border-primary hover:text-primary transition-all duration-300"
+              >
+                <span>LATEST UPDATES</span>
+              </Link>
             </motion.div>
 
             {/* Features Strip */}
@@ -306,21 +336,40 @@ export default function Home() {
         {/* Partners Section */}
         <motion.div
           style={{ opacity }}
-          className="border-t border-primary/20 py-12"
+          className="border-t border-primary/20 py-16 bg-black/50"
         >
           <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="text-sm font-mono text-primary/60">
-                ECOSYSTEM PARTNERS:
+            <div className="max-w-6xl mx-auto">
+              {/* Section Header */}
+              <div className="text-center mb-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.3 }}
+                  className="inline-block mb-4"
+                >
+                  <div className="text-xs font-mono text-primary/60 tracking-[0.3em] uppercase">
+                    Trusted By Leading Projects
+                  </div>
+                </motion.div>
+                <motion.h3
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.4 }}
+                  className="text-3xl font-black tracking-tight"
+                >
+                  ECOSYSTEM <span className="text-primary">PARTNERS</span>
+                </motion.h3>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 flex-1 max-w-4xl">
+              {/* Partners Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 {partners.map((partner, i) => (
                   <motion.div
                     key={partner.name}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.4 + i * 0.1 }}
+                    transition={{ delay: 1.5 + i * 0.1 }}
                   >
                     <PartnerCard {...partner} />
                   </motion.div>
@@ -394,6 +443,18 @@ export default function Home() {
 
       {/* Comparison Table */}
       <ComparisonTable />
+
+      {/* Horizontal Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+      {/* Ecosystem Stats */}
+      <EcosystemStats />
+
+      {/* Horizontal Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+      {/* Success Stories */}
+      <SuccessStories />
 
       {/* Horizontal Divider */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
