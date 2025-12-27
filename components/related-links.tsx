@@ -22,15 +22,21 @@ const relatedLinks = [
     href: "/projects",
     category: "Ecosystem",
   },
+  {
+    title: "Latest Updates",
+    description: "Stay informed about protocol developments and news",
+    href: "/updates",
+    category: "News",
+  },
 ];
 
 export function RelatedLinks() {
   return (
     <section className="py-16 border-t border-primary/20">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <h3 className="text-2xl font-bold mb-8">Learn More</h3>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {relatedLinks.map((link, index) => (
               <Link
                 key={index}

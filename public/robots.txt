@@ -11,6 +11,9 @@ Disallow: /orders/
 # Sitemaps
 Sitemap: https://1satordinals.com/sitemap.xml
 
+# RSS Feed
+Sitemap: https://1satordinals.com/feed.xml
+
 # Crawl-delay for respectful crawling
 User-agent: *
 Crawl-delay: 1

@@ -10,6 +10,7 @@ import { QuickFacts } from "@/components/quick-facts";
 import { ComparisonTable } from "@/components/comparison-table";
 import { EcosystemStats } from "@/components/ecosystem-stats";
 import { SuccessStories } from "@/components/success-stories";
+import { DeveloperQuickstart } from "@/components/developer-quickstart";
 
 // Marquee Component
 function Marquee({ text, reverse = false }: { text: string; reverse?: boolean }) {
@@ -455,6 +456,12 @@ export default function Home() {
 
       {/* Success Stories */}
       <SuccessStories />
+
+      {/* Horizontal Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+      {/* Developer Quickstart */}
+      <DeveloperQuickstart />
 
       {/* Horizontal Divider */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
