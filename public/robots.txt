@@ -1,0 +1,39 @@
+# 1Sat Ordinals Robots.txt
+# https://1satordinals.com
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /checkout
+Disallow: /cart
+Disallow: /orders/
+
+# Sitemaps
+Sitemap: https://1satordinals.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+User-agent: *
+Crawl-delay: 1
+
+# Allow major search engines full access
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# AI Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /

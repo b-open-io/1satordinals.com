@@ -2,9 +2,16 @@ import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Protocol | 1Sat Ordinals",
+  title: "Protocol Documentation | 1Sat Ordinals - Bitcoin SV Token System",
   description:
-    "Learn about the 1Sat Ordinals protocol - a simple, powerful token system on Bitcoin SV",
+    "Technical documentation for 1Sat Ordinals protocol. Learn how to create 50MB+ NFTs and tokens on Bitcoin SV with single transaction minting and sub-cent costs.",
+  keywords: [
+    "1Sat Ordinals protocol",
+    "BSV token documentation",
+    "ordinals specification",
+    "Bitcoin SV NFT protocol",
+    "token creation guide",
+  ],
 };
 
 export default function ProtocolPage() {

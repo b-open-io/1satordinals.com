@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { ThreeBackground } from "@/components/three-background";
 import { FAQSection } from "@/components/faq-section";
 import { QuickFacts } from "@/components/quick-facts";
+import { ComparisonTable } from "@/components/comparison-table";
 
 // Marquee Component
 function Marquee({ text, reverse = false }: { text: string; reverse?: boolean }) {
@@ -387,6 +388,12 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* Horizontal Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+      {/* Comparison Table */}
+      <ComparisonTable />
 
       {/* Horizontal Divider */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
