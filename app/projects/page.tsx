@@ -7,6 +7,18 @@ export const metadata = {
 
 const projects = [
   {
+    name: "MintFlow.me",
+    description: "Streamlined NFT minting platform built on 1Sat Ordinals protocol",
+    url: "https://mintflow.me",
+    category: "Tools",
+  },
+  {
+    name: "Alchema.world",
+    description: "World of Alchema - decentralized multiplayer online role-playing game",
+    url: "https://alchema.world",
+    category: "Gaming",
+  },
+  {
     name: "1Sat.Market",
     description: "Marketplace for trading 1Sat Ordinals and tokens",
     url: "https://1sat.market",
