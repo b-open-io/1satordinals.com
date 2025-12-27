@@ -5,6 +5,8 @@ import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ThreeBackground } from "@/components/three-background";
+import { FAQSection } from "@/components/faq-section";
+import { QuickFacts } from "@/components/quick-facts";
 
 // Marquee Component
 function Marquee({ text, reverse = false }: { text: string; reverse?: boolean }) {
@@ -246,7 +248,7 @@ export default function Home() {
               transition={{ delay: 0.8 }}
               className="text-xl md:text-2xl text-gray-400 max-w-3xl mb-12"
             >
-              Fast, Flexible, Scalable — The Future of BSV Tokens
+              Bitcoin SV Token Protocol for 50MB+ NFTs & Inscriptions
             </motion.p>
 
             {/* CTA Buttons */}
@@ -328,6 +330,9 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* Quick Facts */}
+      <QuickFacts />
+
       {/* Horizontal Divider */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
@@ -382,6 +387,12 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* Horizontal Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+      {/* FAQ Section */}
+      <FAQSection />
 
       {/* Horizontal Divider */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
