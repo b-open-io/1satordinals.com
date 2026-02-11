@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getSyncProduct, transformSyncProduct } from "@/lib/printful";
+import type { Product } from "@/lib/printful-types";
 import { formatPrice } from "@/lib/products";
 
 // Image metadata
@@ -17,7 +18,7 @@ export default async function Image({
 }) {
   const { id } = await params;
 
-  let product;
+  let product: Product | null = null;
   try {
     const { sync_product, sync_variants } = await getSyncProduct(Number(id));
     product = transformSyncProduct(sync_product, sync_variants);
@@ -73,6 +74,7 @@ export default async function Image({
           marginRight: "60px",
         }}
       >
+        {/* biome-ignore lint/performance/noImgElement: next/og ImageResponse requires plain img elements */}
         <img
           src={product.thumbnail}
           alt={product.name}

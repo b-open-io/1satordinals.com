@@ -13,7 +13,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+    if (!stripeSecretKey) {
+      throw new Error("STRIPE_SECRET_KEY environment variable is required");
+    }
+
+    const stripe = new Stripe(stripeSecretKey, {
       apiVersion: "2025-12-15.clover",
     });
 
@@ -52,7 +57,8 @@ export async function POST(req: NextRequest) {
     // Get shipping address from Stripe checkout (newer API exposes this under collected_information)
     const shippingDetails = session.collected_information?.shipping_details;
     const customerDetails = session.customer_details;
-    const shippingAddress = shippingDetails?.address || customerDetails?.address;
+    const shippingAddress =
+      shippingDetails?.address || customerDetails?.address;
 
     if (!shippingAddress) {
       return NextResponse.json(

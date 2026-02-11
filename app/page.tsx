@@ -2,20 +2,31 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ThreeBackground } from "@/components/three-background";
-import { FAQSection } from "@/components/faq-section";
-import { QuickFacts } from "@/components/quick-facts";
 import { ComparisonTable } from "@/components/comparison-table";
-import { EcosystemStats } from "@/components/ecosystem-stats";
-import { SuccessStories } from "@/components/success-stories";
 import { DeveloperQuickstart } from "@/components/developer-quickstart";
+import { EcosystemStats } from "@/components/ecosystem-stats";
+import { FAQSection } from "@/components/faq-section";
 import { NFTCarousel } from "@/components/nft-carousel";
-import Image from "next/image";
+import { QuickFacts } from "@/components/quick-facts";
+import { SuccessStories } from "@/components/success-stories";
+import { ThreeBackground } from "@/components/three-background";
 
 // Marquee Component
-function Marquee({ text, reverse = false }: { text: string; reverse?: boolean }) {
+function Marquee({
+  text,
+  reverse = false,
+}: {
+  text: string;
+  reverse?: boolean;
+}) {
+  const marqueeItems = Array.from(
+    { length: 10 },
+    (_, index) => `${text}-${index}`,
+  );
+
   return (
     <div className="relative overflow-hidden py-8">
       <motion.div
@@ -32,9 +43,9 @@ function Marquee({ text, reverse = false }: { text: string; reverse?: boolean })
           },
         }}
       >
-        {[...Array(10)].map((_, i) => (
+        {marqueeItems.map((item) => (
           <h1
-            key={i}
+            key={item}
             className="text-[120px] md:text-[180px] font-black tracking-tighter text-transparent"
             style={{
               WebkitTextStroke: "2px rgb(255, 140, 0, 0.3)",
@@ -52,7 +63,11 @@ function Marquee({ text, reverse = false }: { text: string; reverse?: boolean })
 function DecorSquare({ className }: { className?: string }) {
   return (
     <div className={`absolute w-32 h-32 ${className}`}>
-      <svg viewBox="0 0 100 100" className="w-full h-full text-primary/20">
+      <svg
+        viewBox="0 0 100 100"
+        className="w-full h-full text-primary/20"
+        aria-hidden="true"
+      >
         <path
           d="M 10,0 L 90,0 L 100,10 L 100,90 L 90,100 L 10,100 L 0,90 L 0,10 Z"
           stroke="currentColor"
@@ -69,7 +84,11 @@ function CornerDecor({ className }: { className?: string }) {
   return (
     <div className={`absolute w-4 h-4 ${className}`}>
       {/* Create angled corner with diagonal cut */}
-      <svg viewBox="0 0 16 16" className="w-full h-full text-primary">
+      <svg
+        viewBox="0 0 16 16"
+        className="w-full h-full text-primary"
+        aria-hidden="true"
+      >
         <path
           d="M 0,4 L 0,0 L 4,0"
           stroke="currentColor"
@@ -83,9 +102,21 @@ function CornerDecor({ className }: { className?: string }) {
 }
 
 // Graphic Block Component with architectural angled borders
-function GraphicBlock({ children, className }: { children: React.ReactNode; className?: string }) {
+function GraphicBlock({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div className={`relative ${className}`} style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
+    <div
+      className={`relative ${className}`}
+      style={{
+        clipPath:
+          "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)",
+      }}
+    >
       <CornerDecor className="top-0 left-0" />
       <CornerDecor className="top-0 right-0 rotate-90" />
       <CornerDecor className="bottom-0 right-0 rotate-180" />
@@ -96,9 +127,22 @@ function GraphicBlock({ children, className }: { children: React.ReactNode; clas
 }
 
 // Partner Card Component
-function PartnerCard({ name, displayName }: { name: string; displayName: string }) {
+function PartnerCard({
+  name,
+  displayName,
+}: {
+  name: string;
+  displayName: string;
+}) {
+  const charCounts = new Map<string, number>();
+  const keyedChars = displayName.split("").map((char) => {
+    const nextCount = (charCounts.get(char) || 0) + 1;
+    charCounts.set(char, nextCount);
+    return { char, key: `${char}-${nextCount}` };
+  });
+
   return (
-    <div className="relative group">
+    <div className="relative group" data-partner={name}>
       <GraphicBlock className="border border-primary/20 bg-black/40 backdrop-blur-sm p-6 hover:border-primary/60 transition-all duration-300 h-full group-hover:rotate-1 transform">
         {/* Corner accent elements */}
         <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-primary/30 group-hover:border-primary/80 transition-colors" />
@@ -110,9 +154,13 @@ function PartnerCard({ name, displayName }: { name: string; displayName: string 
           {/* Stylized text logo */}
           <div className="relative">
             <div className="text-2xl font-black tracking-tight text-white/80 group-hover:text-primary transition-colors">
-              {displayName.split('').map((char, i) => (
-                <span key={i} className="inline-block group-hover:animate-pulse" style={{ animationDelay: `${i * 100}ms` }}>
-                  {char}
+              {keyedChars.map((item, i) => (
+                <span
+                  key={`${displayName}-${item.key}`}
+                  className="inline-block group-hover:animate-pulse"
+                  style={{ animationDelay: `${i * 100}ms` }}
+                >
+                  {item.char}
                 </span>
               ))}
             </div>
@@ -416,17 +464,20 @@ export default function Home() {
                 {
                   number: "01",
                   title: "Single Transaction Minting",
-                  description: "No commit-reveal required. Mint in one transaction.",
+                  description:
+                    "No commit-reveal required. Mint in one transaction.",
                 },
                 {
                   number: "02",
                   title: "50MB+ Payloads",
-                  description: "Support for massive inscriptions and rich media.",
+                  description:
+                    "Support for massive inscriptions and rich media.",
                 },
                 {
                   number: "03",
                   title: "Ultra Low Fees",
-                  description: "~$0.0001 per transaction on the BSV blockchain.",
+                  description:
+                    "~$0.0001 per transaction on the BSV blockchain.",
                 },
               ].map((feature, i) => (
                 <motion.div

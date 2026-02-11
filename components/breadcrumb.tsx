@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 interface BreadcrumbItem {
   label: string;
@@ -41,7 +41,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
 
           return (
             <li
-              key={index}
+              key={`${item.label}-${item.href || "current"}-${position}`}
               itemProp="itemListElement"
               itemScope
               itemType="https://schema.org/ListItem"
@@ -57,10 +57,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
                   <span itemProp="name">{item.label}</span>
                 </Link>
               ) : (
-                <span
-                  className="text-foreground font-medium"
-                  itemProp="name"
-                >
+                <span className="text-foreground font-medium" itemProp="name">
                   {item.label}
                 </span>
               )}

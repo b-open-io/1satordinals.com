@@ -2,8 +2,8 @@
 
 @theme {
   --font-sans:
-    "Space Grotesk", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    sans-serif;
+    "Space Grotesk", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, sans-serif;
   --font-serif: "Spectral", ui-serif, Georgia, Cambria, Times New Roman, serif;
   --font-mono:
     "JetBrains Mono", ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,

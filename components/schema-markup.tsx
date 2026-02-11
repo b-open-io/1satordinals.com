@@ -7,10 +7,10 @@ export function SchemaMarkup() {
         name: "1Sat Ordinals",
         alternateName: ["1Sat", "OneSat Ordinals"],
         url: "https://1satordinals.com",
-        logo: "https://1satordinals.com/logo.png",
+        logo: "https://1satordinals.com/images/logo-light.png",
         sameAs: [
           "https://discord.gg/1satordinals",
-          "https://github.com/1satordinals",
+          "https://github.com/b-open-io/1satordinals.com",
           "https://twitter.com/1satordinals",
         ],
         description:
@@ -50,7 +50,8 @@ export function SchemaMarkup() {
         headline: "1Sat Ordinals Protocol Documentation",
         description:
           "Technical specification for the 1Sat Ordinals token protocol on Bitcoin SV",
-        keywords: "1Sat, Ordinals, BSV, Bitcoin SV, token protocol, NFT, inscriptions",
+        keywords:
+          "1Sat, Ordinals, BSV, Bitcoin SV, token protocol, NFT, inscriptions",
         datePublished: "2023-01-01",
         dateModified: new Date().toISOString().split("T")[0],
         author: {
@@ -62,9 +63,6 @@ export function SchemaMarkup() {
   };
 
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
-    />
+    <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
   );
 }

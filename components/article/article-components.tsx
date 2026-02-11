@@ -1,7 +1,7 @@
 "use client";
 
-import { ReactNode } from "react";
 import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface ComponentProps {
@@ -15,12 +15,11 @@ export function PullQuote({ children, className }: ComponentProps) {
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
-      className={cn(
-        "relative my-12 pl-8 border-l-4 border-primary",
-        className
-      )}
+      className={cn("relative my-12 pl-8 border-l-4 border-primary", className)}
     >
-      <div className="absolute -left-4 -top-4 text-6xl text-primary/20 font-serif">"</div>
+      <div className="absolute -left-4 -top-4 text-6xl text-primary/20 font-serif">
+        "
+      </div>
       <p className="text-2xl font-light italic text-gray-200 leading-relaxed">
         {children}
       </p>
@@ -36,7 +35,7 @@ export function HighlightBox({ children, className }: ComponentProps) {
       viewport={{ once: true }}
       className={cn(
         "my-8 p-8 bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 rounded-lg backdrop-blur-sm",
-        className
+        className,
       )}
     >
       {children}
@@ -44,7 +43,10 @@ export function HighlightBox({ children, className }: ComponentProps) {
   );
 }
 
-export function KeyTakeaway({ title, children }: { title: string } & ComponentProps) {
+export function KeyTakeaway({
+  title,
+  children,
+}: { title: string } & ComponentProps) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -55,9 +57,7 @@ export function KeyTakeaway({ title, children }: { title: string } & ComponentPr
       <h4 className="text-primary font-mono text-sm mb-3 uppercase tracking-wider">
         {title}
       </h4>
-      <div className="text-gray-300">
-        {children}
-      </div>
+      <div className="text-gray-300">{children}</div>
     </motion.div>
   );
 }
@@ -66,7 +66,7 @@ export function CodeComparison({
   leftTitle,
   leftCode,
   rightTitle,
-  rightCode
+  rightCode,
 }: {
   leftTitle: string;
   leftCode: string;
@@ -117,7 +117,7 @@ export function SectionDivider() {
 export function FeatureCard({
   icon,
   title,
-  description
+  description,
 }: {
   icon: ReactNode;
   title: string;

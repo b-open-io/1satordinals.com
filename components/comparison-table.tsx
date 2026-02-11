@@ -92,7 +92,7 @@ export function ComparisonTable() {
               <tbody>
                 {comparisonData.map((row, index) => (
                   <motion.tr
-                    key={index}
+                    key={row.feature}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}

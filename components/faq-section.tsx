@@ -48,6 +48,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
       itemType="https://schema.org/Question"
     >
       <button
+        type="button"
         className="w-full p-6 text-left flex items-center justify-between group"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
@@ -106,7 +107,7 @@ export function FAQSection() {
           >
             {faqs.map((faq, index) => (
               <motion.div
-                key={index}
+                key={faq.question}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

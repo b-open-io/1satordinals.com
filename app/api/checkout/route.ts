@@ -14,7 +14,12 @@ interface CheckoutRequest {
 
 export async function POST(req: NextRequest) {
   try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+    if (!stripeSecretKey) {
+      throw new Error("STRIPE_SECRET_KEY environment variable is required");
+    }
+
+    const stripe = new Stripe(stripeSecretKey, {
       apiVersion: "2025-12-15.clover",
     });
 

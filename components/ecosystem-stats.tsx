@@ -11,7 +11,17 @@ const stats = [
   { label: "Total Data Stored", value: 2.5, suffix: "PB", decimals: 1 },
 ];
 
-function AnimatedCounter({ end, duration = 2, suffix = "", decimals = 0 }: { end: number; duration?: number; suffix?: string; decimals?: number }) {
+function AnimatedCounter({
+  end,
+  duration = 2,
+  suffix = "",
+  decimals = 0,
+}: {
+  end: number;
+  duration?: number;
+  suffix?: string;
+  decimals?: number;
+}) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -20,7 +30,7 @@ function AnimatedCounter({ end, duration = 2, suffix = "", decimals = 0 }: { end
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
 
-      setCount(Math.floor(end * progress * Math.pow(10, decimals)) / Math.pow(10, decimals));
+      setCount(Math.floor(end * progress * 10 ** decimals) / 10 ** decimals);
 
       if (progress < 1) {
         requestAnimationFrame(animate);
@@ -34,7 +44,10 @@ function AnimatedCounter({ end, duration = 2, suffix = "", decimals = 0 }: { end
 
   return (
     <>
-      {count.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}
+      {count.toLocaleString(undefined, {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      })}
       {suffix}
     </>
   );
@@ -66,7 +79,7 @@ export function EcosystemStats() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <motion.div
-                key={index}
+                key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -84,9 +97,7 @@ export function EcosystemStats() {
                     "0"
                   )}
                 </div>
-                <div className="text-gray-400">
-                  {stat.label}
-                </div>
+                <div className="text-gray-400">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -99,7 +110,11 @@ export function EcosystemStats() {
             className="mt-16 p-6 bg-primary/10 border border-primary/30 rounded-lg text-center"
           >
             <p className="text-lg text-gray-300">
-              Growing <span className="text-primary font-semibold">47% month-over-month</span> as developers discover the power of Bitcoin SV
+              Growing{" "}
+              <span className="text-primary font-semibold">
+                47% month-over-month
+              </span>{" "}
+              as developers discover the power of Bitcoin SV
             </p>
           </motion.div>
         </motion.div>

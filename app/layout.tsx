@@ -4,14 +4,15 @@ import "./globals.css";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { QueryProvider } from "@/components/query-provider";
+import { SchemaMarkup } from "@/components/schema-markup";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/lib/auth-client";
-import { SchemaMarkup } from "@/components/schema-markup";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "1Sat Ordinals - Bitcoin SV Token Protocol | 50MB+ NFTs & Inscriptions",
+  title:
+    "1Sat Ordinals - Bitcoin SV Token Protocol | 50MB+ NFTs & Inscriptions",
   description:
     "Open protocol for Bitcoin SV enabling 50MB+ inscriptions, single-transaction minting at sub-cent costs. Create NFTs, tokens, and store data on-chain.",
   keywords: [
@@ -57,7 +58,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "1Sat Ordinals - Bitcoin SV Token Protocol",
@@ -71,7 +72,7 @@ export const metadata: Metadata = {
     title: "1Sat Ordinals - Bitcoin SV Token Protocol",
     description:
       "Open protocol for creating 50MB+ NFTs and tokens on Bitcoin SV with sub-cent transaction costs",
-    images: ["/twitter-card.jpg"],
+    images: ["/twitter-image.png"],
   },
 };
 

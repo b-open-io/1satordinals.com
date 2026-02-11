@@ -128,8 +128,14 @@ export function ShippingCalculator() {
       <div className="grid grid-cols-2 gap-3">
         {/* Country */}
         <div className="col-span-2">
-          <label className="block text-sm font-bold mb-1">Country</label>
+          <label
+            htmlFor="shipping-country"
+            className="block text-sm font-bold mb-1"
+          >
+            Country
+          </label>
           <select
+            id="shipping-country"
             value={countryCode}
             onChange={(e) => {
               setCountryCode(e.target.value);
@@ -150,8 +156,14 @@ export function ShippingCalculator() {
         {/* State (for US, CA, AU) */}
         {selectedCountry?.hasStates && (
           <div className="col-span-2 sm:col-span-1">
-            <label className="block text-sm font-bold mb-1">State</label>
+            <label
+              htmlFor="shipping-state"
+              className="block text-sm font-bold mb-1"
+            >
+              State
+            </label>
             <select
+              id="shipping-state"
               value={stateCode}
               onChange={(e) => {
                 setStateCode(e.target.value);
@@ -179,10 +191,14 @@ export function ShippingCalculator() {
               : "col-span-2"
           }
         >
-          <label className="block text-sm font-bold mb-1">
+          <label
+            htmlFor="shipping-zip"
+            className="block text-sm font-bold mb-1"
+          >
             ZIP / Postal Code
           </label>
           <input
+            id="shipping-zip"
             type="text"
             value={zip}
             onChange={async (e) => {
@@ -217,6 +233,7 @@ export function ShippingCalculator() {
 
       {/* Calculate button */}
       <button
+        type="button"
         onClick={handleCalculateRates}
         disabled={isLoading || items.length === 0}
         className="w-full py-2 px-4 border-2 border-foreground rounded-lg font-bold bg-secondary text-secondary-foreground hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"

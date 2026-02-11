@@ -18,7 +18,10 @@ export function TableOfContents() {
     const items: TocItem[] = [];
 
     elements.forEach((element) => {
-      const id = element.id || element.textContent?.toLowerCase().replace(/\s+/g, "-") || "";
+      const id =
+        element.id ||
+        element.textContent?.toLowerCase().replace(/\s+/g, "-") ||
+        "";
       if (!element.id) element.id = id;
 
       items.push({
@@ -38,10 +41,12 @@ export function TableOfContents() {
           }
         });
       },
-      { rootMargin: "-100px 0px -70% 0px" }
+      { rootMargin: "-100px 0px -70% 0px" },
     );
 
-    elements.forEach((element) => observer.observe(element));
+    elements.forEach((element) => {
+      observer.observe(element);
+    });
 
     return () => observer.disconnect();
   }, []);
@@ -61,7 +66,7 @@ export function TableOfContents() {
               href={`#${heading.id}`}
               className={cn(
                 "block py-1 text-gray-400 hover:text-primary transition-colors duration-200",
-                activeId === heading.id && "text-primary font-medium"
+                activeId === heading.id && "text-primary font-medium",
               )}
             >
               {heading.text}

@@ -1,27 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Users, Zap, TrendingUp } from "lucide-react";
+import { TrendingUp, Users, Zap } from "lucide-react";
 
 const stories = [
   {
     project: "BSV21 Token",
     metric: "MNEE Stablecoin",
-    description: "Stablecoin on BSV using 1Sat BSV21 with custom open-source co-sign script",
+    description:
+      "Stablecoin on BSV using 1Sat BSV21 with custom open-source co-sign script",
     icon: <Users className="w-6 h-6" />,
     stat: "Co-sign secured",
   },
   {
     project: "MintFlow.me",
     metric: "NFT Platform",
-    description: "Streamlined NFT minting platform built on 1Sat Ordinals protocol",
+    description:
+      "Streamlined NFT minting platform built on 1Sat Ordinals protocol",
     icon: <Zap className="w-6 h-6" />,
     stat: "Instant minting",
   },
   {
     project: "Alchema.world",
     metric: "On-chain DMMORPG",
-    description: "World of Alchema - decentralized multiplayer online role-playing game",
+    description:
+      "World of Alchema - decentralized multiplayer online role-playing game",
     icon: <TrendingUp className="w-6 h-6" />,
     stat: "Fully on-chain",
   },
@@ -49,7 +52,7 @@ export function SuccessStories() {
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {stories.map((story, index) => (
             <motion.div
-              key={index}
+              key={story.project}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -65,15 +68,9 @@ export function SuccessStories() {
                 </span>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3">
-                {story.project}
-              </h3>
-              <p className="text-gray-400 mb-4">
-                {story.description}
-              </p>
-              <div className="text-sm text-primary font-mono">
-                {story.stat}
-              </div>
+              <h3 className="text-xl font-semibold mb-3">{story.project}</h3>
+              <p className="text-gray-400 mb-4">{story.description}</p>
+              <div className="text-sm text-primary font-mono">{story.stat}</div>
             </motion.div>
           ))}
         </div>

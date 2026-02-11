@@ -10,13 +10,20 @@ import { useState } from "react";
 import { signIn } from "@/lib/auth";
 import { useAuth } from "@/lib/auth-client";
 
+const sigmaClientId = process.env.NEXT_PUBLIC_SIGMA_CLIENT_ID;
+if (!sigmaClientId) {
+  throw new Error(
+    "NEXT_PUBLIC_SIGMA_CLIENT_ID environment variable is required",
+  );
+}
+
 export function UserButton() {
   const { user, isLoading, signOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSignIn = () => {
     signIn.sigma({
-      clientId: process.env.NEXT_PUBLIC_SIGMA_CLIENT_ID || "1satordinals",
+      clientId: sigmaClientId,
       // callbackURL defaults to /auth/sigma/callback
     });
   };

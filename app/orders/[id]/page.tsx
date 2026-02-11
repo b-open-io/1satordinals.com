@@ -5,6 +5,7 @@
 
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import {
   AlertCircle,
   ArrowLeft,
@@ -18,7 +19,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/lib/auth-client";
 import { formatPrice } from "@/lib/products";
 

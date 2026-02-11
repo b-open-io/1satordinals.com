@@ -15,23 +15,24 @@ import { createOrder } from "@/lib/printful/orders";
 // Disable body parsing - Stripe needs raw body for signature verification
 export const runtime = "nodejs";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
+const requireEnv = (name: string) => {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(`${name} environment variable is required`);
+  }
+  return value;
+};
+
+const stripeSecretKey = requireEnv("STRIPE_SECRET_KEY");
+const webhookSecret = requireEnv("STRIPE_WEBHOOK_SECRET");
+
+const stripe = new Stripe(stripeSecretKey, {
   apiVersion: "2025-12-15.clover",
 });
-
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 export async function POST(req: NextRequest) {
   // Ensure orders database is initialized
   await ensureOrdersInitialized();
-
-  if (!webhookSecret) {
-    console.error("⚠️ STRIPE_WEBHOOK_SECRET is not set");
-    return NextResponse.json(
-      { error: "Webhook secret not configured" },
-      { status: 500 },
-    );
-  }
 
   try {
     const body = await req.text();
@@ -71,7 +72,8 @@ export async function POST(req: NextRequest) {
       // Get full shipping address from collected_information (fallback: customer_details.address)
       const customerDetails = session.customer_details;
       const shippingDetails = session.collected_information?.shipping_details;
-      const shippingAddress = shippingDetails?.address || customerDetails?.address;
+      const shippingAddress =
+        shippingDetails?.address || customerDetails?.address;
 
       if (!shippingAddress || !customerDetails?.email) {
         console.error(
@@ -91,16 +93,12 @@ export async function POST(req: NextRequest) {
         address1: shippingAddress.line1 || "",
         address2: shippingAddress.line2 || undefined,
         city: shippingAddress.city || shippingAddressPartial.city || "",
-        state_code:
-          shippingAddress.state || shippingAddressPartial.state_code,
+        state_code: shippingAddress.state || shippingAddressPartial.state_code,
         country_code:
           shippingAddress.country ||
           shippingAddressPartial.country_code ||
           "US",
-        zip:
-          shippingAddress.postal_code ||
-          shippingAddressPartial.zip ||
-          "",
+        zip: shippingAddress.postal_code || shippingAddressPartial.zip || "",
         phone: customerDetails.phone || undefined,
       };
 

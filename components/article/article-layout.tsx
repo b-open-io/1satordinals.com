@@ -1,7 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
-import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 
 interface ArticleLayoutProps {
   children: ReactNode;
@@ -15,9 +14,7 @@ export function ArticleLayout({ children }: ArticleLayoutProps) {
       <div className="fixed top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
       <div className="fixed bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative">
-        {children}
-      </div>
+      <div className="relative">{children}</div>
     </article>
   );
 }

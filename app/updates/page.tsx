@@ -1,6 +1,6 @@
-import { Metadata } from "next";
-import Link from "next/link";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
 import { Breadcrumb } from "@/components/breadcrumb";
 
 export const metadata: Metadata = {
@@ -21,7 +21,8 @@ const updates = [
   {
     id: 1,
     title: "Building on Bedrock: The Case for Simple, Stable Protocols",
-    excerpt: "Explore why simple, stable protocols like 1Sat Ordinals provide the best foundation for blockchain development. Learn from Bitcoin's philosophy of protocol stability.",
+    excerpt:
+      "Explore why simple, stable protocols like 1Sat Ordinals provide the best foundation for blockchain development. Learn from Bitcoin's philosophy of protocol stability.",
     date: "2025-12-27",
     readTime: "8 min read",
     category: "Technical Deep Dive",
@@ -30,7 +31,8 @@ const updates = [
   {
     id: 2,
     title: "50MB File Support Now Live on Mainnet",
-    excerpt: "Create massive NFTs and store entire applications on-chain with our expanded file size support, now available for all users.",
+    excerpt:
+      "Create massive NFTs and store entire applications on-chain with our expanded file size support, now available for all users.",
     date: "2025-12-20",
     readTime: "2 min read",
     category: "Feature Release",
@@ -39,7 +41,8 @@ const updates = [
   {
     id: 3,
     title: "Partnership with Major BSV Wallets",
-    excerpt: "1Sat Ordinals is now natively supported in HandCash, MoneyButton, and ElectrumSV, making token management easier than ever.",
+    excerpt:
+      "1Sat Ordinals is now natively supported in HandCash, MoneyButton, and ElectrumSV, making token management easier than ever.",
     date: "2025-12-15",
     readTime: "4 min read",
     category: "Ecosystem",
@@ -61,7 +64,8 @@ export default function UpdatesPage() {
               Protocol Updates & News
             </h1>
             <p className="text-xl text-gray-400 mb-8">
-              Stay informed about the latest developments in the 1Sat Ordinals ecosystem
+              Stay informed about the latest developments in the 1Sat Ordinals
+              ecosystem
             </p>
 
             {/* Latest Update Feature */}
@@ -71,12 +75,8 @@ export default function UpdatesPage() {
                 <Calendar className="w-4 h-4" />
                 <span>{new Date(latestUpdate.date).toLocaleDateString()}</span>
               </div>
-              <h2 className="text-2xl font-bold mb-3">
-                {latestUpdate.title}
-              </h2>
-              <p className="text-gray-400 mb-4">
-                {latestUpdate.excerpt}
-              </p>
+              <h2 className="text-2xl font-bold mb-3">{latestUpdate.title}</h2>
+              <p className="text-gray-400 mb-4">{latestUpdate.excerpt}</p>
               <Link
                 href={`/updates/${latestUpdate.slug}`}
                 className="inline-flex items-center gap-2 text-primary hover:underline"
@@ -124,9 +124,7 @@ export default function UpdatesPage() {
                     </Link>
                   </h3>
 
-                  <p className="text-gray-400 mb-4">
-                    {update.excerpt}
-                  </p>
+                  <p className="text-gray-400 mb-4">{update.excerpt}</p>
 
                   <Link
                     href={`/updates/${update.slug}`}
@@ -142,7 +140,8 @@ export default function UpdatesPage() {
             {/* RSS Feed Link */}
             <div className="mt-12 p-6 bg-black/40 border border-primary/20 rounded-lg text-center">
               <p className="text-gray-400 mb-4">
-                Subscribe to stay updated with the latest 1Sat Ordinals developments
+                Subscribe to stay updated with the latest 1Sat Ordinals
+                developments
               </p>
               <div className="flex justify-center gap-4">
                 <Link

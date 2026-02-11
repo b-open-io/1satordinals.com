@@ -1,7 +1,7 @@
 "use client";
 
+import { Check, Link2, Twitter } from "lucide-react";
 import { useState } from "react";
-import { Twitter, Link2, Check } from "lucide-react";
 
 interface ArticleShareProps {
   title: string;
@@ -10,7 +10,8 @@ interface ArticleShareProps {
 
 export function ArticleShare({ title, url }: ArticleShareProps) {
   const [copied, setCopied] = useState(false);
-  const shareUrl = url || (typeof window !== "undefined" ? window.location.href : "");
+  const shareUrl =
+    url || (typeof window !== "undefined" ? window.location.href : "");
 
   const handleCopyLink = async () => {
     try {
@@ -28,7 +29,7 @@ export function ArticleShare({ title, url }: ArticleShareProps) {
     window.open(
       `https://twitter.com/intent/tweet?text=${tweetText}&url=${tweetUrl}&via=1satordinals`,
       "_blank",
-      "noopener,noreferrer"
+      "noopener,noreferrer",
     );
   };
 
@@ -38,6 +39,7 @@ export function ArticleShare({ title, url }: ArticleShareProps) {
 
       {/* Twitter Share */}
       <button
+        type="button"
         onClick={handleTwitterShare}
         className="p-2 text-gray-400 hover:text-primary hover:bg-primary/10 rounded-lg transition-all duration-200"
         aria-label="Share on Twitter"
@@ -47,6 +49,7 @@ export function ArticleShare({ title, url }: ArticleShareProps) {
 
       {/* Copy Link */}
       <button
+        type="button"
         onClick={handleCopyLink}
         className="p-2 text-gray-400 hover:text-primary hover:bg-primary/10 rounded-lg transition-all duration-200 flex items-center gap-1"
         aria-label="Copy link"

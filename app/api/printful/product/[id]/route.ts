@@ -3,7 +3,6 @@ import { getSyncProduct, transformSyncProduct } from "@/lib/printful";
 
 export const revalidate = 60; // Cache for 60 seconds
 
-// biome-ignore lint/correctness/noUnusedFunctionParameters: Next.js requires request parameter
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> },

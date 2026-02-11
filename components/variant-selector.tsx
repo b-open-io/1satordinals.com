@@ -75,9 +75,9 @@ export function VariantSelector({
       {/* Size selector */}
       {sizes.length > 0 && (
         <div>
-          <label className="block text-sm font-bold uppercase tracking-wide mb-2">
+          <p className="block text-sm font-bold uppercase tracking-wide mb-2">
             Size
-          </label>
+          </p>
           <div className="flex flex-wrap gap-2">
             {sizes.map((size) => {
               const isAvailable = availableSizes.includes(size);
@@ -85,6 +85,7 @@ export function VariantSelector({
 
               return (
                 <button
+                  type="button"
                   key={size}
                   onClick={() => isAvailable && setSelectedSize(size)}
                   disabled={!isAvailable}
@@ -107,9 +108,9 @@ export function VariantSelector({
       {/* Color selector */}
       {colors.length > 0 && (
         <div>
-          <label className="block text-sm font-bold uppercase tracking-wide mb-2">
+          <p className="block text-sm font-bold uppercase tracking-wide mb-2">
             Color
-          </label>
+          </p>
           <div className="flex flex-wrap gap-2">
             {colors.map((color) => {
               const isAvailable = availableColors.includes(color);
@@ -117,6 +118,7 @@ export function VariantSelector({
 
               return (
                 <button
+                  type="button"
                   key={color}
                   onClick={() => isAvailable && setSelectedColor(color)}
                   disabled={!isAvailable}

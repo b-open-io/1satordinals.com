@@ -1,12 +1,28 @@
 import { NextResponse } from "next/server";
 import { calculateShipping } from "@/lib/printful";
 
+interface ShippingAddressInput {
+  address1?: string;
+  city?: string;
+  countryCode?: string;
+  stateCode?: string;
+  zip?: string;
+}
+
+interface ShippingItemInput {
+  printfulVariantId: number;
+  quantity: number;
+}
+
 export async function POST(request: Request) {
-  let address;
-  let items;
+  let address: ShippingAddressInput | undefined;
+  let items: ShippingItemInput[] | undefined;
 
   try {
-    const body = await request.json();
+    const body = (await request.json()) as {
+      address?: ShippingAddressInput;
+      items?: ShippingItemInput[];
+    };
     address = body.address;
     items = body.items;
 
@@ -32,7 +48,7 @@ export async function POST(request: Request) {
         state_code: address.stateCode,
         zip: address.zip,
       },
-      items.map((item: { printfulVariantId: number; quantity: number }) => ({
+      items.map((item) => ({
         variant_id: item.printfulVariantId,
         quantity: item.quantity,
       })),

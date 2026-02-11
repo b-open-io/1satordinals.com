@@ -15,13 +15,13 @@ export function ThreeBackground() {
       75,
       window.innerWidth / 600,
       0.1,
-      1000
+      1000,
     );
     camera.position.z = 30;
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: true
+      antialias: true,
     });
     renderer.setSize(window.innerWidth, 600);
     renderer.setClearColor(0x000000, 0);
@@ -78,14 +78,14 @@ export function ThreeBackground() {
     const positions = new Float32Array(particleCount * 3);
 
     for (let i = 0; i < particleCount * 3; i += 3) {
-      positions[i] = (Math.random() - 0.5) * 60;     // x
+      positions[i] = (Math.random() - 0.5) * 60; // x
       positions[i + 1] = (Math.random() - 0.5) * 40; // y
       positions[i + 2] = (Math.random() - 0.5) * 40; // z
     }
 
     particlesGeometry.setAttribute(
       "position",
-      new THREE.BufferAttribute(positions, 3)
+      new THREE.BufferAttribute(positions, 3),
     );
 
     const particlesMaterial = new THREE.PointsMaterial({
