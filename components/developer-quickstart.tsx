@@ -1,31 +1,55 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Copy, Check, Terminal, Code2, Package, ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  Code2,
+  Copy,
+  Package,
+  Terminal,
+} from "lucide-react";
 import { useState } from "react";
 
-const codeExamples = {
-  install: `npm install @1sat/ordinals-sdk`,
-  mint: `import { OneOrdClient } from '@1sat/ordinals-sdk';
+type QuickstartTab = "browser" | "react" | "server";
 
-const client = new OneOrdClient();
+const codeExamples: Record<QuickstartTab, string> = {
+  browser: `# Browser dApp
+bun add @1sat/connect
 
-// Mint a new ordinal
-const ordinal = await client.mint({
-  file: myFile, // Up to 50MB+
-  metadata: {
-    name: "My NFT",
-    description: "Created with 1Sat Ordinals"
-  }
-});`,
-  query: `// Query ordinals by address
-const ordinals = await client.getOrdinals({
-  address: "1A2b3c4d5e...",
-  limit: 100
-});`,
+import { createOneSat } from "@1sat/connect";
+
+const onesat = createOneSat({ appName: "My dApp" });
+const { paymentAddress, ordinalAddress } = await onesat.connect();
+
+console.log(paymentAddress, ordinalAddress);`,
+  react: `# React app
+bun add @1sat/react
+
+import { ConnectButton, OneSatProvider } from "@1sat/react";
+
+export function App() {
+  return (
+    <OneSatProvider appName="My App">
+      <ConnectButton />
+    </OneSatProvider>
+  );
+}`,
+  server: `# Server / wallet engine
+bun add @1sat/core @1sat/client @1sat/types @1sat/wallet-node
+
+import { createNodeWallet } from "@1sat/wallet-node";
+
+const { wallet } = await createNodeWallet({
+  rootKey: process.env.ROOT_KEY!,
+  chain: "main",
+  dbFilename: "wallet.sqlite",
+});
+
+await wallet.syncAll();`,
 };
 
-function CodeBlock({ code, language = "typescript" }: { code: string; language?: string }) {
+function CodeBlock({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
@@ -40,6 +64,7 @@ function CodeBlock({ code, language = "typescript" }: { code: string; language?:
         <code className="text-sm text-gray-300">{code}</code>
       </pre>
       <button
+        type="button"
         onClick={copyToClipboard}
         className="absolute top-2 right-2 p-2 bg-primary/10 hover:bg-primary/20 rounded transition-all duration-200 opacity-0 group-hover:opacity-100"
         aria-label="Copy code"
@@ -55,7 +80,7 @@ function CodeBlock({ code, language = "typescript" }: { code: string; language?:
 }
 
 export function DeveloperQuickstart() {
-  const [activeTab, setActiveTab] = useState("install");
+  const [activeTab, setActiveTab] = useState<QuickstartTab>("browser");
 
   return (
     <section className="relative py-32 border-t border-primary/20 bg-black/20">
@@ -72,12 +97,11 @@ export function DeveloperQuickstart() {
               Start Building in Minutes
             </h2>
             <p className="text-xl text-gray-400">
-              Simple SDK, powerful features, instant deployment
+              Use the right 1Sat package for your app surface
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12">
-            {/* Left side - Features */}
             <div className="space-y-8">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -91,10 +115,11 @@ export function DeveloperQuickstart() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-2">
-                    Simple Integration
+                    Use-Case Packages
                   </h3>
                   <p className="text-gray-400">
-                    One line install, comprehensive TypeScript SDK with full type safety
+                    Choose by surface: browser dApp, React UI, or server wallet
+                    engine.
                   </p>
                 </div>
               </motion.div>
@@ -111,10 +136,12 @@ export function DeveloperQuickstart() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-2">
-                    Developer Friendly
+                    Bun-First Setup
                   </h3>
                   <p className="text-gray-400">
-                    RESTful APIs, WebSocket events, and comprehensive documentation
+                    Install commands and examples use Bun and current
+                    <code className="mx-1">@1sat/*</code>
+                    packages.
                   </p>
                 </div>
               </motion.div>
@@ -131,47 +158,50 @@ export function DeveloperQuickstart() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-2">
-                    Production Ready
+                    Independent Auth
                   </h3>
                   <p className="text-gray-400">
-                    Battle-tested by major projects, handling millions of inscriptions
+                    Sigma identity auth and 1Sat wallet tooling stay separate in
+                    this site.
                   </p>
                 </div>
               </motion.div>
             </div>
 
-            {/* Right side - Code examples */}
             <div className="space-y-4">
               <div className="flex gap-2 mb-6">
                 <button
-                  onClick={() => setActiveTab("install")}
+                  type="button"
+                  onClick={() => setActiveTab("browser")}
                   className={`px-4 py-2 rounded transition-all duration-200 ${
-                    activeTab === "install"
+                    activeTab === "browser"
                       ? "bg-primary text-black font-semibold"
                       : "bg-primary/10 hover:bg-primary/20"
                   }`}
                 >
-                  Install
+                  Browser dApp
                 </button>
                 <button
-                  onClick={() => setActiveTab("mint")}
+                  type="button"
+                  onClick={() => setActiveTab("react")}
                   className={`px-4 py-2 rounded transition-all duration-200 ${
-                    activeTab === "mint"
+                    activeTab === "react"
                       ? "bg-primary text-black font-semibold"
                       : "bg-primary/10 hover:bg-primary/20"
                   }`}
                 >
-                  Mint
+                  React
                 </button>
                 <button
-                  onClick={() => setActiveTab("query")}
+                  type="button"
+                  onClick={() => setActiveTab("server")}
                   className={`px-4 py-2 rounded transition-all duration-200 ${
-                    activeTab === "query"
+                    activeTab === "server"
                       ? "bg-primary text-black font-semibold"
                       : "bg-primary/10 hover:bg-primary/20"
                   }`}
                 >
-                  Query
+                  Server/Engine
                 </button>
               </div>
 
@@ -181,15 +211,15 @@ export function DeveloperQuickstart() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <CodeBlock code={codeExamples[activeTab as keyof typeof codeExamples]} />
+                <CodeBlock code={codeExamples[activeTab]} />
               </motion.div>
 
               <div className="mt-8">
                 <a
-                  href="/developers"
+                  href="/developers#sdk"
                   className="inline-flex items-center gap-2 text-primary hover:underline"
                 >
-                  View full documentation
+                  View full SDK matrix
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>

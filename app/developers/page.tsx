@@ -2,6 +2,48 @@ import { Book, Code2, Github, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/breadcrumb";
 
+const sdkMatrix = [
+  {
+    name: "@1sat/connect",
+    useFor: "Browser dApps that need wallet connect/sign flows.",
+    install: "bun add @1sat/connect",
+    snippet: `import { createOneSat } from "@1sat/connect";
+
+const onesat = createOneSat({ appName: "My dApp" });
+await onesat.connect();`,
+  },
+  {
+    name: "@1sat/react",
+    useFor: "React apps using provider/hooks/components.",
+    install: "bun add @1sat/react",
+    snippet: `import { ConnectButton, OneSatProvider } from "@1sat/react";
+
+<OneSatProvider appName="My App">
+  <ConnectButton />
+</OneSatProvider>;`,
+  },
+  {
+    name: "@1sat/core + @1sat/client + @1sat/types",
+    useFor: "Server scripts, transaction building, and service clients.",
+    install: "bun add @1sat/core @1sat/client @1sat/types",
+    snippet: `import { createOrdinals } from "@1sat/core";
+import { ArcadeClient } from "@1sat/client";
+import { ONESAT_MAINNET_URL } from "@1sat/types";`,
+  },
+  {
+    name: "@1sat/wallet-browser + @1sat/wallet-node",
+    useFor: "BRC-100 wallet engine factories for browser/node.",
+    install: "bun add @1sat/wallet-browser @1sat/wallet-node",
+    snippet: `import { createNodeWallet } from "@1sat/wallet-node";
+
+const { wallet } = await createNodeWallet({
+  rootKey: process.env.ROOT_KEY!,
+  chain: "main",
+  dbFilename: "wallet.sqlite",
+});`,
+  },
+] as const;
+
 export const metadata = {
   title: "Developers | 1Sat Ordinals",
   description: "Resources and tools for building on 1Sat Ordinals",
@@ -22,6 +64,54 @@ export default function DevelopersPage() {
               Everything you need to create tokens, NFTs, and applications on
               Bitcoin SV
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* SDK Matrix */}
+      <section id="sdk" className="w-full border-t py-16 scroll-mt-24">
+        <div className="container mx-auto max-w-7xl px-4">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="text-3xl font-bold tracking-tight">
+              1Sat SDK Use-Case Matrix
+            </h2>
+            <p className="mt-3 text-muted-foreground">
+              Pick packages by app surface. These are reference snippets for
+              builders and are not wired into this website runtime.
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Source repository:{" "}
+              <a
+                href="https://github.com/b-open-io/1sat-sdk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                github.com/b-open-io/1sat-sdk
+              </a>
+            </p>
+
+            <div className="mt-10 grid gap-6 md:grid-cols-2">
+              {sdkMatrix.map((item) => (
+                <article
+                  key={item.name}
+                  className="rounded-lg border bg-card p-6"
+                >
+                  <h3 className="text-lg font-semibold">{item.name}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {item.useFor}
+                  </p>
+                  <p className="mt-4 text-sm font-medium">Install</p>
+                  <pre className="mt-2 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
+                    <code>{item.install}</code>
+                  </pre>
+                  <p className="mt-4 text-sm font-medium">Example</p>
+                  <pre className="mt-2 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
+                    <code>{item.snippet}</code>
+                  </pre>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -158,8 +248,11 @@ export default function DevelopersPage() {
               <div>
                 <h3 className="text-xl font-semibold">4. Start Building</h3>
                 <p className="mt-2 text-muted-foreground">
-                  Use the SDKs and tools to create your first ordinal, token, or
-                  application.
+                  Use the{" "}
+                  <a href="#sdk" className="text-primary hover:underline">
+                    SDK matrix above
+                  </a>{" "}
+                  to choose the right package for your app surface.
                 </p>
               </div>
             </div>
