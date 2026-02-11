@@ -6,21 +6,53 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { authClient } from "@/lib/auth";
 import { useAuth } from "@/lib/auth-client";
+
+function getOAuthErrorMessage(err: unknown): string {
+  if (err instanceof Error) {
+    return err.message;
+  }
+
+  if (
+    typeof err === "object" &&
+    err !== null &&
+    "message" in err &&
+    typeof err.message === "string"
+  ) {
+    return err.message;
+  }
+
+  return "Authentication failed";
+}
 
 function CallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { setUser } = useAuth();
   const [error, setError] = useState<string | null>(null);
+  const hasHandledCallback = useRef(false);
 
   useEffect(() => {
+    // Prevent duplicate callback handling in React Strict Mode/dev remounts
+    if (hasHandledCallback.current) {
+      return;
+    }
+
     const handleCallback = async () => {
       try {
+        const params = new URLSearchParams(searchParams.toString());
+
+        if (!params.get("code") && !params.get("error")) {
+          setError("Missing OAuth callback parameters");
+          return;
+        }
+
+        hasHandledCallback.current = true;
+
         // Exchange code for tokens and get user data
-        const result = await authClient.sigma.handleCallback(searchParams);
+        const result = await authClient.sigma.handleCallback(params);
 
         // Store tokens in localStorage
         localStorage.setItem("sigma_access_token", result.access_token);
@@ -33,10 +65,10 @@ function CallbackContent() {
         setUser(result.user);
 
         // Redirect to home
-        router.push("/");
+        router.replace("/");
       } catch (err) {
         console.error("OAuth callback error:", err);
-        setError(err instanceof Error ? err.message : "Authentication failed");
+        setError(getOAuthErrorMessage(err));
       }
     };
 
