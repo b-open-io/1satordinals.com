@@ -15,7 +15,7 @@ interface CheckoutRequest {
 export async function POST(req: NextRequest) {
   try {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-      apiVersion: "2025-02-24.acacia",
+      apiVersion: "2025-12-15.clover",
     });
 
     const { items, shipping, shippingAddress }: CheckoutRequest =
@@ -113,7 +113,14 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json({ sessionId: session.id });
+    if (!session.url) {
+      return NextResponse.json(
+        { error: "Failed to create checkout URL" },
+        { status: 500 },
+      );
+    }
+
+    return NextResponse.json({ sessionId: session.id, url: session.url });
   } catch (err) {
     console.error("Stripe error:", err);
     return NextResponse.json(

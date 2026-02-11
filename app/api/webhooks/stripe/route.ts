@@ -16,7 +16,7 @@ import { createOrder } from "@/lib/printful/orders";
 export const runtime = "nodejs";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2025-02-24.acacia",
+  apiVersion: "2025-12-15.clover",
 });
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -68,11 +68,12 @@ export async function POST(req: NextRequest) {
       );
       const shippingMethod = session.metadata?.shipping_method || "STANDARD";
 
-      // Get full shipping address from customer_details
+      // Get full shipping address from collected_information (fallback: customer_details.address)
       const customerDetails = session.customer_details;
-      const shippingDetails = session.shipping_details || customerDetails;
+      const shippingDetails = session.collected_information?.shipping_details;
+      const shippingAddress = shippingDetails?.address || customerDetails?.address;
 
-      if (!shippingDetails?.address || !customerDetails?.email) {
+      if (!shippingAddress || !customerDetails?.email) {
         console.error(
           "⚠️ Missing shipping address or email in session:",
           session.id,
@@ -85,19 +86,19 @@ export async function POST(req: NextRequest) {
 
       // Build Printful recipient from Stripe data
       const recipient: PrintfulOrderRecipient = {
-        name: shippingDetails.name || customerDetails.name || "Customer",
+        name: shippingDetails?.name || customerDetails.name || "Customer",
         email: customerDetails.email,
-        address1: shippingDetails.address.line1 || "",
-        address2: shippingDetails.address.line2 || undefined,
-        city: shippingDetails.address.city || shippingAddressPartial.city || "",
+        address1: shippingAddress.line1 || "",
+        address2: shippingAddress.line2 || undefined,
+        city: shippingAddress.city || shippingAddressPartial.city || "",
         state_code:
-          shippingDetails.address.state || shippingAddressPartial.state_code,
+          shippingAddress.state || shippingAddressPartial.state_code,
         country_code:
-          shippingDetails.address.country ||
+          shippingAddress.country ||
           shippingAddressPartial.country_code ||
           "US",
         zip:
-          shippingDetails.address.postal_code ||
+          shippingAddress.postal_code ||
           shippingAddressPartial.zip ||
           "",
         phone: customerDetails.phone || undefined,

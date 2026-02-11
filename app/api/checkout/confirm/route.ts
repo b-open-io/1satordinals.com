@@ -14,12 +14,12 @@ export async function POST(req: NextRequest) {
     }
 
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-      apiVersion: "2025-02-24.acacia",
+      apiVersion: "2025-12-15.clover",
     });
 
     // Retrieve the checkout session with all relevant data
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
-      expand: ["line_items", "customer_details", "shipping_details"],
+      expand: ["line_items", "customer_details", "collected_information"],
     });
 
     if (session.payment_status !== "paid") {
@@ -49,11 +49,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Get shipping address from Stripe checkout
-    const shippingDetails = session.shipping_details;
+    // Get shipping address from Stripe checkout (newer API exposes this under collected_information)
+    const shippingDetails = session.collected_information?.shipping_details;
     const customerDetails = session.customer_details;
+    const shippingAddress = shippingDetails?.address || customerDetails?.address;
 
-    if (!shippingDetails?.address) {
+    if (!shippingAddress) {
       return NextResponse.json(
         { error: "Missing shipping address" },
         { status: 400 },
@@ -66,13 +67,13 @@ export async function POST(req: NextRequest) {
         external_id: session.id,
         shipping: shippingMethod,
         recipient: {
-          name: shippingDetails.name || customerDetails?.name || "Customer",
-          address1: shippingDetails.address.line1 || "",
-          address2: shippingDetails.address.line2 || undefined,
-          city: shippingDetails.address.city || "",
-          state_code: shippingDetails.address.state || "",
-          country_code: shippingDetails.address.country || "US",
-          zip: shippingDetails.address.postal_code || "",
+          name: shippingDetails?.name || customerDetails?.name || "Customer",
+          address1: shippingAddress.line1 || "",
+          address2: shippingAddress.line2 || undefined,
+          city: shippingAddress.city || "",
+          state_code: shippingAddress.state || "",
+          country_code: shippingAddress.country || "US",
+          zip: shippingAddress.postal_code || "",
           email: customerDetails?.email || undefined,
           phone: customerDetails?.phone || undefined,
         },

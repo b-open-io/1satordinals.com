@@ -91,6 +91,7 @@ export interface CreateCheckoutRequest {
 
 export interface CreateCheckoutResponse {
   sessionId: string;
+  url: string;
 }
 
 export async function createCheckout(

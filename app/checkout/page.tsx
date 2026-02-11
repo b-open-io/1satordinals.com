@@ -1,6 +1,5 @@
 "use client";
 
-import { loadStripe } from "@stripe/stripe-js";
 import { CreditCard, Loader2, Shield } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -52,27 +51,11 @@ export default function CheckoutPage() {
         throw new Error(data.error || "Something went wrong");
       }
 
-      const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
-
-      if (!publishableKey) {
-        throw new Error(
-          "Stripe publishable key is not configured. Please add NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY to your environment variables.",
-        );
+      if (!data.url) {
+        throw new Error("Checkout URL missing from server response");
       }
 
-      const stripe = await loadStripe(publishableKey);
-
-      if (!stripe) {
-        throw new Error("Stripe failed to load");
-      }
-
-      const { error: stripeError } = await stripe.redirectToCheckout({
-        sessionId: data.sessionId,
-      });
-
-      if (stripeError) {
-        throw stripeError;
-      }
+      window.location.href = data.url;
     } catch (err) {
       console.error("Checkout error:", err);
       const errorMessage =
