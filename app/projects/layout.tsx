@@ -16,7 +16,7 @@ const projectsJsonLd = {
       "about": { "@id": "https://1satordinals.com/#softwareapplication" },
       "publisher": { "@id": "https://bopen.io/#organization" },
       "inLanguage": "en-US",
-      "knowsAbout": [
+      "keywords": [
         "1Sat Ordinals Ecosystem",
         "BSV dApps",
         "NFT Marketplace",
@@ -56,7 +56,7 @@ export default function ProjectsLayout({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectsJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectsJsonLd).replace(/</g, "\\u003c") }}
       />
       {children}
     </>

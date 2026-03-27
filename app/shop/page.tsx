@@ -30,7 +30,7 @@ const shopJsonLd = {
       "isPartOf": { "@id": "https://1satordinals.com/#website" },
       "publisher": { "@id": "https://bopen.io/#organization" },
       "inLanguage": "en-US",
-      "knowsAbout": [
+      "keywords": [
         "1Sat Ordinals Merchandise",
         "Fox-themed Merch",
         "BSV Community Gear",
@@ -76,7 +76,7 @@ export default async function ShopPage() {
     <div className="flex flex-col">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(shopJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(shopJsonLd).replace(/</g, "\\u003c") }}
       />
       <section className="border-b border-border bg-gradient-to-b from-background to-muted/20 py-16">
         <div className="container mx-auto max-w-7xl px-4">

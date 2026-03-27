@@ -90,7 +90,7 @@ export function SchemaMarkup() {
           { "@id": "https://themetoken.dev/#softwareapplication" },
           { "@id": "https://mintflow.me/#softwareapplication" },
         ],
-        knowsAbout: [
+        keywords: [
           "1Sat Ordinals",
           "BSV Ordinals",
           "NFT Protocol",
@@ -102,11 +102,6 @@ export function SchemaMarkup() {
           "Bitcoin Script",
           "Fungible Tokens",
           "Non-fungible Tokens",
-        ],
-        sameAs: [
-          "https://discord.gg/1satordinals",
-          "https://github.com/b-open-io/1satordinals.com",
-          "https://twitter.com/1satordinals",
         ],
       },
       {
@@ -132,6 +127,11 @@ export function SchemaMarkup() {
   };
 
   return (
-    <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schemaData).replace(/</g, "\\u003c"),
+      }}
+    />
   );
 }

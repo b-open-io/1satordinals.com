@@ -71,7 +71,7 @@ const articleJsonLd = {
       },
       "articleSection": "Technical Deep Dive",
       "inLanguage": "en-US",
-      "knowsAbout": [
+      "keywords": [
         "Protocol Stability",
         "Composable Protocols",
         "Bitcoin Script",
@@ -111,7 +111,7 @@ export default function BuildingOnBedrockArticle() {
     <ArticleLayout>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c") }}
       />
       {/* Hero Section */}
       <section className="relative overflow-hidden">

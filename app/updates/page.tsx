@@ -67,7 +67,7 @@ const updatesJsonLd = {
       "about": { "@id": "https://1satordinals.com/#softwareapplication" },
       "publisher": { "@id": "https://bopen.io/#organization" },
       "inLanguage": "en-US",
-      "knowsAbout": [
+      "keywords": [
         "1Sat Ordinals Updates",
         "BSV Protocol News",
         "Feature Releases",
@@ -101,7 +101,7 @@ export default function UpdatesPage() {
     <div className="min-h-screen">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(updatesJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(updatesJsonLd).replace(/</g, "\\u003c") }}
       />
       {/* Hero */}
       <section className="py-16 md:py-24 border-b border-primary/20">

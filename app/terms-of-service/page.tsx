@@ -43,7 +43,7 @@ export default function TermsPage() {
     <section className="w-full py-16">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(termsJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(termsJsonLd).replace(/</g, "\\u003c") }}
       />
       <div className="container mx-auto max-w-7xl px-4">
         <div className="mx-auto max-w-4xl">

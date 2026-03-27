@@ -353,7 +353,7 @@ const developersJsonLd = {
       "publisher": { "@id": "https://bopen.io/#organization" },
       "inLanguage": "en-US",
       "proficiencyLevel": "Advanced",
-      "knowsAbout": [
+      "keywords": [
         "1Sat SDK",
         "BSV dApp Development",
         "Wallet Connect Integration",
@@ -391,7 +391,7 @@ export default function DevelopersPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(developersJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(developersJsonLd).replace(/</g, "\\u003c") }}
       />
       <section className="w-full py-16 md:py-24">
         <div className="container mx-auto max-w-7xl px-4">

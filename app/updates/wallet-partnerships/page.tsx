@@ -34,7 +34,7 @@ const articleJsonLd = {
       },
       "articleSection": "Ecosystem",
       "inLanguage": "en-US",
-      "knowsAbout": [
+      "keywords": [
         "BSV Wallet Integration",
         "Token Visibility",
         "User Onboarding",
@@ -72,7 +72,7 @@ export default function WalletPartnershipsPage() {
     <div className="min-h-screen">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c") }}
       />
       <section className="py-16 md:py-24 border-b border-primary/20">
         <div className="container mx-auto px-4">

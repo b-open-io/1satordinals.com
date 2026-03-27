@@ -14,16 +14,14 @@ Sitemap: https://1satordinals.com/sitemap.xml
 # RSS Feed
 Sitemap: https://1satordinals.com/feed.xml
 
-# Crawl-delay for respectful crawling
-User-agent: *
-Crawl-delay: 1
-
 # Allow major search engines full access
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
 # AI Crawlers — Welcome
 User-agent: GPTBot

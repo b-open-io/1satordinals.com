@@ -33,7 +33,7 @@ const protocolJsonLd = {
       "publisher": { "@id": "https://bopen.io/#organization" },
       "inLanguage": "en-US",
       "proficiencyLevel": "Advanced",
-      "knowsAbout": [
+      "keywords": [
         "1Sat Ordinals Protocol",
         "BSV Ordinals Specification",
         "Single Satoshi Output Spends",
@@ -69,7 +69,7 @@ export default function ProtocolPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(protocolJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(protocolJsonLd).replace(/</g, "\\u003c") }}
       />
       {/* Hero */}
       <section className="w-full py-16 md:py-24">
