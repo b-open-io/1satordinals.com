@@ -48,9 +48,71 @@ export const metadata: Metadata = {
   },
 };
 
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id":
+        "https://1satordinals.com/updates/building-on-bedrock/#article",
+      "headline":
+        "Building on Bedrock: The Case for Simple, Stable Protocols",
+      "description":
+        "Explore why simple, stable protocols like 1Sat Ordinals provide the best foundation for blockchain development. Learn from Bitcoin's philosophy of protocol stability.",
+      "url": "https://1satordinals.com/updates/building-on-bedrock",
+      "datePublished": "2025-12-27",
+      "isPartOf": { "@id": "https://1satordinals.com/#website" },
+      "about": { "@id": "https://1satordinals.com/#softwareapplication" },
+      "publisher": { "@id": "https://bopen.io/#organization" },
+      "author": {
+        "@type": "Organization",
+        "name": "1Sat Ordinals Team",
+        "url": "https://1satordinals.com",
+      },
+      "articleSection": "Technical Deep Dive",
+      "inLanguage": "en-US",
+      "knowsAbout": [
+        "Protocol Stability",
+        "Composable Protocols",
+        "Bitcoin Script",
+        "sCrypt",
+        "BSV21 Tokens",
+        "MNEE Stablecoin",
+      ],
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://1satordinals.com",
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Updates",
+          "item": "https://1satordinals.com/updates",
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Building on Bedrock",
+          "item": "https://1satordinals.com/updates/building-on-bedrock",
+        },
+      ],
+    },
+  ],
+};
+
 export default function BuildingOnBedrockArticle() {
   return (
     <ArticleLayout>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         {/* Decorative elements */}

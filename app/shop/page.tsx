@@ -17,6 +17,45 @@ export const metadata = {
   },
 };
 
+const shopJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://1satordinals.com/shop/#collectionpage",
+      "name": "Shop All Products | 1Sat Ordinals",
+      "description":
+        "Browse the full collection of 1Sat Ordinals fox-themed merchandise including mugs, shirts, and stickers.",
+      "url": "https://1satordinals.com/shop",
+      "isPartOf": { "@id": "https://1satordinals.com/#website" },
+      "publisher": { "@id": "https://bopen.io/#organization" },
+      "inLanguage": "en-US",
+      "knowsAbout": [
+        "1Sat Ordinals Merchandise",
+        "Fox-themed Merch",
+        "BSV Community Gear",
+      ],
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://1satordinals.com",
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Shop",
+          "item": "https://1satordinals.com/shop",
+        },
+      ],
+    },
+  ],
+};
+
 async function getProducts(): Promise<Product[]> {
   const syncProducts = await getSyncProducts();
 
@@ -35,6 +74,10 @@ export default async function ShopPage() {
 
   return (
     <div className="flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(shopJsonLd) }}
+      />
       <section className="border-b border-border bg-gradient-to-b from-background to-muted/20 py-16">
         <div className="container mx-auto max-w-7xl px-4">
           <h1 className="text-4xl font-bold">Shop All Products</h1>

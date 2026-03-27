@@ -53,11 +53,56 @@ const updates = [
   },
 ];
 
+const updatesJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://1satordinals.com/updates/#collectionpage",
+      "name": "Protocol Updates & News | 1Sat Ordinals",
+      "description":
+        "Latest 1Sat Ordinals protocol developments, feature releases, and ecosystem news for Bitcoin SV tokens and ordinals.",
+      "url": "https://1satordinals.com/updates",
+      "isPartOf": { "@id": "https://1satordinals.com/#website" },
+      "about": { "@id": "https://1satordinals.com/#softwareapplication" },
+      "publisher": { "@id": "https://bopen.io/#organization" },
+      "inLanguage": "en-US",
+      "knowsAbout": [
+        "1Sat Ordinals Updates",
+        "BSV Protocol News",
+        "Feature Releases",
+        "Ecosystem Announcements",
+      ],
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://1satordinals.com",
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Updates",
+          "item": "https://1satordinals.com/updates",
+        },
+      ],
+    },
+  ],
+};
+
 export default function UpdatesPage() {
   const latestUpdate = updates[0];
 
   return (
     <div className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(updatesJsonLd) }}
+      />
       {/* Hero */}
       <section className="py-16 md:py-24 border-b border-primary/20">
         <div className="container mx-auto px-4">

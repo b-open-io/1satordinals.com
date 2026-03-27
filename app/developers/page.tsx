@@ -338,9 +338,61 @@ export const metadata = {
   },
 };
 
+const developersJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://1satordinals.com/developers/#techarticle",
+      "headline": "Build on 1Sat Ordinals",
+      "description":
+        "Developer resources for building tokens, NFTs, and applications on Bitcoin SV using the 1Sat Ordinals protocol. Includes SDK matrix, protocol references, API documentation, and ecosystem tools.",
+      "url": "https://1satordinals.com/developers",
+      "isPartOf": { "@id": "https://1satordinals.com/#website" },
+      "about": { "@id": "https://1satordinals.com/#softwareapplication" },
+      "publisher": { "@id": "https://bopen.io/#organization" },
+      "inLanguage": "en-US",
+      "proficiencyLevel": "Advanced",
+      "knowsAbout": [
+        "1Sat SDK",
+        "BSV dApp Development",
+        "Wallet Connect Integration",
+        "BSV-20 Fungible Tokens",
+        "BSV-21 Tokens",
+        "sCrypt Smart Contracts",
+        "Bitcoin Script",
+        "Ordinals API",
+        "JavaScript SDK",
+        "Go SDK",
+      ],
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://1satordinals.com",
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Developers",
+          "item": "https://1satordinals.com/developers",
+        },
+      ],
+    },
+  ],
+};
+
 export default function DevelopersPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(developersJsonLd) }}
+      />
       <section className="w-full py-16 md:py-24">
         <div className="container mx-auto max-w-7xl px-4">
           <Breadcrumb items={[{ label: "Developers" }]} />

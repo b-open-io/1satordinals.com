@@ -12,9 +12,68 @@ export const metadata: Metadata = {
   },
 };
 
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id":
+        "https://1satordinals.com/updates/wallet-partnerships/#article",
+      "headline": "Partnership with Major BSV Wallets",
+      "description":
+        "1Sat Ordinals expands wallet ecosystem support to simplify user onboarding, token visibility, and everyday ordinal usage across BSV wallets.",
+      "url": "https://1satordinals.com/updates/wallet-partnerships",
+      "datePublished": "2025-12-15",
+      "isPartOf": { "@id": "https://1satordinals.com/#website" },
+      "about": { "@id": "https://1satordinals.com/#softwareapplication" },
+      "publisher": { "@id": "https://bopen.io/#organization" },
+      "author": {
+        "@type": "Organization",
+        "name": "1Sat Ordinals Team",
+        "url": "https://1satordinals.com",
+      },
+      "articleSection": "Ecosystem",
+      "inLanguage": "en-US",
+      "knowsAbout": [
+        "BSV Wallet Integration",
+        "Token Visibility",
+        "User Onboarding",
+        "Wallet Partnerships",
+      ],
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://1satordinals.com",
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Updates",
+          "item": "https://1satordinals.com/updates",
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Wallet Partnerships",
+          "item": "https://1satordinals.com/updates/wallet-partnerships",
+        },
+      ],
+    },
+  ],
+};
+
 export default function WalletPartnershipsPage() {
   return (
     <div className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <section className="py-16 md:py-24 border-b border-primary/20">
         <div className="container mx-auto px-4">
           <Breadcrumb

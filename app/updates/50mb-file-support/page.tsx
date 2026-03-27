@@ -12,9 +12,68 @@ export const metadata: Metadata = {
   },
 };
 
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id":
+        "https://1satordinals.com/updates/50mb-file-support/#article",
+      "headline": "50MB File Support Now Live on Mainnet",
+      "description":
+        "1Sat Ordinals now supports 50MB+ payloads on mainnet, enabling richer media, larger artifacts, and fully on-chain application assets.",
+      "url": "https://1satordinals.com/updates/50mb-file-support",
+      "datePublished": "2025-12-20",
+      "isPartOf": { "@id": "https://1satordinals.com/#website" },
+      "about": { "@id": "https://1satordinals.com/#softwareapplication" },
+      "publisher": { "@id": "https://bopen.io/#organization" },
+      "author": {
+        "@type": "Organization",
+        "name": "1Sat Ordinals Team",
+        "url": "https://1satordinals.com",
+      },
+      "articleSection": "Feature Release",
+      "inLanguage": "en-US",
+      "knowsAbout": [
+        "Large File Inscriptions",
+        "On-chain Media",
+        "50MB Payload Support",
+        "BSV Mainnet",
+      ],
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://1satordinals.com",
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Updates",
+          "item": "https://1satordinals.com/updates",
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "50MB File Support",
+          "item": "https://1satordinals.com/updates/50mb-file-support",
+        },
+      ],
+    },
+  ],
+};
+
 export default function FiftyMbFileSupportPage() {
   return (
     <div className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <section className="py-16 md:py-24 border-b border-primary/20">
         <div className="container mx-auto px-4">
           <Breadcrumb

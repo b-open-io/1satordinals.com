@@ -5,9 +5,46 @@ export const metadata = {
   },
 };
 
+const termsJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://1satordinals.com/terms-of-service/#webpage",
+      "name": "Terms of Service | 1Sat Ordinals",
+      "description":
+        "Terms of service for the 1Sat Ordinals website and open-source protocol on the Bitcoin SV blockchain.",
+      "url": "https://1satordinals.com/terms-of-service",
+      "isPartOf": { "@id": "https://1satordinals.com/#website" },
+      "inLanguage": "en-US",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://1satordinals.com",
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Terms of Service",
+          "item": "https://1satordinals.com/terms-of-service",
+        },
+      ],
+    },
+  ],
+};
+
 export default function TermsPage() {
   return (
     <section className="w-full py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(termsJsonLd) }}
+      />
       <div className="container mx-auto max-w-7xl px-4">
         <div className="mx-auto max-w-4xl">
           <h1 className="text-4xl font-bold tracking-tight">

@@ -18,9 +18,59 @@ export const metadata = {
   },
 };
 
+const protocolJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://1satordinals.com/protocol/#techarticle",
+      "headline": "The 1Sat Ordinals Protocol",
+      "description":
+        "Technical documentation for the 1Sat Ordinals protocol — a chain of single satoshi output spends on Bitcoin SV enabling 50MB+ inscriptions, single-transaction minting, and sub-cent costs.",
+      "url": "https://1satordinals.com/protocol",
+      "isPartOf": { "@id": "https://1satordinals.com/#website" },
+      "about": { "@id": "https://1satordinals.com/#softwareapplication" },
+      "publisher": { "@id": "https://bopen.io/#organization" },
+      "inLanguage": "en-US",
+      "proficiencyLevel": "Advanced",
+      "knowsAbout": [
+        "1Sat Ordinals Protocol",
+        "BSV Ordinals Specification",
+        "Single Satoshi Output Spends",
+        "Origin-Based Indexing",
+        "BSV-20 Token Standard",
+        "BSV-21 Token Standard",
+        "Bitcoin Script",
+        "NFT Minting",
+      ],
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://1satordinals.com",
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Protocol",
+          "item": "https://1satordinals.com/protocol",
+        },
+      ],
+    },
+  ],
+};
+
 export default function ProtocolPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(protocolJsonLd) }}
+      />
       {/* Hero */}
       <section className="w-full py-16 md:py-24">
         <div className="container mx-auto max-w-7xl px-4">

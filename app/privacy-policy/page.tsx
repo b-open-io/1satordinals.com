@@ -5,9 +5,46 @@ export const metadata = {
   },
 };
 
+const privacyJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://1satordinals.com/privacy-policy/#webpage",
+      "name": "Privacy Policy | 1Sat Ordinals",
+      "description":
+        "Privacy policy for the 1Sat Ordinals website describing data collection, cookies, and blockchain transparency.",
+      "url": "https://1satordinals.com/privacy-policy",
+      "isPartOf": { "@id": "https://1satordinals.com/#website" },
+      "inLanguage": "en-US",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://1satordinals.com",
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Privacy Policy",
+          "item": "https://1satordinals.com/privacy-policy",
+        },
+      ],
+    },
+  ],
+};
+
 export default function PrivacyPage() {
   return (
     <section className="w-full py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(privacyJsonLd) }}
+      />
       <div className="container mx-auto max-w-7xl px-4">
         <div className="mx-auto max-w-4xl">
           <h1 className="text-4xl font-bold tracking-tight">Privacy Policy</h1>
