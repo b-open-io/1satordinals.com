@@ -19,6 +19,13 @@ export function SchemaMarkup() {
         name: "1Sat Ordinals - Bitcoin SV Token Protocol | 50MB+ NFTs & Inscriptions",
         isPartOf: { "@id": "https://1satordinals.com/#website" },
         inLanguage: "en-US",
+        speakable: {
+          "@type": "SpeakableSpecification",
+          cssSelector: [
+            "section .text-xl.md\\:text-2xl.text-gray-400",
+            "section h1",
+          ],
+        },
       },
       {
         "@type": "Organization",
