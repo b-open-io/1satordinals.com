@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "50MB File Support Now Live on Mainnet | 1Sat Ordinals",
   description:
     "1Sat Ordinals now supports 50MB+ payloads on mainnet, enabling richer media, larger artifacts, and fully on-chain application assets.",
+  alternates: {
+    canonical: "https://1satordinals.com/updates/50mb-file-support",
+  },
 };
 
 export default function FiftyMbFileSupportPage() {

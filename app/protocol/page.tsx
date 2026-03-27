@@ -13,6 +13,9 @@ export const metadata = {
     "Bitcoin SV NFT protocol",
     "token creation guide",
   ],
+  alternates: {
+    canonical: "https://1satordinals.com/protocol",
+  },
 };
 
 export default function ProtocolPage() {

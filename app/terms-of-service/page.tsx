@@ -1,5 +1,8 @@
 export const metadata = {
   title: "Terms of Service | 1Sat Ordinals",
+  alternates: {
+    canonical: "https://1satordinals.com/terms-of-service",
+  },
 };
 
 export default function TermsPage() {

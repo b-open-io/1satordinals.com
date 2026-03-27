@@ -43,6 +43,9 @@ export const metadata: Metadata = {
     "simple composable blockchain",
     "Bitcoin Script compatibility",
   ],
+  alternates: {
+    canonical: "https://1satordinals.com/updates/building-on-bedrock",
+  },
 };
 
 export default function BuildingOnBedrockArticle() {

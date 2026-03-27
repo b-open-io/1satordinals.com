@@ -10,4 +10,7 @@ export const metadata: Metadata = {
     "ordinals ecosystem",
     "Bitcoin SV dApps",
   ],
+  alternates: {
+    canonical: "https://1satordinals.com/projects",
+  },
 };

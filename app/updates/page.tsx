@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     "ordinals development",
     "Bitcoin SV news",
   ],
+  alternates: {
+    canonical: "https://1satordinals.com/updates",
+  },
 };
 
 // Mock data - replace with CMS or markdown files

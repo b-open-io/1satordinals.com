@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Partnership with Major BSV Wallets | 1Sat Ordinals",
   description:
     "1Sat Ordinals expands wallet ecosystem support to simplify user onboarding, token visibility, and everyday ordinal usage.",
+  alternates: {
+    canonical: "https://1satordinals.com/updates/wallet-partnerships",
+  },
 };
 
 export default function WalletPartnershipsPage() {

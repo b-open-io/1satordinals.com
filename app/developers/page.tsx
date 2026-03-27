@@ -333,6 +333,9 @@ function DeveloperResourceCard({ resource }: { resource: DeveloperResource }) {
 export const metadata = {
   title: "Developers | 1Sat Ordinals",
   description: "Resources and tools for building on 1Sat Ordinals",
+  alternates: {
+    canonical: "https://1satordinals.com/developers",
+  },
 };
 
 export default function DevelopersPage() {

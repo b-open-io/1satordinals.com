@@ -1,5 +1,8 @@
 export const metadata = {
   title: "Privacy Policy | 1Sat Ordinals",
+  alternates: {
+    canonical: "https://1satordinals.com/privacy-policy",
+  },
 };
 
 export default function PrivacyPage() {
