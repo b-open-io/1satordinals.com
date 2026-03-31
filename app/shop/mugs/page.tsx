@@ -12,6 +12,9 @@ export const metadata = {
   title: "Fox Mugs",
   description:
     "Shop our collection of custom fox-themed ceramic mugs. Perfect for coffee, tea, or hot chocolate!",
+  alternates: {
+    canonical: "https://1satordinals.com/shop/mugs",
+  },
 };
 
 async function getProducts(): Promise<Product[]> {

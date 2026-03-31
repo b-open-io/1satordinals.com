@@ -12,6 +12,9 @@ export const metadata = {
   title: "Fox T-Shirts",
   description:
     "Shop our collection of custom fox-themed t-shirts. Soft, comfortable, and adorable!",
+  alternates: {
+    canonical: "https://1satordinals.com/shop/shirts",
+  },
 };
 
 async function getProducts(): Promise<Product[]> {

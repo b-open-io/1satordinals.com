@@ -3,6 +3,8 @@ import { Book, Code2, Github, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
+import { JsonLd } from "@/components/json-ld";
 
 interface SdkEntry {
   name: string;
@@ -333,11 +335,52 @@ function DeveloperResourceCard({ resource }: { resource: DeveloperResource }) {
 export const metadata = {
   title: "Developers | 1Sat Ordinals",
   description: "Resources and tools for building on 1Sat Ordinals",
+  alternates: {
+    canonical: "https://1satordinals.com/developers",
+  },
+};
+
+const developersSchemaData = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://1satordinals.com/developers/#techarticle",
+  "headline": "Build on 1Sat Ordinals",
+  "description":
+    "Developer resources for building tokens, NFTs, and applications on Bitcoin SV using the 1Sat Ordinals protocol. Includes SDK matrix, protocol references, API documentation, and ecosystem tools.",
+  "url": "https://1satordinals.com/developers",
+  "isPartOf": { "@id": "https://1satordinals.com/#website" },
+  "about": { "@id": "https://1satordinals.com/#softwareapplication" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "bOpen",
+    "url": "https://bopen.io",
+  },
+  "inLanguage": "en-US",
+  "proficiencyLevel": "Advanced",
+  "keywords": [
+    "1Sat SDK",
+    "BSV dApp Development",
+    "Wallet Connect Integration",
+    "BSV-20 Fungible Tokens",
+    "BSV-21 Tokens",
+    "sCrypt Smart Contracts",
+    "Bitcoin Script",
+    "Ordinals API",
+    "JavaScript SDK",
+    "Go SDK",
+  ],
 };
 
 export default function DevelopersPage() {
   return (
     <>
+      <JsonLd data={developersSchemaData} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://1satordinals.com" },
+          { name: "Developers" },
+        ]}
+      />
       <section className="w-full py-16 md:py-24">
         <div className="container mx-auto max-w-7xl px-4">
           <Breadcrumb items={[{ label: "Developers" }]} />

@@ -39,6 +39,9 @@ export async function generateMetadata({
   return {
     title: `${product.name} | 1SatOrdinals`,
     description: product.description,
+    alternates: {
+      canonical: `https://1satordinals.com/shop/${id}`,
+    },
     openGraph: {
       title: `${product.name} | 1SatOrdinals`,
       description: product.description,

@@ -1,3 +1,5 @@
+import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
+import { JsonLd } from "@/components/json-ld";
 import { ProductCard } from "@/components/product-card";
 import {
   getSyncProduct,
@@ -12,6 +14,31 @@ export const metadata = {
   title: "Shop All Products",
   description:
     "Browse all our custom fox-themed merch including mugs, shirts, and more.",
+  alternates: {
+    canonical: "https://1satordinals.com/shop",
+  },
+};
+
+const shopSchemaData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://1satordinals.com/shop/#collectionpage",
+  "name": "Shop All Products | 1Sat Ordinals",
+  "description":
+    "Browse the full collection of 1Sat Ordinals fox-themed merchandise including mugs, shirts, and stickers.",
+  "url": "https://1satordinals.com/shop",
+  "isPartOf": { "@id": "https://1satordinals.com/#website" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "bOpen",
+    "url": "https://bopen.io",
+  },
+  "inLanguage": "en-US",
+  "keywords": [
+    "1Sat Ordinals Merchandise",
+    "Fox-themed Merch",
+    "BSV Community Gear",
+  ],
 };
 
 async function getProducts(): Promise<Product[]> {
@@ -32,6 +59,13 @@ export default async function ShopPage() {
 
   return (
     <div className="flex flex-col">
+      <JsonLd data={shopSchemaData} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://1satordinals.com" },
+          { name: "Shop" },
+        ]}
+      />
       <section className="border-b border-border bg-gradient-to-b from-background to-muted/20 py-16">
         <div className="container mx-auto max-w-7xl px-4">
           <h1 className="text-4xl font-bold">Shop All Products</h1>

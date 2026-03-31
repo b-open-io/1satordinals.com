@@ -1,10 +1,35 @@
+import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
+import { JsonLd } from "@/components/json-ld";
+
 export const metadata = {
   title: "Privacy Policy | 1Sat Ordinals",
+  alternates: {
+    canonical: "https://1satordinals.com/privacy-policy",
+  },
+};
+
+const privacySchemaData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://1satordinals.com/privacy-policy/#webpage",
+  "name": "Privacy Policy | 1Sat Ordinals",
+  "description":
+    "Privacy policy for the 1Sat Ordinals website describing data collection, cookies, and blockchain transparency.",
+  "url": "https://1satordinals.com/privacy-policy",
+  "isPartOf": { "@id": "https://1satordinals.com/#website" },
+  "inLanguage": "en-US",
 };
 
 export default function PrivacyPage() {
   return (
     <section className="w-full py-16">
+      <JsonLd data={privacySchemaData} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://1satordinals.com" },
+          { name: "Privacy Policy" },
+        ]}
+      />
       <div className="container mx-auto max-w-7xl px-4">
         <div className="mx-auto max-w-4xl">
           <h1 className="text-4xl font-bold tracking-tight">Privacy Policy</h1>

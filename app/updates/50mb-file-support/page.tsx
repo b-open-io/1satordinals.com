@@ -2,16 +2,61 @@ import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
+import { JsonLd } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "50MB File Support Now Live on Mainnet | 1Sat Ordinals",
   description:
     "1Sat Ordinals now supports 50MB+ payloads on mainnet, enabling richer media, larger artifacts, and fully on-chain application assets.",
+  alternates: {
+    canonical: "https://1satordinals.com/updates/50mb-file-support",
+  },
+};
+
+const articleSchemaData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": "https://1satordinals.com/updates/50mb-file-support/#article",
+  "headline": "50MB File Support Now Live on Mainnet",
+  "description":
+    "1Sat Ordinals now supports 50MB+ payloads on mainnet, enabling richer media, larger artifacts, and fully on-chain application assets.",
+  "url": "https://1satordinals.com/updates/50mb-file-support",
+  "datePublished": "2025-12-20",
+  "dateModified": "2025-12-20",
+  "isPartOf": { "@id": "https://1satordinals.com/#website" },
+  "about": { "@id": "https://1satordinals.com/#softwareapplication" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "bOpen",
+    "url": "https://bopen.io",
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "1Sat Ordinals Team",
+    "url": "https://1satordinals.com",
+  },
+  "articleSection": "Feature Release",
+  "inLanguage": "en-US",
+  "keywords": [
+    "Large File Inscriptions",
+    "On-chain Media",
+    "50MB Payload Support",
+    "BSV Mainnet",
+  ],
 };
 
 export default function FiftyMbFileSupportPage() {
   return (
     <div className="min-h-screen">
+      <JsonLd data={articleSchemaData} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://1satordinals.com" },
+          { name: "Updates", url: "https://1satordinals.com/updates" },
+          { name: "50MB File Support" },
+        ]}
+      />
       <section className="py-16 md:py-24 border-b border-primary/20">
         <div className="container mx-auto px-4">
           <Breadcrumb

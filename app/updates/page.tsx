@@ -2,6 +2,8 @@ import { ArrowRight, Calendar, Clock } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
+import { JsonLd } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "Updates & News | 1Sat Ordinals - Latest Protocol Developments",
@@ -14,6 +16,9 @@ export const metadata: Metadata = {
     "ordinals development",
     "Bitcoin SV news",
   ],
+  alternates: {
+    canonical: "https://1satordinals.com/updates",
+  },
 };
 
 // Mock data - replace with CMS or markdown files
@@ -50,11 +55,42 @@ const updates = [
   },
 ];
 
+const updatesSchemaData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://1satordinals.com/updates/#collectionpage",
+  "name": "Protocol Updates & News | 1Sat Ordinals",
+  "description":
+    "Latest 1Sat Ordinals protocol developments, feature releases, and ecosystem news for Bitcoin SV tokens and ordinals.",
+  "url": "https://1satordinals.com/updates",
+  "isPartOf": { "@id": "https://1satordinals.com/#website" },
+  "about": { "@id": "https://1satordinals.com/#softwareapplication" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "bOpen",
+    "url": "https://bopen.io",
+  },
+  "inLanguage": "en-US",
+  "keywords": [
+    "1Sat Ordinals Updates",
+    "BSV Protocol News",
+    "Feature Releases",
+    "Ecosystem Announcements",
+  ],
+};
+
 export default function UpdatesPage() {
   const latestUpdate = updates[0];
 
   return (
     <div className="min-h-screen">
+      <JsonLd data={updatesSchemaData} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://1satordinals.com" },
+          { name: "Updates" },
+        ]}
+      />
       {/* Hero */}
       <section className="py-16 md:py-24 border-b border-primary/20">
         <div className="container mx-auto px-4">

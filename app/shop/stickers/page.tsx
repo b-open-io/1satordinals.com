@@ -12,6 +12,9 @@ export const metadata = {
   title: "Fox Stickers",
   description:
     "Shop our collection of adorable fox stickers. Perfect for laptops, water bottles, and more!",
+  alternates: {
+    canonical: "https://1satordinals.com/shop/stickers",
+  },
 };
 
 async function getProducts(): Promise<Product[]> {

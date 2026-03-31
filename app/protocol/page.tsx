@@ -1,6 +1,8 @@
 import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
+import { JsonLd } from "@/components/json-ld";
 
 export const metadata = {
   title: "Protocol Documentation | 1Sat Ordinals - Bitcoin SV Token System",
@@ -13,11 +15,50 @@ export const metadata = {
     "Bitcoin SV NFT protocol",
     "token creation guide",
   ],
+  alternates: {
+    canonical: "https://1satordinals.com/protocol",
+  },
+};
+
+const protocolSchemaData = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://1satordinals.com/protocol/#techarticle",
+  "headline": "The 1Sat Ordinals Protocol",
+  "description":
+    "Technical documentation for the 1Sat Ordinals protocol — a chain of single satoshi output spends on Bitcoin SV enabling 50MB+ inscriptions, single-transaction minting, and sub-cent costs.",
+  "url": "https://1satordinals.com/protocol",
+  "isPartOf": { "@id": "https://1satordinals.com/#website" },
+  "about": { "@id": "https://1satordinals.com/#softwareapplication" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "bOpen",
+    "url": "https://bopen.io",
+  },
+  "inLanguage": "en-US",
+  "proficiencyLevel": "Advanced",
+  "keywords": [
+    "1Sat Ordinals Protocol",
+    "BSV Ordinals Specification",
+    "Single Satoshi Output Spends",
+    "Origin-Based Indexing",
+    "BSV-20 Token Standard",
+    "BSV-21 Token Standard",
+    "Bitcoin Script",
+    "NFT Minting",
+  ],
 };
 
 export default function ProtocolPage() {
   return (
     <>
+      <JsonLd data={protocolSchemaData} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://1satordinals.com" },
+          { name: "Protocol" },
+        ]}
+      />
       {/* Hero */}
       <section className="w-full py-16 md:py-24">
         <div className="container mx-auto max-w-7xl px-4">
