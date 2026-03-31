@@ -99,7 +99,12 @@ export function SchemaMarkup() {
           "BSV-21",
           "Inscriptions",
           "On-chain Data",
-          "Bitcoin Script",
+          {
+            "@type": "Thing",
+            name: "Bitcoin Script",
+            sameAs: "https://en.wikipedia.org/wiki/Bitcoin#Transactions",
+            description: "Stack-based scripting language used in Bitcoin transactions",
+          },
           "Fungible Tokens",
           "Non-fungible Tokens",
         ],
@@ -111,6 +116,11 @@ export function SchemaMarkup() {
         url: "https://kurtwuckertjr.com",
         description:
           "Bitcoin Historian and founder of bOpen, GorillaPool, and Open Protocol Labs",
+        sameAs: [
+          "https://www.wikidata.org/wiki/Q138774106",
+          "https://x.com/kurtwuckertjr",
+          "https://www.linkedin.com/in/kurtwuckertjr/",
+        ],
       },
       {
         "@type": "BreadcrumbList",
