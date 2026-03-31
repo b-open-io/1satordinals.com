@@ -2,6 +2,8 @@ import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
+import { JsonLd } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "Partnership with Major BSV Wallets | 1Sat Ordinals",
@@ -12,67 +14,48 @@ export const metadata: Metadata = {
   },
 };
 
-const articleJsonLd = {
+const articleSchemaData = {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Article",
-      "@id":
-        "https://1satordinals.com/updates/wallet-partnerships/#article",
-      "headline": "Partnership with Major BSV Wallets",
-      "description":
-        "1Sat Ordinals expands wallet ecosystem support to simplify user onboarding, token visibility, and everyday ordinal usage across BSV wallets.",
-      "url": "https://1satordinals.com/updates/wallet-partnerships",
-      "datePublished": "2025-12-15",
-      "isPartOf": { "@id": "https://1satordinals.com/#website" },
-      "about": { "@id": "https://1satordinals.com/#softwareapplication" },
-      "publisher": { "@id": "https://bopen.io/#organization" },
-      "author": {
-        "@type": "Organization",
-        "name": "1Sat Ordinals Team",
-        "url": "https://1satordinals.com",
-      },
-      "articleSection": "Ecosystem",
-      "inLanguage": "en-US",
-      "keywords": [
-        "BSV Wallet Integration",
-        "Token Visibility",
-        "User Onboarding",
-        "Wallet Partnerships",
-      ],
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://1satordinals.com",
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Updates",
-          "item": "https://1satordinals.com/updates",
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Wallet Partnerships",
-          "item": "https://1satordinals.com/updates/wallet-partnerships",
-        },
-      ],
-    },
+  "@type": "Article",
+  "@id": "https://1satordinals.com/updates/wallet-partnerships/#article",
+  "headline": "Partnership with Major BSV Wallets",
+  "description":
+    "1Sat Ordinals expands wallet ecosystem support to simplify user onboarding, token visibility, and everyday ordinal usage across BSV wallets.",
+  "url": "https://1satordinals.com/updates/wallet-partnerships",
+  "datePublished": "2025-12-15",
+  "dateModified": "2025-12-15",
+  "isPartOf": { "@id": "https://1satordinals.com/#website" },
+  "about": { "@id": "https://1satordinals.com/#softwareapplication" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "bOpen",
+    "url": "https://bopen.io",
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "1Sat Ordinals Team",
+    "url": "https://1satordinals.com",
+  },
+  "articleSection": "Ecosystem",
+  "inLanguage": "en-US",
+  "keywords": [
+    "BSV Wallet Integration",
+    "Token Visibility",
+    "User Onboarding",
+    "Wallet Partnerships",
   ],
 };
 
 export default function WalletPartnershipsPage() {
   return (
     <div className="min-h-screen">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c") }}
+      <JsonLd data={articleSchemaData} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://1satordinals.com" },
+          { name: "Updates", url: "https://1satordinals.com/updates" },
+          { name: "Wallet Partnerships" },
+        ]}
       />
       <section className="py-16 md:py-24 border-b border-primary/20">
         <div className="container mx-auto px-4">

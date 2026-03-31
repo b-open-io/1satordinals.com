@@ -1,3 +1,6 @@
+import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
+import { JsonLd } from "@/components/json-ld";
+
 export const metadata = {
   title: "Terms of Service | 1Sat Ordinals",
   alternates: {
@@ -5,45 +8,27 @@ export const metadata = {
   },
 };
 
-const termsJsonLd = {
+const termsSchemaData = {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": "https://1satordinals.com/terms-of-service/#webpage",
-      "name": "Terms of Service | 1Sat Ordinals",
-      "description":
-        "Terms of service for the 1Sat Ordinals website and open-source protocol on the Bitcoin SV blockchain.",
-      "url": "https://1satordinals.com/terms-of-service",
-      "isPartOf": { "@id": "https://1satordinals.com/#website" },
-      "inLanguage": "en-US",
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://1satordinals.com",
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Terms of Service",
-          "item": "https://1satordinals.com/terms-of-service",
-        },
-      ],
-    },
-  ],
+  "@type": "WebPage",
+  "@id": "https://1satordinals.com/terms-of-service/#webpage",
+  "name": "Terms of Service | 1Sat Ordinals",
+  "description":
+    "Terms of service for the 1Sat Ordinals website and open-source protocol on the Bitcoin SV blockchain.",
+  "url": "https://1satordinals.com/terms-of-service",
+  "isPartOf": { "@id": "https://1satordinals.com/#website" },
+  "inLanguage": "en-US",
 };
 
 export default function TermsPage() {
   return (
     <section className="w-full py-16">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(termsJsonLd).replace(/</g, "\\u003c") }}
+      <JsonLd data={termsSchemaData} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://1satordinals.com" },
+          { name: "Terms of Service" },
+        ]}
       />
       <div className="container mx-auto max-w-7xl px-4">
         <div className="mx-auto max-w-4xl">

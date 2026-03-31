@@ -2,6 +2,8 @@ import { ArrowRight, Calendar, Clock } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
+import { JsonLd } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "Updates & News | 1Sat Ordinals - Latest Protocol Developments",
@@ -53,44 +55,27 @@ const updates = [
   },
 ];
 
-const updatesJsonLd = {
+const updatesSchemaData = {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "CollectionPage",
-      "@id": "https://1satordinals.com/updates/#collectionpage",
-      "name": "Protocol Updates & News | 1Sat Ordinals",
-      "description":
-        "Latest 1Sat Ordinals protocol developments, feature releases, and ecosystem news for Bitcoin SV tokens and ordinals.",
-      "url": "https://1satordinals.com/updates",
-      "isPartOf": { "@id": "https://1satordinals.com/#website" },
-      "about": { "@id": "https://1satordinals.com/#softwareapplication" },
-      "publisher": { "@id": "https://bopen.io/#organization" },
-      "inLanguage": "en-US",
-      "keywords": [
-        "1Sat Ordinals Updates",
-        "BSV Protocol News",
-        "Feature Releases",
-        "Ecosystem Announcements",
-      ],
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://1satordinals.com",
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Updates",
-          "item": "https://1satordinals.com/updates",
-        },
-      ],
-    },
+  "@type": "CollectionPage",
+  "@id": "https://1satordinals.com/updates/#collectionpage",
+  "name": "Protocol Updates & News | 1Sat Ordinals",
+  "description":
+    "Latest 1Sat Ordinals protocol developments, feature releases, and ecosystem news for Bitcoin SV tokens and ordinals.",
+  "url": "https://1satordinals.com/updates",
+  "isPartOf": { "@id": "https://1satordinals.com/#website" },
+  "about": { "@id": "https://1satordinals.com/#softwareapplication" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "bOpen",
+    "url": "https://bopen.io",
+  },
+  "inLanguage": "en-US",
+  "keywords": [
+    "1Sat Ordinals Updates",
+    "BSV Protocol News",
+    "Feature Releases",
+    "Ecosystem Announcements",
   ],
 };
 
@@ -99,9 +84,12 @@ export default function UpdatesPage() {
 
   return (
     <div className="min-h-screen">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(updatesJsonLd).replace(/</g, "\\u003c") }}
+      <JsonLd data={updatesSchemaData} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://1satordinals.com" },
+          { name: "Updates" },
+        ]}
       />
       {/* Hero */}
       <section className="py-16 md:py-24 border-b border-primary/20">

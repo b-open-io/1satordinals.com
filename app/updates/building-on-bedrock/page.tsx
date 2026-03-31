@@ -30,6 +30,8 @@ import {
 } from "@/components/article/article-typography";
 import { TableOfContents } from "@/components/article/table-of-contents";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
+import { JsonLd } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title:
@@ -48,70 +50,51 @@ export const metadata: Metadata = {
   },
 };
 
-const articleJsonLd = {
+const articleSchemaData = {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Article",
-      "@id":
-        "https://1satordinals.com/updates/building-on-bedrock/#article",
-      "headline":
-        "Building on Bedrock: The Case for Simple, Stable Protocols",
-      "description":
-        "Explore why simple, stable protocols like 1Sat Ordinals provide the best foundation for blockchain development. Learn from Bitcoin's philosophy of protocol stability.",
-      "url": "https://1satordinals.com/updates/building-on-bedrock",
-      "datePublished": "2025-12-27",
-      "isPartOf": { "@id": "https://1satordinals.com/#website" },
-      "about": { "@id": "https://1satordinals.com/#softwareapplication" },
-      "publisher": { "@id": "https://bopen.io/#organization" },
-      "author": {
-        "@type": "Organization",
-        "name": "1Sat Ordinals Team",
-        "url": "https://1satordinals.com",
-      },
-      "articleSection": "Technical Deep Dive",
-      "inLanguage": "en-US",
-      "keywords": [
-        "Protocol Stability",
-        "Composable Protocols",
-        "Bitcoin Script",
-        "sCrypt",
-        "BSV21 Tokens",
-        "MNEE Stablecoin",
-      ],
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://1satordinals.com",
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Updates",
-          "item": "https://1satordinals.com/updates",
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Building on Bedrock",
-          "item": "https://1satordinals.com/updates/building-on-bedrock",
-        },
-      ],
-    },
+  "@type": "Article",
+  "@id": "https://1satordinals.com/updates/building-on-bedrock/#article",
+  "headline":
+    "Building on Bedrock: The Case for Simple, Stable Protocols",
+  "description":
+    "Explore why simple, stable protocols like 1Sat Ordinals provide the best foundation for blockchain development. Learn from Bitcoin's philosophy of protocol stability.",
+  "url": "https://1satordinals.com/updates/building-on-bedrock",
+  "datePublished": "2025-12-27",
+  "dateModified": "2025-12-27",
+  "isPartOf": { "@id": "https://1satordinals.com/#website" },
+  "about": { "@id": "https://1satordinals.com/#softwareapplication" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "bOpen",
+    "url": "https://bopen.io",
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "1Sat Ordinals Team",
+    "url": "https://1satordinals.com",
+  },
+  "articleSection": "Technical Deep Dive",
+  "inLanguage": "en-US",
+  "keywords": [
+    "Protocol Stability",
+    "Composable Protocols",
+    "Bitcoin Script",
+    "sCrypt",
+    "BSV21 Tokens",
+    "MNEE Stablecoin",
   ],
 };
 
 export default function BuildingOnBedrockArticle() {
   return (
     <ArticleLayout>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c") }}
+      <JsonLd data={articleSchemaData} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://1satordinals.com" },
+          { name: "Updates", url: "https://1satordinals.com/updates" },
+          { name: "Building on Bedrock" },
+        ]}
       />
       {/* Hero Section */}
       <section className="relative overflow-hidden">
