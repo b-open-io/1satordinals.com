@@ -36,12 +36,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/shop`,
-      lastModified: currentDate,
-      changeFrequency: "daily",
-      priority: 0.6,
-    },
-    {
       url: `${baseUrl}/privacy-policy`,
       lastModified: currentDate,
       changeFrequency: "yearly",

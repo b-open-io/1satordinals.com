@@ -1,16 +1,14 @@
 "use client";
 
-import { Menu, ShoppingCart, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { useCartStore } from "@/lib/store";
+import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./theme-toggle";
-import { UserButton } from "./user-button";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const itemCount = useCartStore((state) => state.getItemCount());
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -52,18 +50,6 @@ export function Header() {
           >
             Updates
           </Link>
-          <Link
-            href="/shop"
-            className="text-sm font-medium transition-colors hover:text-primary"
-          >
-            Shop
-          </Link>
-          <Link
-            href="/orders"
-            className="text-sm font-medium transition-colors hover:text-primary"
-          >
-            Orders
-          </Link>
           <a
             href="https://docs.1satordinals.com"
             target="_blank"
@@ -80,35 +66,17 @@ export function Header() {
           >
             Discord
           </a>
-          <Link
-            href="/cart"
-            className="relative inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
-          >
-            <ShoppingCart className="h-5 w-5" />
-            {itemCount > 0 && (
-              <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-primary-foreground">
-                {itemCount}
-              </span>
-            )}
-          </Link>
           <ThemeToggle />
-          <UserButton />
         </div>
 
         {/* Mobile menu button */}
         <div className="flex items-center gap-2 md:hidden">
-          <Link href="/cart" className="relative">
-            <ShoppingCart className="h-5 w-5" />
-            {itemCount > 0 && (
-              <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-primary-foreground">
-                {itemCount}
-              </span>
-            )}
-          </Link>
           <ThemeToggle />
-          <UserButton />
-          <button
+          <Button
             type="button"
+            variant="ghost"
+            size="icon"
+            aria-label="Toggle menu"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? (
@@ -116,7 +84,7 @@ export function Header() {
             ) : (
               <Menu className="h-6 w-6" />
             )}
-          </button>
+          </Button>
         </div>
       </nav>
 
@@ -151,20 +119,6 @@ export function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Updates
-            </Link>
-            <Link
-              href="/shop"
-              className="block rounded-md px-3 py-2 text-base font-medium hover:bg-accent"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Shop
-            </Link>
-            <Link
-              href="/orders"
-              className="block rounded-md px-3 py-2 text-base font-medium hover:bg-accent"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Orders
             </Link>
             <a
               href="https://docs.1satordinals.com"

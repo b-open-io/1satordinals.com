@@ -63,6 +63,12 @@ export function SchemaMarkup() {
   };
 
   return (
-    <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
+    <script
+      type="application/ld+json"
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: official Next.js pattern for JSON-LD; payload is static and < is escaped below
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schemaData).replace(/</g, "\\u003c"),
+      }}
+    />
   );
 }

@@ -59,11 +59,11 @@ export function SuccessStories() {
               transition={{ duration: 0.6, delay: index * 0.2 }}
               className="p-8 bg-gradient-to-br from-primary/10 to-transparent border border-primary/20 hover:border-primary/40 transition-all duration-300"
             >
-              <div className="flex items-center justify-between mb-6">
-                <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center text-primary">
+              <div className="flex items-center justify-between gap-4 mb-6">
+                <div className="w-12 h-12 shrink-0 bg-primary/20 rounded-lg flex items-center justify-center text-primary">
                   {story.icon}
                 </div>
-                <span className="text-3xl font-black text-primary">
+                <span className="text-2xl md:text-3xl font-black text-primary text-right leading-tight">
                   {story.metric}
                 </span>
               </div>

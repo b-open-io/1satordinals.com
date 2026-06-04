@@ -63,8 +63,11 @@ export function NFTCarousel() {
   const [translateX, setTranslateX] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Duplicate images for seamless loop
-  const allImages = [...nftImages, ...nftImages];
+  // Duplicate images for seamless loop, with stable per-instance keys
+  const allImages = [
+    ...nftImages.map((image) => ({ ...image, key: `a-${image.src}` })),
+    ...nftImages.map((image) => ({ ...image, key: `b-${image.src}` })),
+  ];
 
   useAnimationFrame(() => {
     setTranslateX((prev) => {
@@ -102,9 +105,9 @@ export function NFTCarousel() {
             willChange: "transform",
           }}
         >
-          {allImages.map((image, index) => (
+          {allImages.map((image) => (
             <div
-              key={`${image.src}-${index}`}
+              key={image.key}
               className="flex-shrink-0 w-80 h-80 relative group cursor-pointer overflow-hidden"
             >
               {/* Border decoration */}

@@ -2,12 +2,13 @@
 
 @theme {
   --font-sans:
-    "Space Grotesk", ui-sans-serif, system-ui, -apple-system,
+    var(--font-space-grotesk), ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, sans-serif;
-  --font-serif: "Spectral", ui-serif, Georgia, Cambria, Times New Roman, serif;
+  --font-serif:
+    var(--font-spectral), ui-serif, Georgia, Cambria, Times New Roman, serif;
   --font-mono:
-    "JetBrains Mono", ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
-    monospace;
+    var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, SF Mono, Menlo,
+    Consolas, monospace;
 
   --color-background: oklch(0.99 0.002 96);
   --color-foreground: oklch(0.1 0.005 96);
