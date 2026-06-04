@@ -23,14 +23,14 @@ const requireEnv = (name: string) => {
   return value;
 };
 
-const stripeSecretKey = requireEnv("STRIPE_SECRET_KEY");
-const webhookSecret = requireEnv("STRIPE_WEBHOOK_SECRET");
-
-const stripe = new Stripe(stripeSecretKey, {
-  apiVersion: "2025-12-15.clover",
-});
-
 export async function POST(req: NextRequest) {
+  // Resolve env + Stripe client lazily so a missing secret fails the request,
+  // not the build (store is disabled for launch; webhook env may be absent).
+  const stripe = new Stripe(requireEnv("STRIPE_SECRET_KEY"), {
+    apiVersion: "2025-12-15.clover",
+  });
+  const webhookSecret = requireEnv("STRIPE_WEBHOOK_SECRET");
+
   // Ensure orders database is initialized
   await ensureOrdersInitialized();
 
