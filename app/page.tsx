@@ -130,9 +130,11 @@ function GraphicBlock({
 function PartnerCard({
   name,
   displayName,
+  url,
 }: {
   name: string;
   displayName: string;
+  url: string;
 }) {
   const charCounts = new Map<string, number>();
   const keyedChars = displayName.split("").map((char) => {
@@ -142,7 +144,14 @@ function PartnerCard({
   });
 
   return (
-    <div className="relative group" data-partner={name}>
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Visit ${displayName}`}
+      className="relative group block"
+      data-partner={name}
+    >
       <GraphicBlock className="border border-primary/20 bg-black/40 backdrop-blur-sm p-6 hover:border-primary/60 transition-all duration-300 h-full group-hover:rotate-1 transform">
         {/* Corner accent elements */}
         <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-primary/30 group-hover:border-primary/80 transition-colors" />
@@ -173,7 +182,7 @@ function PartnerCard({
           </div>
         </div>
       </GraphicBlock>
-    </div>
+    </a>
   );
 }
 
@@ -235,11 +244,11 @@ export default function Home() {
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
   const partners = [
-    { name: "yours-wallet", displayName: "YOURS" },
-    { name: "1sat-wallet", displayName: "1SAT" },
-    { name: "1sat-market", displayName: "MARKET" },
-    { name: "scrypt", displayName: "SCRYPT" },
-    { name: "gorillapool", displayName: "GORILLA" },
+    { name: "yours-wallet", displayName: "YOURS", url: "https://yours.org" },
+    { name: "1sat-wallet", displayName: "1SAT", url: "https://1satwallet.com" },
+    { name: "1sat-market", displayName: "MARKET", url: "https://1sat.market" },
+    { name: "runar", displayName: "Rúnar", url: "https://runar.build" },
+    { name: "gorillapool", displayName: "GORILLA", url: "https://gorillapool.com" },
   ];
 
   if (isLoading) {
