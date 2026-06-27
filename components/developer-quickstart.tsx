@@ -36,7 +36,7 @@ export function App() {
   );
 }`,
   server: `# Server / wallet engine
-bun add @1sat/core @1sat/client @1sat/types @1sat/wallet-node
+bun add @1sat/actions @1sat/client @1sat/types @1sat/wallet-node
 
 import { createNodeWallet } from "@1sat/wallet-node";
 
