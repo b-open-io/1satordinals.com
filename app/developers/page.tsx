@@ -50,10 +50,10 @@ await onesat.connect();`,
 </OneSatProvider>;`,
   },
   {
-    name: "@1sat/core + @1sat/client + @1sat/types",
+    name: "@1sat/actions + @1sat/client + @1sat/types",
     useFor: "Server scripts, transaction building, and service clients.",
-    install: "bun add @1sat/core @1sat/client @1sat/types",
-    snippet: `import { createOrdinals } from "@1sat/core";
+    install: "bun add @1sat/actions @1sat/client @1sat/types",
+    snippet: `import { createOrdinals, fetchPayUtxos } from "@1sat/actions";
 import { ArcadeClient } from "@1sat/client";
 import { ONESAT_MAINNET_URL } from "@1sat/types";`,
   },
@@ -68,6 +68,54 @@ const { wallet } = await createNodeWallet({
   chain: "main",
   dbFilename: "wallet.sqlite",
 });`,
+  },
+];
+
+interface AgentSkill {
+  name: string;
+  description: string;
+}
+
+// Skills bundled in the `1sat` plugin (b-open-io marketplace).
+// Source: github.com/b-open-io/1sat-sdk + github.com/b-open-io/claude-plugins
+const agentSkills: AgentSkill[] = [
+  { name: "cli", description: "1Sat CLI usage and its 30+ commands." },
+  {
+    name: "stack-api",
+    description: "Unified BSV indexing API (1sat-stack / api.1sat.app).",
+  },
+  {
+    name: "dapp-connect",
+    description: "Wallet popup + React hooks for browser dApps.",
+  },
+  {
+    name: "ordinals-create",
+    description: "Mint and inscribe ordinals / NFTs.",
+  },
+  {
+    name: "ordinals-marketplace",
+    description: "List, buy, and cancel OrdLock listings.",
+  },
+  { name: "tokens", description: "BSV20 / BSV21 fungible token operations." },
+  {
+    name: "action-patterns",
+    description: "Transaction building with BRC-100 actions.",
+  },
+  {
+    name: "wallet-setup",
+    description: "BRC-100 wallet setup, storage, and sync.",
+  },
+  { name: "payments", description: "Send BSV and build payment flows." },
+  {
+    name: "signing",
+    description: "BSM message signing and Sigma attestation.",
+  },
+  { name: "locks", description: "Time-lock BSV until a target block height." },
+  { name: "sweep", description: "Sweep / import funds from an external WIF." },
+  { name: "opns", description: "OpNS on-chain name registration." },
+  {
+    name: "blockchain-media",
+    description: "Extract inscribed media from the blockchain.",
   },
 ];
 
@@ -105,6 +153,18 @@ const protocolReferences: ExternalReference[] = [
 ];
 
 const ecosystemLibraries: ExternalReference[] = [
+  {
+    name: "1sat-sdk (b-open-io)",
+    href: "https://github.com/b-open-io/1sat-sdk",
+    description:
+      "Canonical @1sat/* SDK monorepo, CLI, and Claude Code Agent Skills.",
+  },
+  {
+    name: "claude-plugins (b-open-io)",
+    href: "https://github.com/b-open-io/claude-plugins",
+    description:
+      "Marketplace for the 1sat plugin and other b-open-io Agent Skills.",
+  },
   {
     name: "js-1sat-ord",
     href: "https://github.com/bitcoinschema/js-1sat-ord",
@@ -380,6 +440,190 @@ export default function DevelopersPage() {
                 <SdkCard key={entry.name} entry={entry} />
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="cli" className="w-full border-t py-16 scroll-mt-24">
+        <div className="container mx-auto max-w-7xl px-4">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="text-3xl font-bold tracking-tight">1Sat CLI</h2>
+            <p className="mt-3 text-muted-foreground">
+              A terminal wallet for 1Sat Ordinals with 30+ commands for wallets,
+              ordinals, BSV21 tokens, and identity. Requires the{" "}
+              <a
+                href="https://bun.sh"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Bun
+              </a>{" "}
+              runtime. The installed binary is named{" "}
+              <code className="rounded bg-muted px-1.5 py-0.5 text-sm">
+                1sat
+              </code>
+              .
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Package:{" "}
+              <a
+                href="https://www.npmjs.com/package/@1sat/cli"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                @1sat/cli
+              </a>{" "}
+              · Source:{" "}
+              <a
+                href="https://github.com/b-open-io/1sat-sdk/tree/master/packages/cli"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                github.com/b-open-io/1sat-sdk
+              </a>
+            </p>
+
+            <div className="mt-8 grid gap-6 md:grid-cols-2">
+              <article className="rounded-lg border bg-card p-6">
+                <h3 className="text-lg font-semibold">Install</h3>
+                <p className="mt-4 text-sm font-medium">
+                  Run instantly (no install)
+                </p>
+                <pre className="mt-2 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
+                  <code>bunx @1sat/cli</code>
+                </pre>
+                <p className="mt-4 text-sm font-medium">
+                  Global install (recommended)
+                </p>
+                <pre className="mt-2 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
+                  <code>bun add -g @1sat/cli</code>
+                </pre>
+              </article>
+              <article className="rounded-lg border bg-card p-6">
+                <h3 className="text-lg font-semibold">Common commands</h3>
+                <pre className="mt-4 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
+                  <code>{`# First-time setup (generate or import a key)
+1sat init
+
+# Wallet
+1sat wallet balance
+1sat wallet send --to <addr> --sats <amount>
+
+# Ordinals
+1sat ordinals list
+1sat ordinals mint --file image.png
+
+# BSV21 tokens
+1sat tokens balances`}</code>
+                </pre>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="skills"
+        className="w-full border-t bg-muted/50 py-16 scroll-mt-24"
+      >
+        <div className="container mx-auto max-w-7xl px-4">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="text-3xl font-bold tracking-tight">
+              Claude Code Agent Skills
+            </h2>
+            <p className="mt-3 text-muted-foreground">
+              The 1Sat ecosystem ships{" "}
+              <a
+                href="https://docs.claude.com/en/docs/claude-code/skills"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Agent Skills
+              </a>{" "}
+              that teach Claude Code (and other AI coding tools) how to build on
+              1Sat Ordinals — minting, the marketplace, token operations, wallet
+              setup, transaction building, and more. They are distributed as the{" "}
+              <code className="rounded bg-muted px-1.5 py-0.5 text-sm">
+                1sat
+              </code>{" "}
+              plugin in the{" "}
+              <a
+                href="https://github.com/b-open-io/claude-plugins"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                b-open-io marketplace
+              </a>
+              .
+            </p>
+
+            <div className="mt-8 grid gap-6 md:grid-cols-2">
+              <article className="rounded-lg border bg-card p-6">
+                <h3 className="text-lg font-semibold">
+                  Install the plugin (Claude Code)
+                </h3>
+                <p className="mt-4 text-sm font-medium">
+                  Add the marketplace, then install
+                </p>
+                <pre className="mt-2 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
+                  <code>{`/plugin marketplace add b-open-io/claude-plugins
+/plugin install 1sat@b-open-io`}</code>
+                </pre>
+                <p className="mt-4 text-sm font-medium">Or, one-line CLI</p>
+                <pre className="mt-2 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
+                  <code>claude plugin install 1sat@b-open-io</code>
+                </pre>
+                <p className="mt-4 text-sm text-muted-foreground">
+                  Once installed, just ask Claude Code to perform a task (e.g.
+                  &quot;mint an ordinal&quot; or &quot;list this NFT on the
+                  marketplace&quot;) and the matching skill loads automatically.
+                </p>
+              </article>
+              <article className="rounded-lg border bg-card p-6">
+                <h3 className="text-lg font-semibold">
+                  Use individual skills (any AI tool)
+                </h3>
+                <p className="mt-4 text-sm text-muted-foreground">
+                  Skills live in the SDK repo and can be added one at a time:
+                </p>
+                <pre className="mt-2 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
+                  <code>{`npx skills add b-open-io/1sat-sdk \\
+  --skill cli`}</code>
+                </pre>
+                <p className="mt-4 text-sm text-muted-foreground">
+                  Browse them all in the SDK skills directory:{" "}
+                  <a
+                    href="https://github.com/b-open-io/1sat-sdk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    github.com/b-open-io/1sat-sdk
+                  </a>
+                </p>
+              </article>
+            </div>
+
+            <article className="mt-6 rounded-lg border bg-card p-6">
+              <h3 className="text-lg font-semibold">Available skills</h3>
+              <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {agentSkills.map((skill) => (
+                  <li key={skill.name}>
+                    <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-medium">
+                      {skill.name}
+                    </code>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {skill.description}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </article>
           </div>
         </div>
       </section>

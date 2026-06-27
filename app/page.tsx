@@ -248,7 +248,11 @@ export default function Home() {
     { name: "1sat-wallet", displayName: "1SAT", url: "https://1satwallet.com" },
     { name: "1sat-market", displayName: "MARKET", url: "https://1sat.market" },
     { name: "runar", displayName: "Rúnar", url: "https://runar.build" },
-    { name: "gorillapool", displayName: "GORILLA", url: "https://gorillapool.com" },
+    {
+      name: "gorillapool",
+      displayName: "GORILLA",
+      url: "https://gorillapool.com",
+    },
   ];
 
   if (isLoading) {
