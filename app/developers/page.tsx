@@ -537,7 +537,7 @@ export default function DevelopersPage() {
             <p className="mt-3 text-muted-foreground">
               The 1Sat ecosystem ships{" "}
               <a
-                href="https://docs.claude.com/en/docs/claude-code/skills"
+                href="https://code.claude.com/docs/en/skills"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
