@@ -97,6 +97,21 @@
   min-width: 100%;
 }
 
+/* Fallback shown by CodeBlockClient until Shiki finishes highlighting */
+.code-block pre.fallback {
+  margin: 0;
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  padding: 0.875rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  background-color: var(--color-muted);
+  color: var(--color-foreground);
+  white-space: pre;
+}
+
 /* Dual-theme: tokens carry --shiki-light / --shiki-dark CSS vars. */
 .code-block pre.shiki,
 .code-block pre.shiki span {

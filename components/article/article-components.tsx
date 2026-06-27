@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
+import type { BundledLanguage } from "shiki";
+import { CodeBlockClient } from "@/components/code-block-client";
 import { cn } from "@/lib/utils";
 
 interface ComponentProps {
@@ -67,24 +69,24 @@ export function CodeComparison({
   leftCode,
   rightTitle,
   rightCode,
+  lang = "typescript",
 }: {
   leftTitle: string;
   leftCode: string;
   rightTitle: string;
   rightCode: string;
+  lang?: BundledLanguage;
 }) {
   return (
-    <div className="my-12 grid md:grid-cols-2 gap-6">
+    <div className="my-12 grid grid-cols-1 md:grid-cols-2 gap-6">
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        className="relative"
+        className="relative min-w-0"
       >
         <h5 className="text-sm font-mono text-gray-400 mb-3">{leftTitle}</h5>
-        <pre className="p-4 bg-black/80 border border-gray-800 rounded-lg overflow-x-auto">
-          <code className="text-sm text-gray-300">{leftCode}</code>
-        </pre>
+        <CodeBlockClient code={leftCode} lang={lang} />
       </motion.div>
 
       <motion.div
@@ -92,11 +94,10 @@ export function CodeComparison({
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.1 }}
+        className="min-w-0"
       >
         <h5 className="text-sm font-mono text-gray-400 mb-3">{rightTitle}</h5>
-        <pre className="p-4 bg-black/80 border border-gray-800 rounded-lg overflow-x-auto">
-          <code className="text-sm text-gray-300">{rightCode}</code>
-        </pre>
+        <CodeBlockClient code={rightCode} lang={lang} />
       </motion.div>
     </div>
   );

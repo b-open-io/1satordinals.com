@@ -1,32 +1,37 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Check,
-  Code2,
-  Copy,
-  Package,
-  Terminal,
-} from "lucide-react";
+import { ArrowRight, Code2, Package, Terminal } from "lucide-react";
 import { useState } from "react";
+import type { BundledLanguage } from "shiki";
+import { CodeBlockClient } from "@/components/code-block-client";
 
 type QuickstartTab = "browser" | "react" | "server";
 
-const codeExamples: Record<QuickstartTab, string> = {
-  browser: `# Browser dApp
-bun add @1sat/connect
+interface QuickstartExample {
+  label: string;
+  install: string;
+  code: string;
+  lang: BundledLanguage;
+}
 
-import { createOneSat } from "@1sat/connect";
+const examples: Record<QuickstartTab, QuickstartExample> = {
+  browser: {
+    label: "Browser dApp",
+    install: "bun add @1sat/connect",
+    lang: "typescript",
+    code: `import { createOneSat } from "@1sat/connect";
 
 const onesat = createOneSat({ appName: "My dApp" });
 const { paymentAddress, ordinalAddress } = await onesat.connect();
 
 console.log(paymentAddress, ordinalAddress);`,
-  react: `# React app
-bun add @1sat/react
-
-import { ConnectButton, OneSatProvider } from "@1sat/react";
+  },
+  react: {
+    label: "React",
+    install: "bun add @1sat/react",
+    lang: "tsx",
+    code: `import { ConnectButton, OneSatProvider } from "@1sat/react";
 
 export function App() {
   return (
@@ -35,10 +40,12 @@ export function App() {
     </OneSatProvider>
   );
 }`,
-  server: `# Server / wallet engine
-bun add @1sat/actions @1sat/client @1sat/types @1sat/wallet-node
-
-import { createNodeWallet } from "@1sat/wallet-node";
+  },
+  server: {
+    label: "Server/Engine",
+    install: "bun add @1sat/actions @1sat/client @1sat/types @1sat/wallet-node",
+    lang: "typescript",
+    code: `import { createNodeWallet } from "@1sat/wallet-node";
 
 const { wallet } = await createNodeWallet({
   rootKey: process.env.ROOT_KEY!,
@@ -47,40 +54,14 @@ const { wallet } = await createNodeWallet({
 });
 
 await wallet.syncAll();`,
+  },
 };
 
-function CodeBlock({ code }: { code: string }) {
-  const [copied, setCopied] = useState(false);
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  return (
-    <div className="relative group">
-      <pre className="bg-black/60 backdrop-blur border border-primary/20 rounded-lg p-4 overflow-x-auto">
-        <code className="text-sm text-gray-300">{code}</code>
-      </pre>
-      <button
-        type="button"
-        onClick={copyToClipboard}
-        className="absolute top-2 right-2 p-2 bg-primary/10 hover:bg-primary/20 rounded transition-all duration-200 opacity-0 group-hover:opacity-100"
-        aria-label="Copy code"
-      >
-        {copied ? (
-          <Check className="w-4 h-4 text-green-400" />
-        ) : (
-          <Copy className="w-4 h-4 text-primary" />
-        )}
-      </button>
-    </div>
-  );
-}
+const tabOrder: QuickstartTab[] = ["browser", "react", "server"];
 
 export function DeveloperQuickstart() {
   const [activeTab, setActiveTab] = useState<QuickstartTab>("browser");
+  const example = examples[activeTab];
 
   return (
     <section className="relative py-32 border-t border-primary/20 bg-black/20">
@@ -101,7 +82,7 @@ export function DeveloperQuickstart() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="space-y-8">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -168,41 +149,22 @@ export function DeveloperQuickstart() {
               </motion.div>
             </div>
 
-            <div className="space-y-4">
-              <div className="flex gap-2 mb-6">
-                <button
-                  type="button"
-                  onClick={() => setActiveTab("browser")}
-                  className={`px-4 py-2 rounded transition-all duration-200 ${
-                    activeTab === "browser"
-                      ? "bg-primary text-black font-semibold"
-                      : "bg-primary/10 hover:bg-primary/20"
-                  }`}
-                >
-                  Browser dApp
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveTab("react")}
-                  className={`px-4 py-2 rounded transition-all duration-200 ${
-                    activeTab === "react"
-                      ? "bg-primary text-black font-semibold"
-                      : "bg-primary/10 hover:bg-primary/20"
-                  }`}
-                >
-                  React
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveTab("server")}
-                  className={`px-4 py-2 rounded transition-all duration-200 ${
-                    activeTab === "server"
-                      ? "bg-primary text-black font-semibold"
-                      : "bg-primary/10 hover:bg-primary/20"
-                  }`}
-                >
-                  Server/Engine
-                </button>
+            <div className="min-w-0 space-y-4">
+              <div className="flex flex-wrap gap-2 mb-6">
+                {tabOrder.map((tab) => (
+                  <button
+                    key={tab}
+                    type="button"
+                    onClick={() => setActiveTab(tab)}
+                    className={`px-4 py-2 rounded transition-all duration-200 ${
+                      activeTab === tab
+                        ? "bg-primary text-black font-semibold"
+                        : "bg-primary/10 hover:bg-primary/20"
+                    }`}
+                  >
+                    {examples[tab].label}
+                  </button>
+                ))}
               </div>
 
               <motion.div
@@ -210,8 +172,16 @@ export function DeveloperQuickstart() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
+                className="space-y-4"
               >
-                <CodeBlock code={codeExamples[activeTab]} />
+                <div>
+                  <p className="text-sm font-medium text-gray-300">Install</p>
+                  <CodeBlockClient code={example.install} lang="bash" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-300">Example</p>
+                  <CodeBlockClient code={example.code} lang={example.lang} />
+                </div>
               </motion.div>
 
               <div className="mt-8">
