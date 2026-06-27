@@ -2,13 +2,16 @@ import type { LucideIcon } from "lucide-react";
 import { Book, Code2, Github, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import type { BundledLanguage } from "shiki";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { CodeBlock } from "@/components/code-block";
 
 interface SdkEntry {
   name: string;
   useFor: string;
   install: string;
   snippet: string;
+  lang: BundledLanguage;
 }
 
 interface ExternalReference {
@@ -38,6 +41,7 @@ const sdkMatrix: SdkEntry[] = [
 
 const onesat = createOneSat({ appName: "My dApp" });
 await onesat.connect();`,
+    lang: "typescript",
   },
   {
     name: "@1sat/react",
@@ -48,6 +52,7 @@ await onesat.connect();`,
 <OneSatProvider appName="My App">
   <ConnectButton />
 </OneSatProvider>;`,
+    lang: "tsx",
   },
   {
     name: "@1sat/actions + @1sat/client + @1sat/types",
@@ -56,6 +61,7 @@ await onesat.connect();`,
     snippet: `import { createOrdinals, fetchPayUtxos } from "@1sat/actions";
 import { ArcadeClient } from "@1sat/client";
 import { ONESAT_MAINNET_URL } from "@1sat/types";`,
+    lang: "typescript",
   },
   {
     name: "@1sat/wallet-browser + @1sat/wallet-node",
@@ -68,6 +74,7 @@ const { wallet } = await createNodeWallet({
   chain: "main",
   dbFilename: "wallet.sqlite",
 });`,
+    lang: "typescript",
   },
 ];
 
@@ -327,17 +334,13 @@ const ecosystemTools: ExternalReference[] = [
 
 function SdkCard({ entry }: { entry: SdkEntry }) {
   return (
-    <article className="rounded-lg border bg-card p-6">
+    <article className="min-w-0 rounded-lg border bg-card p-6">
       <h3 className="text-lg font-semibold">{entry.name}</h3>
       <p className="mt-2 text-sm text-muted-foreground">{entry.useFor}</p>
       <p className="mt-4 text-sm font-medium">Install</p>
-      <pre className="mt-2 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
-        <code>{entry.install}</code>
-      </pre>
+      <CodeBlock code={entry.install} lang="bash" />
       <p className="mt-4 text-sm font-medium">Example</p>
-      <pre className="mt-2 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
-        <code>{entry.snippet}</code>
-      </pre>
+      <CodeBlock code={entry.snippet} lang={entry.lang} />
     </article>
   );
 }
@@ -435,7 +438,7 @@ export default function DevelopersPage() {
               </a>
             </p>
 
-            <div className="mt-10 grid gap-6 md:grid-cols-2">
+            <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
               {sdkMatrix.map((entry) => (
                 <SdkCard key={entry.name} entry={entry} />
               ))}
@@ -486,26 +489,23 @@ export default function DevelopersPage() {
               </a>
             </p>
 
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              <article className="rounded-lg border bg-card p-6">
+            <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+              <article className="min-w-0 rounded-lg border bg-card p-6">
                 <h3 className="text-lg font-semibold">Install</h3>
                 <p className="mt-4 text-sm font-medium">
                   Run instantly (no install)
                 </p>
-                <pre className="mt-2 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
-                  <code>bunx @1sat/cli</code>
-                </pre>
+                <CodeBlock code="bunx @1sat/cli" lang="bash" />
                 <p className="mt-4 text-sm font-medium">
                   Global install (recommended)
                 </p>
-                <pre className="mt-2 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
-                  <code>bun add -g @1sat/cli</code>
-                </pre>
+                <CodeBlock code="bun add -g @1sat/cli" lang="bash" />
               </article>
-              <article className="rounded-lg border bg-card p-6">
+              <article className="min-w-0 rounded-lg border bg-card p-6">
                 <h3 className="text-lg font-semibold">Common commands</h3>
-                <pre className="mt-4 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
-                  <code>{`# First-time setup (generate or import a key)
+                <CodeBlock
+                  lang="bash"
+                  code={`# First-time setup (generate or import a key)
 1sat init
 
 # Wallet
@@ -517,8 +517,8 @@ export default function DevelopersPage() {
 1sat ordinals mint --file image.png
 
 # BSV21 tokens
-1sat tokens balances`}</code>
-                </pre>
+1sat tokens balances`}
+                />
               </article>
             </div>
           </div>
@@ -562,39 +562,42 @@ export default function DevelopersPage() {
               .
             </p>
 
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              <article className="rounded-lg border bg-card p-6">
+            <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+              <article className="min-w-0 rounded-lg border bg-card p-6">
                 <h3 className="text-lg font-semibold">
                   Install the plugin (Claude Code)
                 </h3>
                 <p className="mt-4 text-sm font-medium">
                   Add the marketplace, then install
                 </p>
-                <pre className="mt-2 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
-                  <code>{`/plugin marketplace add b-open-io/claude-plugins
-/plugin install 1sat@b-open-io`}</code>
-                </pre>
+                <CodeBlock
+                  lang="bash"
+                  code={`/plugin marketplace add b-open-io/claude-plugins
+/plugin install 1sat@b-open-io`}
+                />
                 <p className="mt-4 text-sm font-medium">Or, one-line CLI</p>
-                <pre className="mt-2 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
-                  <code>claude plugin install 1sat@b-open-io</code>
-                </pre>
+                <CodeBlock
+                  code="claude plugin install 1sat@b-open-io"
+                  lang="bash"
+                />
                 <p className="mt-4 text-sm text-muted-foreground">
                   Once installed, just ask Claude Code to perform a task (e.g.
                   &quot;mint an ordinal&quot; or &quot;list this NFT on the
                   marketplace&quot;) and the matching skill loads automatically.
                 </p>
               </article>
-              <article className="rounded-lg border bg-card p-6">
+              <article className="min-w-0 rounded-lg border bg-card p-6">
                 <h3 className="text-lg font-semibold">
                   Use individual skills (any AI tool)
                 </h3>
                 <p className="mt-4 text-sm text-muted-foreground">
                   Skills live in the SDK repo and can be added one at a time:
                 </p>
-                <pre className="mt-2 overflow-x-auto rounded-md border bg-muted/30 p-3 text-xs">
-                  <code>{`npx skills add b-open-io/1sat-sdk \\
-  --skill cli`}</code>
-                </pre>
+                <CodeBlock
+                  lang="bash"
+                  code={`npx skills add b-open-io/1sat-sdk \\
+  --skill cli`}
+                />
                 <p className="mt-4 text-sm text-muted-foreground">
                   Browse them all in the SDK skills directory:{" "}
                   <a
@@ -640,7 +643,7 @@ export default function DevelopersPage() {
               surfaces after cutover.
             </p>
 
-            <div className="mt-10 grid gap-6 md:grid-cols-2">
+            <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
               <ReferenceListCard
                 title="Protocol Specs"
                 items={protocolReferences}

@@ -76,3 +76,39 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Shiki code blocks (see components/code-block.tsx) */
+.code-block pre.shiki {
+  margin: 0;
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  padding: 0.875rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  tab-size: 2;
+  background-color: var(--shiki-light-bg);
+}
+
+.code-block pre.shiki code {
+  display: block;
+  width: fit-content;
+  min-width: 100%;
+}
+
+/* Dual-theme: tokens carry --shiki-light / --shiki-dark CSS vars. */
+.code-block pre.shiki,
+.code-block pre.shiki span {
+  color: var(--shiki-light);
+}
+
+/* Switch Shiki to its dark theme under the .dark class (next-themes). */
+.dark .code-block pre.shiki {
+  background-color: var(--shiki-dark-bg);
+}
+
+.dark .code-block pre.shiki,
+.dark .code-block pre.shiki span {
+  color: var(--shiki-dark);
+}
