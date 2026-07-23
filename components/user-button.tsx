@@ -70,10 +70,11 @@ export function UserButton() {
 
       {menuOpen && (
         <>
-          {/* biome-ignore lint/a11y/useKeyWithClickEvents: Backdrop click to close menu is standard UX pattern */}
-          {/* biome-ignore lint/a11y/noStaticElementInteractions: Backdrop for closing dropdown menu */}
-          <div
-            className="fixed inset-0 z-40"
+          <button
+            type="button"
+            aria-label="Close menu"
+            tabIndex={-1}
+            className="fixed inset-0 z-40 cursor-default"
             onClick={() => setMenuOpen(false)}
           />
           <div className="absolute right-0 top-full z-50 mt-2 w-48 rounded-md border bg-background shadow-lg">

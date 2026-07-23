@@ -1,8 +1,14 @@
 "use client";
 
+import { useMutation } from "@tanstack/react-query";
 import { Loader2, Truck } from "lucide-react";
 import { useState } from "react";
-import { useCalculateShipping } from "@/lib/hooks";
+import { toast } from "sonner";
+import {
+  type CalculateShippingRequest,
+  type CalculateShippingResponse,
+  calculateShipping,
+} from "@/lib/api";
 import { formatPrice } from "@/lib/products";
 import { useCartStore } from "@/lib/store";
 
@@ -79,7 +85,13 @@ export function ShippingCalculator() {
   const [zip, setZip] = useState(shippingAddress?.zip || "");
   const [city, _setCity] = useState(shippingAddress?.city || "");
 
-  const calculateShippingMutation = useCalculateShipping();
+  const calculateShippingMutation = useMutation<
+    CalculateShippingResponse,
+    Error,
+    CalculateShippingRequest
+  >({
+    mutationFn: calculateShipping,
+  });
 
   const selectedCountry = COUNTRIES.find((c) => c.code === countryCode);
 
@@ -109,6 +121,16 @@ export function ShippingCalculator() {
           if (data.shippingOptions.length > 0 && !shipping) {
             setShipping(data.shippingOptions[0]);
           }
+          toast.success(
+            data.shippingOptions.length > 0
+              ? `Found ${data.shippingOptions.length} shipping ${
+                  data.shippingOptions.length === 1 ? "option" : "options"
+                }`
+              : "No shipping options available for this address",
+          );
+        },
+        onError: (err) => {
+          toast.error(err.message || "Failed to calculate shipping rates");
         },
       },
     );
@@ -136,6 +158,7 @@ export function ShippingCalculator() {
           </label>
           <select
             id="shipping-country"
+            autoComplete="country"
             value={countryCode}
             onChange={(e) => {
               setCountryCode(e.target.value);
@@ -164,6 +187,7 @@ export function ShippingCalculator() {
             </label>
             <select
               id="shipping-state"
+              autoComplete="address-level1"
               value={stateCode}
               onChange={(e) => {
                 setStateCode(e.target.value);
@@ -200,6 +224,8 @@ export function ShippingCalculator() {
           <input
             id="shipping-zip"
             type="text"
+            inputMode="numeric"
+            autoComplete="postal-code"
             value={zip}
             onChange={async (e) => {
               const newZip = e.target.value;
@@ -249,11 +275,19 @@ export function ShippingCalculator() {
       </button>
 
       {/* Error */}
-      {error && <p className="text-destructive text-sm font-medium">{error}</p>}
+      {error && (
+        <p
+          role="alert"
+          aria-live="assertive"
+          className="text-destructive text-sm font-medium"
+        >
+          {error}
+        </p>
+      )}
 
       {/* Shipping options */}
       {shippingOptions.length > 0 && (
-        <div className="space-y-2">
+        <div className="space-y-2" role="status" aria-live="polite">
           <p className="text-sm font-bold">Select shipping method:</p>
           {shippingOptions.map((option) => (
             <label

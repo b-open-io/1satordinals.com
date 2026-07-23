@@ -197,7 +197,7 @@ export default function OrdersPage() {
           <Package className="mx-auto h-16 w-16 text-muted-foreground/50" />
           <h2 className="mt-4 text-xl font-semibold">No Orders Yet</h2>
           <p className="mt-2 text-muted-foreground">
-            When you place an order, it will appear here.
+            Nothing here yet. When you place an order, it will appear here.
           </p>
           <Link
             href="/shop"

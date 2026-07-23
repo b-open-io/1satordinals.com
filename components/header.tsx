@@ -12,7 +12,10 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="container flex h-16 items-center justify-between px-4 mx-auto max-w-7xl">
+      <nav
+        aria-label="Main"
+        className="container flex h-16 items-center justify-between px-4 mx-auto max-w-7xl"
+      >
         <Link href="/" className="flex items-center space-x-2">
           <Image
             src="/images/logo-light.png"
@@ -77,6 +80,8 @@ export function Header() {
             variant="ghost"
             size="icon"
             aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? (
@@ -90,8 +95,12 @@ export function Header() {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t bg-background">
-          <div className="container space-y-1 px-4 py-4">
+        <div
+          id="mobile-navigation"
+          data-state={mobileMenuOpen ? "open" : "closed"}
+          className="md:hidden border-t bg-background"
+        >
+          <nav aria-label="Mobile" className="container space-y-1 px-4 py-4">
             <Link
               href="/protocol"
               className="block rounded-md px-3 py-2 text-base font-medium hover:bg-accent"
@@ -136,7 +145,7 @@ export function Header() {
             >
               Discord
             </a>
-          </div>
+          </nav>
         </div>
       )}
     </header>
