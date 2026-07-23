@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Space_Grotesk, Spectral } from "next/font/google";
 import "./globals.css";
+import { CommandMenu } from "@/components/command-menu";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { QueryProvider } from "@/components/query-provider";
 import { SchemaMarkup } from "@/components/schema-markup";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/lib/auth-client";
 
 const spaceGrotesk = Space_Grotesk({
@@ -120,6 +122,8 @@ export default function RootLayout({
                 <main className="flex-1">{children}</main>
                 <Footer />
               </div>
+              <CommandMenu />
+              <Toaster richColors position="bottom-right" />
             </ThemeProvider>
           </QueryProvider>
         </AuthProvider>

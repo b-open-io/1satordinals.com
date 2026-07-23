@@ -52,7 +52,10 @@ export function TableOfContents() {
   }, []);
 
   return (
-    <nav className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
+    <nav
+      aria-label="Table of contents"
+      className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto"
+    >
       <h4 className="text-sm font-mono text-primary uppercase tracking-wider mb-4">
         Table of Contents
       </h4>

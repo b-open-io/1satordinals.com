@@ -127,3 +127,21 @@
 .dark .code-block pre.shiki span {
   color: var(--shiki-dark);
 }
+
+/* Respect users who prefer reduced motion: neutralize non-essential animation.
+ * !important is required here so the reset wins over inline and animation
+ * library durations. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion reset must override author/inline styles */
+    animation-duration: 0.01ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion reset must override author/inline styles */
+    animation-iteration-count: 1 !important;
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion reset must override author/inline styles */
+    transition-duration: 0.01ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion reset must override author/inline styles */
+    scroll-behavior: auto !important;
+  }
+}

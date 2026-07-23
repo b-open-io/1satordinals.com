@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 import type { Product, ProductVariant } from "@/lib/printful-types";
 import { useCartStore } from "@/lib/store";
 
@@ -38,6 +39,7 @@ export function AddToCartButton({ product, variant }: AddToCartButtonProps) {
     });
 
     setIsAdded(true);
+    toast.success(`${product.name} added to cart`);
     setTimeout(() => setIsAdded(false), 2000);
   };
 

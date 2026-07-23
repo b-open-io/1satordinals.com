@@ -57,16 +57,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ shippingOptions });
   } catch (error) {
     console.error("Error calculating shipping:", error);
-    const errorMessage =
+    const failureReason =
       error instanceof Error
         ? error.message
         : "Failed to calculate shipping rates";
     console.error("Detailed error:", {
-      message: errorMessage,
+      message: failureReason,
       address,
       items,
       error,
     });
-    return NextResponse.json({ error: errorMessage }, { status: 500 });
+    return NextResponse.json({ error: failureReason }, { status: 500 });
   }
 }

@@ -42,6 +42,8 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
             type="button"
             key={image}
             onClick={() => setSelectedIndex(index)}
+            aria-label={`View ${name} image ${index + 1}`}
+            aria-pressed={index === selectedIndex}
             className={cn(
               "relative aspect-square w-24 flex-shrink-0 overflow-hidden rounded-lg border-2 bg-white transition-all hover:scale-105",
               index === selectedIndex

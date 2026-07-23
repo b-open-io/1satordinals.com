@@ -141,7 +141,11 @@ export default function CheckoutPage() {
             )}
 
             {error && (
-              <div className="mt-6 rounded-lg border-2 border-destructive bg-destructive/10 p-4 text-sm text-destructive font-medium">
+              <div
+                role="alert"
+                aria-live="assertive"
+                className="mt-6 rounded-lg border-2 border-destructive bg-destructive/10 p-4 text-sm text-destructive font-medium"
+              >
                 {error}
               </div>
             )}

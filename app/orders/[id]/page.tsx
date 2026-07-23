@@ -323,9 +323,17 @@ export default function OrderDetailPage({
         </div>
 
         {/* Timeline */}
-        {events.length > 0 && (
-          <div className="rounded-lg border bg-card p-6">
-            <h2 className="font-semibold">Order Timeline</h2>
+        <div className="rounded-lg border bg-card p-6">
+          <h2 className="font-semibold">Order Timeline</h2>
+          {events.length === 0 ? (
+            <div className="mt-4 flex flex-col items-center gap-2 py-6 text-center">
+              <Clock className="h-8 w-8 text-muted-foreground/50" />
+              <p className="text-sm text-muted-foreground">
+                Nothing to show yet. Updates will appear here as your order
+                progresses.
+              </p>
+            </div>
+          ) : (
             <div className="mt-4 space-y-4">
               {events.map((event, index) => (
                 <div key={event.id} className="flex gap-4">
@@ -356,8 +364,8 @@ export default function OrderDetailPage({
                 </div>
               ))}
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
