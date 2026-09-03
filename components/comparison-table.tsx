@@ -6,7 +6,7 @@ import { Check, X } from "lucide-react";
 const comparisonData = [
   {
     feature: "Max File Size",
-    oneSat: "50MB+",
+    oneSat: "Large files",
     btc: "~400KB",
     advantage: "oneSat",
   },
@@ -149,8 +149,8 @@ export function ComparisonTable() {
               <li className="flex items-start gap-3">
                 <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                 <span>
-                  <strong>No file size limits</strong> - Store entire
-                  applications, videos, or datasets on-chain
+                  <strong>Large file support</strong> - Store rich media and
+                  applications on-chain
                 </span>
               </li>
               <li className="flex items-start gap-3">

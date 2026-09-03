@@ -2,12 +2,14 @@ import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "50MB File Support Now Live on Mainnet | 1Sat Ordinals",
+export const metadata: Metadata = buildMetadata({
+  path: "/updates/50mb-file-support",
+  title: "50MB File Support Now Live on Mainnet",
   description:
-    "1Sat Ordinals now supports 50MB+ payloads on mainnet, enabling richer media, larger artifacts, and fully on-chain application assets.",
-};
+    "1Sat Ordinals now supports large payloads on mainnet, enabling richer media, larger artifacts, and fully on-chain application assets.",
+});
 
 export default function FiftyMbFileSupportPage() {
   return (

@@ -1,6 +1,12 @@
-export const metadata = {
-  title: "Terms of Service | 1Sat Ordinals",
-};
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  path: "/terms-of-service",
+  title: "Terms of Service",
+  description:
+    "Terms of service for 1satordinals.com. Conditions of use for the 1Sat Ordinals website and open-source protocol.",
+});
 
 export default function TermsPage() {
   return (

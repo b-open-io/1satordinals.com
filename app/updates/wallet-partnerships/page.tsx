@@ -2,12 +2,14 @@ import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Partnership with Major BSV Wallets | 1Sat Ordinals",
+export const metadata: Metadata = buildMetadata({
+  path: "/updates/wallet-partnerships",
+  title: "Partnership with Major BSV Wallets",
   description:
     "1Sat Ordinals expands wallet ecosystem support to simplify user onboarding, token visibility, and everyday ordinal usage.",
-};
+});
 
 export default function WalletPartnershipsPage() {
   return (

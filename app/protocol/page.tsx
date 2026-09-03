@@ -1,19 +1,15 @@
 import { ArrowRight, Check } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Protocol Documentation | 1Sat Ordinals - Bitcoin SV Token System",
+export const metadata: Metadata = buildMetadata({
+  path: "/protocol",
+  title: "Protocol Documentation",
   description:
-    "Technical documentation for 1Sat Ordinals protocol. Learn how to create 50MB+ NFTs and tokens on Bitcoin SV with single transaction minting and sub-cent costs.",
-  keywords: [
-    "1Sat Ordinals protocol",
-    "BSV token documentation",
-    "ordinals specification",
-    "Bitcoin SV NFT protocol",
-    "token creation guide",
-  ],
-};
+    "Technical documentation for the 1Sat Ordinals protocol on Bitcoin SV. Single-transaction minting, native Bitcoin Script support, and origin-based indexing.",
+});
 
 export default function ProtocolPage() {
   return (
@@ -82,8 +78,8 @@ export default function ProtocolPage() {
                     Massive Payload Size
                   </h3>
                   <p className="mt-1 text-muted-foreground">
-                    Support for inscriptions over 50MB, enabling rich media and
-                    complex applications.
+                    Support for large inscriptions, enabling rich media and
+                    complex applications on-chain.
                   </p>
                 </div>
               </div>

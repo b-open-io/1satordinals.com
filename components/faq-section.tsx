@@ -8,12 +8,12 @@ const faqs = [
   {
     question: "What are 1Sat Ordinals?",
     answer:
-      "1Sat Ordinals is an open protocol on Bitcoin SV that enables creation of fungible and non-fungible tokens using ordinal inscription technology, supporting files up to 50MB+ in a single transaction.",
+      "1Sat Ordinals is an open protocol on Bitcoin SV that enables creation of fungible and non-fungible tokens using ordinal inscription technology, supporting large file inscriptions in a single transaction.",
   },
   {
     question: "How do 1Sat Ordinals differ from BTC Ordinals?",
     answer:
-      "1Sat Ordinals offers significant advantages: 50MB+ file support vs ~400KB on BTC, sub-cent transaction costs vs $10-100+, single transaction minting vs multiple transactions, and full Bitcoin Script support vs limited scripting.",
+      "1Sat Ordinals offers significant advantages: large file support vs ~400KB on BTC, sub-cent transaction costs vs $10-100+, single transaction minting vs multiple transactions, and full Bitcoin Script support vs limited scripting.",
   },
   {
     question: "What can I build with 1Sat Ordinals?",
@@ -23,12 +23,12 @@ const faqs = [
   {
     question: "How much does it cost to create a 1Sat Ordinal?",
     answer:
-      "Creating a 1Sat Ordinal typically costs less than $0.01 USD, regardless of file size (up to 50MB+), making it extremely cost-effective compared to other blockchain protocols.",
+      "Creating a 1Sat Ordinal typically costs less than $0.01 USD for standard file sizes, making it extremely cost-effective compared to other blockchain protocols.",
   },
   {
     question: "What file types and sizes are supported?",
     answer:
-      "1Sat Ordinals supports all file types including images, videos, audio, documents, and more. The protocol can handle files over 50MB in a single transaction, with no practical upper limit on file size.",
+      "1Sat Ordinals supports all file types including images, videos, audio, documents, and more. The protocol supports large file inscriptions in a single transaction, with file size limits depending on miner acceptance policies.",
   },
   {
     question: "Is 1Sat Ordinals compatible with existing BSV infrastructure?",
@@ -128,7 +128,7 @@ export function FAQSection() {
             <p className="text-gray-400">
               Have more questions?{" "}
               <a
-                href="https://discord.gg/1satordinals"
+                href="https://discord.gg/3jsTXCzmv5"
                 className="text-primary hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"

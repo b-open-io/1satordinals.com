@@ -2,19 +2,14 @@ import { ArrowRight, Calendar, Clock } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Updates & News | 1Sat Ordinals - Latest Protocol Developments",
+export const metadata: Metadata = buildMetadata({
+  path: "/updates",
+  title: "Updates and News",
   description:
-    "Stay updated with the latest 1Sat Ordinals protocol developments, feature releases, and ecosystem news. Learn about new capabilities for Bitcoin SV tokens.",
-  keywords: [
-    "1Sat Ordinals updates",
-    "BSV token news",
-    "protocol updates",
-    "ordinals development",
-    "Bitcoin SV news",
-  ],
-};
+    "Stay updated with the latest 1Sat Ordinals protocol developments, feature releases, and ecosystem news on Bitcoin SV.",
+});
 
 // Mock data - replace with CMS or markdown files
 const updates = [
@@ -151,7 +146,7 @@ export default function UpdatesPage() {
                   RSS Feed
                 </Link>
                 <Link
-                  href="https://discord.gg/1satordinals"
+                  href="https://discord.gg/3jsTXCzmv5"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary/90 text-black font-semibold rounded transition-colors"

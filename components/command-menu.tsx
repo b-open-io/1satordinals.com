@@ -9,9 +9,6 @@ import {
   MessageCircle,
   Moon,
   Newspaper,
-  Package,
-  ShoppingBag,
-  ShoppingCart,
   Sun,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -34,9 +31,6 @@ const NAV_ITEMS = [
   { label: "Developers", href: "/developers", icon: Code2 },
   { label: "Projects", href: "/projects", icon: Boxes },
   { label: "Updates", href: "/updates", icon: Newspaper },
-  { label: "Shop", href: "/shop", icon: ShoppingBag },
-  { label: "Cart", href: "/cart", icon: ShoppingCart },
-  { label: "Orders", href: "/orders", icon: Package },
 ];
 
 const EXTERNAL_ITEMS = [

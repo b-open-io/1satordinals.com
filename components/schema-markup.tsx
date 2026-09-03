@@ -1,62 +1,87 @@
+/**
+ * Global JSON-LD structured data for 1satordinals.com.
+ *
+ * Rules enforced here:
+ * - Every @id is an absolute https URL (never a bare #fragment).
+ * - No JavaScript Date constructor anywhere (no dateModified via new Date()).
+ * - The primary node is SoftwareApplication, not Organization.
+ * - The only Organization node is the OPL publisher stub.
+ * - sameAs sourced from Entity-Profiles/opl-bopen.md and verified links.
+ * - No Wikidata sameAs for 1Sat Ordinals itself (confirmed miss).
+ * - No TechArticle node (fabricated dates removed).
+ * - No aggregateRating anywhere.
+ */
 export function SchemaMarkup() {
   const schemaData = {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
-        name: "1Sat Ordinals",
-        alternateName: ["1Sat", "OneSat Ordinals"],
-        url: "https://1satordinals.com",
-        logo: "https://1satordinals.com/images/logo-light.png",
-        sameAs: [
-          "https://discord.gg/1satordinals",
-          "https://github.com/b-open-io/1satordinals.com",
-          "https://twitter.com/1satordinals",
-        ],
-        description:
-          "Open protocol for token creation on Bitcoin SV with ordinals technology supporting 50MB+ inscriptions",
-      },
-      {
         "@type": "SoftwareApplication",
-        name: "1Sat Ordinals Protocol",
-        applicationCategory: "Blockchain Protocol",
-        operatingSystem: "Bitcoin SV",
+        "@id": "https://1satordinals.com/#software",
+        name: "1Sat Ordinals",
+        alternateName: ["1Sat"],
+        url: "https://1satordinals.com",
+        description:
+          "Open protocol on Bitcoin SV for creating fungible and non-fungible tokens using ordinal inscription technology with single-transaction minting.",
+        applicationCategory: "DeveloperApplication",
+        // Basis: 1Sat Ordinals is a free, open-source protocol with no license fee.
+        // The protocol specification and tooling are available at no cost.
         offers: {
           "@type": "Offer",
           price: "0",
           priceCurrency: "USD",
         },
         featureList: [
-          "50MB+ file support",
           "Single transaction minting",
-          "Sub-cent transaction costs",
-          "Full Bitcoin Script compatibility",
+          "Native Bitcoin Script compatibility",
           "Fungible and non-fungible token creation",
-          "No dust requirement",
+          "Origin-based indexing",
+        ],
+        sameAs: [
+          "https://x.com/1satordinals",
+          "https://github.com/BitcoinSchema/1sat-ordinals",
+          "https://github.com/b-open-io/1satordinals.com",
+          "https://docs.1satordinals.com",
+          "https://www.npmjs.com/org/1sat",
+          "https://discord.gg/3jsTXCzmv5",
+        ],
+        publisher: {
+          "@type": "Organization",
+          "@id": "https://opl.dev/#organization",
+          name: "Open Protocol Labs",
+          url: "https://opl.dev",
+          sameAs: [
+            "https://x.com/opldotdev",
+            "https://github.com/b-open-io",
+            "https://www.linkedin.com/company/opldotdev",
+          ],
+        },
+        creator: [
+          {
+            "@type": "Person",
+            name: "Luke Rohenaz",
+            sameAs: [
+              "https://www.wikidata.org/wiki/Q140697627",
+              "https://satchmo.dev",
+              "https://x.com/WildSatchmo",
+            ],
+          },
+          {
+            "@type": "Person",
+            name: "David Case",
+            sameAs: ["https://x.com/shruggr", "https://github.com/shruggr"],
+          },
         ],
       },
       {
         "@type": "WebSite",
+        "@id": "https://1satordinals.com/#website",
         url: "https://1satordinals.com",
         name: "1Sat Ordinals",
         description:
-          "Official website for 1Sat Ordinals protocol on Bitcoin SV",
+          "Official website for the 1Sat Ordinals protocol on Bitcoin SV",
         publisher: {
-          "@id": "#organization",
-        },
-      },
-      {
-        "@type": "TechArticle",
-        headline: "1Sat Ordinals Protocol Documentation",
-        description:
-          "Technical specification for the 1Sat Ordinals token protocol on Bitcoin SV",
-        keywords:
-          "1Sat, Ordinals, BSV, Bitcoin SV, token protocol, NFT, inscriptions",
-        datePublished: "2023-01-01",
-        dateModified: new Date().toISOString().split("T")[0],
-        author: {
-          "@type": "Organization",
-          "@id": "#organization",
+          "@id": "https://opl.dev/#organization",
         },
       },
     ],
