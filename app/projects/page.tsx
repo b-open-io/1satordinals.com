@@ -14,6 +14,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { OrdNotice } from "@/components/ord-notice";
+import { listingCreate } from "@/lib/ordlock";
 
 type ProjectCategory =
   | "Tools"
@@ -103,8 +105,9 @@ const ecosystemProjects: EcosystemProject[] = [
   },
   {
     name: "1Sat.Market",
-    description:
-      "Primary marketplace for trading 1Sat Ordinals tokens and NFTs",
+    description: listingCreate
+      ? "Primary marketplace for trading 1Sat Ordinals tokens and NFTs"
+      : "Buy and cancel existing 1Sat Ordinals listings",
     url: "https://1sat.market",
     category: "Marketplace",
     featured: true,
@@ -362,6 +365,9 @@ export default function ProjectsPage() {
               Discover the thriving ecosystem of applications, tools, and
               platforms leveraging the power of simple, stable protocols
             </p>
+            <div className="mt-8 max-w-2xl mx-auto text-left">
+              <OrdNotice className="bg-black/60 text-white" />
+            </div>
           </motion.div>
         </div>
       </section>
