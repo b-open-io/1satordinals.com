@@ -6,8 +6,6 @@ import type { ReactNode } from "react";
 import type { BundledLanguage } from "shiki";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { CodeBlock } from "@/components/code-block";
-import { OrdNotice } from "@/components/ord-notice";
-import { listingCreate } from "@/lib/ordlock";
 import { buildMetadata } from "@/lib/seo";
 
 interface SdkEntry {
@@ -105,9 +103,7 @@ const agentSkills: AgentSkill[] = [
   },
   {
     name: "ordinals-marketplace",
-    description: listingCreate
-      ? "List, buy, and cancel OrdLock listings."
-      : "Buy and cancel existing OrdLock listings.",
+    description: "List, buy, and cancel OrdLock listings.",
   },
   { name: "tokens", description: "BSV20 / BSV21 fungible token operations." },
   {
@@ -319,9 +315,7 @@ const ecosystemTools: ExternalReference[] = [
   {
     name: "1Sat.Market",
     href: "https://1sat.market",
-    description: listingCreate
-      ? "Marketplace for trading ordinals"
-      : "Buy and cancel existing ordinal listings",
+    description: "Marketplace for trading ordinals",
   },
   {
     name: "WhatsOnChain",
@@ -572,10 +566,6 @@ export default function DevelopersPage() {
               .
             </p>
 
-            <div className="mt-8">
-              <OrdNotice />
-            </div>
-
             <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
               <article className="min-w-0 rounded-lg border bg-card p-6">
                 <h3 className="text-lg font-semibold">
@@ -596,10 +586,8 @@ export default function DevelopersPage() {
                 />
                 <p className="mt-4 text-sm text-muted-foreground">
                   Once installed, just ask Claude Code to perform a task (e.g.
-                  {listingCreate
-                    ? ' "mint an ordinal" or "list this NFT on the marketplace"'
-                    : ' "mint an ordinal", "buy this listing", or "cancel this listing"'}
-                  ) and the matching skill loads automatically.
+                  &quot;mint an ordinal&quot; or &quot;list this NFT on the
+                  marketplace&quot;) and the matching skill loads automatically.
                 </p>
               </article>
               <article className="min-w-0 rounded-lg border bg-card p-6">
@@ -734,9 +722,6 @@ export default function DevelopersPage() {
             <h2 className="text-3xl font-bold tracking-tight">
               Ecosystem Tools
             </h2>
-            <div className="mt-6">
-              <OrdNotice />
-            </div>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {ecosystemTools.map((tool) => (
                 <a
