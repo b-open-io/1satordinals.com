@@ -12,7 +12,7 @@ export function OrdNotice({ className }: { className?: string }) {
       )}
     >
       <p className="text-sm font-medium">OrdLock listing create is off</p>
-      <p className="mt-1 text-sm text-muted-foreground">
+      <p className="mt-1 text-sm opacity-80">
         New listings cannot be created. Buy and cancel of existing listings stay
         on.
       </p>
