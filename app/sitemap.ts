@@ -1,45 +1,19 @@
 import type { MetadataRoute } from "next";
+import { siteRoutes } from "@/lib/site-routes";
 
+/**
+ * Build the sitemap from the canonical route registry.
+ *
+ * Phase 0 omits lastModified (Parker): wrong lastmod is worse than none,
+ * and Vercel builds cannot safely date from git. Revisit with explicit
+ * dates when content cadence is real.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://1satordinals.com";
-  const currentDate = new Date().toISOString();
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/protocol`,
-      lastModified: currentDate,
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/developers`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/projects`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/updates`,
-      lastModified: currentDate,
-      changeFrequency: "daily",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/privacy-policy`,
-      lastModified: currentDate,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-  ];
+  return siteRoutes.map((route) => ({
+    url: route.path === "/" ? baseUrl : `${baseUrl}${route.path}`,
+    changeFrequency: route.changeFrequency,
+    priority: route.priority,
+  }));
 }

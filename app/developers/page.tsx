@@ -1,10 +1,12 @@
 import type { LucideIcon } from "lucide-react";
 import { Book, Code2, Github, MessageSquare } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { BundledLanguage } from "shiki";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { CodeBlock } from "@/components/code-block";
+import { buildMetadata } from "@/lib/seo";
 
 interface SdkEntry {
   name: string;
@@ -393,10 +395,12 @@ function DeveloperResourceCard({ resource }: { resource: DeveloperResource }) {
   );
 }
 
-export const metadata = {
-  title: "Developers | 1Sat Ordinals",
-  description: "Resources and tools for building on 1Sat Ordinals",
-};
+export const metadata: Metadata = buildMetadata({
+  path: "/developers",
+  title: "Developer Resources",
+  description:
+    "SDK packages, code examples, and API references for building on 1Sat Ordinals. Install @1sat/actions, @1sat/wallet, and more to start creating tokens on Bitcoin SV.",
+});
 
 export default function DevelopersPage() {
   return (

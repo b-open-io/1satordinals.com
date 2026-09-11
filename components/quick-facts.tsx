@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const facts = [
   { label: "Network", value: "Bitcoin SV (BSV)" },
   { label: "Protocol Type", value: "Open, Decentralized" },
-  { label: "Max File Size", value: "50MB+" },
+  { label: "File Support", value: "Large Files" },
   { label: "Transaction Cost", value: "<$0.01" },
   { label: "Minting Type", value: "Single Transaction" },
   { label: "Script Support", value: "Full Bitcoin Script" },

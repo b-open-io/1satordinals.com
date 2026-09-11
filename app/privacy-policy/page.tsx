@@ -1,6 +1,12 @@
-export const metadata = {
-  title: "Privacy Policy | 1Sat Ordinals",
-};
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  path: "/privacy-policy",
+  title: "Privacy Policy",
+  description:
+    "Privacy policy for 1satordinals.com. Learn how this site handles data, analytics, and blockchain transparency.",
+});
 
 export default function PrivacyPage() {
   return (

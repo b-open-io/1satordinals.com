@@ -30,10 +30,13 @@ const spectral = Spectral({
 });
 
 export const metadata: Metadata = {
-  title:
-    "1Sat Ordinals - Bitcoin SV Token Protocol | 50MB+ NFTs & Inscriptions",
+  title: {
+    default:
+      "1Sat Ordinals - Open Bitcoin SV Token Protocol for NFTs and Inscriptions",
+    template: "%s | 1Sat Ordinals",
+  },
   description:
-    "Open protocol for Bitcoin SV enabling 50MB+ inscriptions, single-transaction minting at sub-cent costs. Create NFTs, tokens, and store data on-chain.",
+    "Open protocol on Bitcoin SV for creating NFTs, fungible tokens, and on-chain data using ordinal inscription technology with single-transaction minting.",
   keywords: [
     "1Sat Ordinals",
     "Bitcoin SV",
@@ -43,7 +46,6 @@ export const metadata: Metadata = {
     "ordinals",
     "inscriptions",
     "blockchain",
-    "50MB",
     "single transaction",
     "fungible tokens",
     "non-fungible tokens",
@@ -61,38 +63,7 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  alternates: {
-    canonical: "https://1satordinals.com",
-    types: {
-      "application/rss+xml": "https://1satordinals.com/feed.xml",
-    },
-  },
   authors: [{ name: "1Sat Ordinals Protocol" }],
-  openGraph: {
-    title: "1Sat Ordinals - Bitcoin SV Token Protocol",
-    description:
-      "Open protocol for creating 50MB+ NFTs and tokens on Bitcoin SV with sub-cent transaction costs",
-    url: "https://1satordinals.com",
-    siteName: "1Sat Ordinals",
-    type: "website",
-    images: [
-      {
-        url: "/opengraph-image.png",
-        width: 1200,
-        height: 630,
-        alt: "1Sat Ordinals - Bitcoin SV Token Protocol",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@1satordinals",
-    creator: "@1satordinals",
-    title: "1Sat Ordinals - Bitcoin SV Token Protocol",
-    description:
-      "Open protocol for creating 50MB+ NFTs and tokens on Bitcoin SV with sub-cent transaction costs",
-    images: ["/twitter-image.png"],
-  },
 };
 
 export default function RootLayout({

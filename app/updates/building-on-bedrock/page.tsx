@@ -30,20 +30,15 @@ import {
 } from "@/components/article/article-typography";
 import { TableOfContents } from "@/components/article/table-of-contents";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title:
-    "Building on Bedrock: The Case for Simple, Stable Protocols | 1Sat Ordinals",
+export const metadata: Metadata = buildMetadata({
+  path: "/updates/building-on-bedrock",
+  title: "Building on Bedrock: The Case for Simple, Stable Protocols",
   description:
-    "Explore why simple, stable protocols like 1Sat Ordinals provide the best foundation for blockchain development. Learn from Bitcoin's philosophy of protocol stability.",
-  keywords: [
-    "stable blockchain protocol",
-    "1Sat Ordinals sCrypt",
-    "BSV protocol stability",
-    "simple composable blockchain",
-    "Bitcoin Script compatibility",
-  ],
-};
+    "Explore why simple, stable protocols like 1Sat Ordinals provide the best foundation for blockchain development on Bitcoin SV.",
+  ogImage: "/updates/building-on-bedrock/opengraph-image",
+});
 
 export default function BuildingOnBedrockArticle() {
   return (
