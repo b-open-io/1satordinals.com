@@ -9,6 +9,7 @@ export const metadata: Metadata = buildMetadata({
   title: "Partnership with Major BSV Wallets",
   description:
     "1Sat Ordinals expands wallet ecosystem support to simplify user onboarding, token visibility, and everyday ordinal usage.",
+  ogImage: "/updates/wallet-partnerships/opengraph-image",
 });
 
 export default function WalletPartnershipsPage() {

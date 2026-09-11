@@ -9,6 +9,7 @@ export const metadata: Metadata = buildMetadata({
   title: "50MB File Support Now Live on Mainnet",
   description:
     "1Sat Ordinals now supports large payloads on mainnet, enabling richer media, larger artifacts, and fully on-chain application assets.",
+  ogImage: "/updates/50mb-file-support/opengraph-image",
 });
 
 export default function FiftyMbFileSupportPage() {

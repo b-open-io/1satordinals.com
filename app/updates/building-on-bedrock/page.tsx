@@ -37,6 +37,7 @@ export const metadata: Metadata = buildMetadata({
   title: "Building on Bedrock: The Case for Simple, Stable Protocols",
   description:
     "Explore why simple, stable protocols like 1Sat Ordinals provide the best foundation for blockchain development on Bitcoin SV.",
+  ogImage: "/updates/building-on-bedrock/opengraph-image",
 });
 
 export default function BuildingOnBedrockArticle() {

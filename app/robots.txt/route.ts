@@ -1,47 +1,23 @@
 /**
  * Programmatic robots.txt served as a Next.js route handler.
  *
- * Structure: one wildcard group (with Content-Signal), then one named
- * group per crawler token with identical rules, then the Sitemap.
+ * Single wildcard group only. Named User-agent groups would ignore the
+ * `*` rules entirely, so mirroring Disallow across 13 crawlers added risk
+ * without benefit while rules stay identical. Add named groups later only
+ * when a crawler needs different policy — and mirror Content-Signal there.
  *
  * Disallow /api/ only. Shop/cart/checkout/orders are handled by
  * page-level noindex (D09), not robots Disallow.
  */
 export function GET() {
-  const crawlerTokens = [
-    "Googlebot",
-    "Bingbot",
-    "GPTBot",
-    "ChatGPT-User",
-    "OAI-SearchBot",
-    "ClaudeBot",
-    "Claude-User",
-    "Claude-SearchBot",
-    "PerplexityBot",
-    "Perplexity-User",
-    "Google-Extended",
-    "Applebot-Extended",
-    "CCBot",
+  const lines = [
+    "User-agent: *",
+    "Disallow: /api/",
+    "Content-Signal: ai-train=yes, search=yes, ai-input=yes",
+    "",
+    "Sitemap: https://1satordinals.com/sitemap.xml",
+    "",
   ];
-
-  const lines: string[] = [];
-
-  // Wildcard group — Content-Signal belongs here, inside this group
-  lines.push("User-agent: *");
-  lines.push("Disallow: /api/");
-  lines.push("Content-Signal: ai-train=yes, search=yes, ai-input=yes");
-  lines.push("");
-
-  // Named groups with identical rules
-  for (const token of crawlerTokens) {
-    lines.push(`User-agent: ${token}`);
-    lines.push("Disallow: /api/");
-    lines.push("");
-  }
-
-  // Sitemap
-  lines.push("Sitemap: https://1satordinals.com/sitemap.xml");
-  lines.push(""); // trailing newline
 
   return new Response(lines.join("\n"), {
     headers: {
